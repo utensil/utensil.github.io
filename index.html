@@ -4,7 +4,7 @@
 		<title>Utensil on github</title>
 		<link href="http://fonts.googleapis.com/css?family=Amaranth:400,700" rel="stylesheet" type="text/css" />
 		<link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
-		<script src="http://logicalcognition.com/Projects/Gitview/Gitview.js"></script>
+		<script src="javascripts/Gitview.js"></script>
 		<style>
 		  .title{
 		    color:#333333;
@@ -23,6 +23,13 @@
 	      font-family: 'PT Mono', 'Courier New';
 	      text-align:center;
       }
+
+      #gitview-holder{
+        width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 3em;
+      }
 		</style>
   	</head>
 	<body>
@@ -31,12 +38,22 @@
       In fascination of creating worlds by words, <br />
       and in pursuit of words behind the world.
 		</div>
-	  <div id="gitviewHolder1"></div>
+	  <div id="gitview-holder"></div>
 	  <a target="_blank" href="https://github.com/utensil">
 <img alt="Fork me on GitHub" src="images/fork.png" style="position: absolute; top: 0; right: 0; border: 0; cursor:hand;cursor:pointer;">
     </a>
   	</body>
 	<script>
-		var g = new Gitview({user:'utensil',domNode:document.getElementById('gitviewHolder1'),count:5,cache:false});
+		var g = new Gitview({
+		        user: 'utensil',
+		        domNode: document.getElementById('gitview-holder'),
+		        count: 3,          // (optional) number of repos per widget page
+            showForks: false,  // (optional) show forked repos, true by default
+            width: '450px',    // (optional) width of widget
+            //frameColor: 'grey',      // (optional) frame background color
+            //compact: false,      // (optional) compact mode or full mode?
+            noFrame: true,      // (optional) no fancy widget frame, just repositories
+            cache: true        // (optional) turn local caching on or off, on by default
+	        });
 	</script>
 </html>

@@ -1,9 +1,9 @@
-Instructions for setting up __username.github.com__ *
+## Instructions for setting up __username.github.com__ *
 
   Create a repo named username.github.com
   Push a `master` branch to GitHub and enjoy!
 
-Instructions for setting up username.github.com/repo-name *
+## Instructions for setting up __username.github.com/repo-name__ *
 
 ```
   cd /path/to/repo-name
