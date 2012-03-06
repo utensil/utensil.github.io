@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+		<title>Utensil on github</title>
+		<link href="http://fonts.googleapis.com/css?family=Amaranth:400,700" rel="stylesheet" type="text/css" />
+		<link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
+		<script src="http://logicalcognition.com/Projects/Gitview/Gitview.js"></script>
+		<style>
+		  .title{
+		    color:#333333;
+	      font-size: 150px;
+	      text-shadow: 0px 1px 0px black;
+	      font-family: 'Amaranth', sans-serif;
+	      font-weight:bold;
+	      text-align:center;
+	      width:100%;
+	      margin-left:auto;
+	      margin-right:auto;
+      }
+
+      .subtitle{
+	      font-size: 20px;
+	      font-family: 'PT Mono', 'Courier New';
+	      text-align:center;
+      }
+		</style>
+  	</head>
+	<body>
+		<div class="title">Utensil</div>
+		<div class="subtitle">
+      In fascination of creating worlds by words, <br />
+      and in pursuit of words behind the world.
+		</div>
+	  <div id="gitviewHolder1"></div>
+	  <a target="_blank" href="https://github.com/utensil">
+<img alt="Fork me on GitHub" src="images/fork.png" style="position: absolute; top: 0; right: 0; border: 0; cursor:hand;cursor:pointer;">
+    </a>
+  	</body>
+	<script>
+		var g = new Gitview({user:'utensil',domNode:document.getElementById('gitviewHolder1'),count:5,cache:false});
+	</script>
+</html>
