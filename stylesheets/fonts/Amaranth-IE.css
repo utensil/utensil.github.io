@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Amaranth';
+  font-style: normal;
+  font-weight: normal;
+  src: url('http://themes.googleusercontent.com/static/fonts/amaranth/v3/OVeYmpOgAXrJsaP-CIAb-fesZW2xOQ-xsNqO47m55DA.eot');
+  src: local('Amaranth'), url('http://themes.googleusercontent.com/static/fonts/amaranth/v3/OVeYmpOgAXrJsaP-CIAb-fesZW2xOQ-xsNqO47m55DA.eot') format('embedded-opentype'), url('http://themes.googleusercontent.com/static/fonts/amaranth/v3/RvdVaxHTnYbJDko8dLi4zvesZW2xOQ-xsNqO47m55DA.woff') format('woff');
+}

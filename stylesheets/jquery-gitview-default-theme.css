@@ -1,0 +1,92 @@
+.githubview .githubview-caption {
+  background-color: white;
+  border: 1px solid #dddddd;
+  border-radius: 20px 20px 0px 0px;
+  width: 99.6%;
+  padding-bottom: 2px;
+  background: #fafafa;
+  background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#fafafa));
+  background: -moz-linear-gradient(top, #efefef, #fafafa); }
+  .githubview .githubview-caption ul.githubview-stat li {
+    list-style-type: none;
+    text-align: center;
+    margin-right: 30px;
+    display: inline-block; }
+    .githubview .githubview-caption ul.githubview-stat li img.githubview-avatar {
+      margin-left: 0px;
+      margin-top: 10px;
+      border-radius: 5px;
+      height: 60px;
+      width: 60px; }
+      .githubview .githubview-caption ul.githubview-stat li img.githubview-avatar:hover {
+        box-shadow: 1px 1px 1px #333333; }
+    .githubview .githubview-caption ul.githubview-stat li a strong {
+      display: block;
+      font-size: 36px;
+      font-weight: bold;
+      color: black; }
+    .githubview .githubview-caption ul.githubview-stat li a span {
+      display: block;
+      font-size: 11px;
+      color: #999999;
+      margin-top: 10px; }
+    .githubview .githubview-caption ul.githubview-stat li a:hover {
+      text-decoration: none; }
+      .githubview .githubview-caption ul.githubview-stat li a:hover strong {
+        text-shadow: 1px 1px 1px #333333; }
+      .githubview .githubview-caption ul.githubview-stat li a:hover span {
+        color: black; }
+.githubview ul.githubview-repos-list {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 300px;
+  overflow-y: scroll; }
+  .githubview ul.githubview-repos-list > li {
+    list-style-type: none;
+    display: block;
+    border: 1px solid #dddddd;
+    border-top: none; }
+    .githubview ul.githubview-repos-list > li h3 {
+      padding: 5px 5px 5px 5px;
+      padding-left: 25px;
+      background-image: url(../images/icon-public.png);
+      background-position: 5px 50%;
+      background-repeat: no-repeat; }
+      .githubview ul.githubview-repos-list > li h3.fork-flag {
+        background-image: url(../images/icon-fork.png); }
+    .githubview ul.githubview-repos-list > li ul.repo-stats {
+      display: block;
+      padding: 5px 5px 5px 5px;
+      float: right;
+      z-index: 5; }
+      .githubview ul.githubview-repos-list > li ul.repo-stats li {
+        display: inline-block;
+        color: #999999;
+        font-weight: bold; }
+        .githubview ul.githubview-repos-list > li ul.repo-stats li.language {
+          text-align: right;
+          padding-right: 5px; }
+        .githubview ul.githubview-repos-list > li ul.repo-stats li a {
+          padding-left: 20px;
+          padding-right: 5px;
+          background-repeat: no-repeat;
+          background-position: 2px;
+          text-align: right; }
+          .githubview ul.githubview-repos-list > li ul.repo-stats li a:hover {
+            text-decoration: none; }
+          .githubview ul.githubview-repos-list > li ul.repo-stats li a.watchers {
+            background-image: url(../images/repostat_watchers.png); }
+          .githubview ul.githubview-repos-list > li ul.repo-stats li a.forks {
+            background-image: url(../images/repostat_forks.png); }
+    .githubview ul.githubview-repos-list > li .body {
+      padding: 10px 10px 10px 10px;
+      border-top: 1px solid #eeeeee;
+      background: #fafafa;
+      background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#efefef));
+      background: -moz-linear-gradient(top, #fafafa, #efefef); }
+      .githubview ul.githubview-repos-list > li .body .updated-at {
+        color: #999999; }
+  .githubview ul.githubview-repos-list > li:last {
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px; }

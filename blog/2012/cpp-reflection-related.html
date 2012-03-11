@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+
+    <link href="/stylesheets/site.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/bootstrap_etc.css" media="screen" rel="stylesheet" type="text/css" />
+    <title>C++ Reflection Related</title>
+        
+  </head>
+  
+  <body class="blog blog_2012 blog_2012_cpp-reflection-related">
+    <div id="main" role="main">
+      <h1 id='c_reflection_related'>C++ Reflection Related</h1>
+
+<p>For C++ reflection, I&#8217;m interested in the following senarios:</p>
+
+<ul>
+<li>Compile-time reflection that can be implemented by meta-template programming</li>
+
+<li>Run-time reflection that can form syntactic sugar and DSL to help developers to implement IoC, ORM etc.</li>
+
+<li>Non-intrusive information extraction and validation in testing and mocking, just like Rspec and Mocha in Ruby.</li>
+</ul>
+
+<p>From http://www.garret.ru/cppreflection/docs/reflect.html, we can know the common approaches to implement reflection in C++.</p>
+<table class='table table-bordered table-striped table-condensed'>
+<thead><tr><th>Approach</th><th>Advantages</th><th>Disadvantages</th></tr></thead>
+<tbody>
+<tr><td>Parse debugging information</td>
+<td><ul><li>Program should not be changed 
+</li><li>It is possible to extract complete information about types used in the programs</li></ul></td>
+<td><ul><li>Program was build with enabled debugging support and distributed with debugging
+information
+</li><li>There are a lot of different formats of storing debug information, while there are some
+standards for formats of executable files (COFF, ELF,...) format of debugging information
+usually is more or less specific to the particular compiler</li></ul></td></tr>
+
+
+<tr><td>Special preprocessor which will parse C++ sources and build class descriptors</td>
+<td><ul><li>Program should not be changed</li></ul></td>
+<td><ul><li>Alignment and offset of fields in classes, as well as virtual function table format
+and naming conventions are specific to each compiler, so it is not possible to create generic
+preprocessor which will produce type information directly. Instead of it, it should generate some 
+C++ code, which should be later processed by normal C++ compiler. So build procedure
+becomes too complex. 
+</li><li>Parsing of C++ code is not trivial task. Also to be able to modify preprocessed code, 
+this tool should fully handle standard C++ preprocessor directives and has to be 
+called with the same options as normal compiler. 
+</li></ul></td></tr>
+
+<tr><td>Create specialized compiler which will support reflection</td>
+<td><ul><li>This is most convenient case for the user - no extra steps during 
+build are required to produce runtime type information.
+</li><li>Compiler can generate efficient code for reflection methods
+</li></ul></td>
+<td>
+<ul><li>Creating own C++ compiler is very challenged task.
+</li><li>Users will still prefer to use their own favorite tools (Visual C++, Borland,...).
+It is mostly because most of the modern compiler are not only compilers but IDE with
+builtin editor, debugger, profiler, wizards, class libraries....
+</li></ul></td></tr>
+
+<tr><td>Let programmer to provide this information himself</td>
+<td><ul><li>This is the most portable approach which can be used with any C++ compiler
+</li><li>This approach is the simplest to implement
+</li><li>With this approach it is possible to include additional type information
+(user defined attributes, for example <i>transient<i>)
+</i></i></li></ul></td>
+<td><ul><li>Program has to be changed
+</li><li>Programmer has to do more work
+</li><li>There is a chance for programmer to make mistake describing class format
+</li></ul></td></tr>
+</tbody></table>
+<ul>
+<li>
+<p><a href='https://github.com/tegesoft/camp'>camp - C++ multi-purpose reflection library</a></p>
+</li>
+
+<li>
+<p><a href='http://lcgapp.cern.ch/project/architecture/ReflectionPaper.pdf'>Reflection support by means of template metaprogramming</a></p>
+</li>
+
+<li>
+<p><a href='http://www.extreme.indiana.edu/reflcpp/'>XCppRefl - C++ Reflection Library</a></p>
+</li>
+
+<li>
+<p><a href='http://root.cern.ch/drupal/content/reflex'>Reflex -</a></p>
+</li>
+
+<li>
+<p><a href='https://svn.boost.org/trac/boost/wiki/LibrariesUnderConstruction#ReflectiveProgramming'>Boost Reflective Programming</a></p>
+</li>
+
+<li>
+<p><a href='http://kifri.fri.uniza.sk/~chochlik/mirror-lib/html/doxygen/mirror/html/examples.html'>Boost.Mirror</a></p>
+</li>
+</ul>
+    </div>    
+  </body>
+</html>
