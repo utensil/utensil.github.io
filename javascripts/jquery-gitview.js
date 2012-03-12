@@ -164,16 +164,16 @@
   
   $.ajax('https://api.github.com/users/' + options['user'], {
     type : 'get',
-    async: false,
     dataType : 'json',
+    crossDomain: true,
     success: function( data ) {      
       
       githubview.createCaption(data);
       
       $.ajax('https://api.github.com/users/' + options['user'] + '/repos', {
         type : 'get',
-        async: false,
         dataType : 'json',
+        crossDomain: true,
         success: function( data ) {            
            console.log(data);
            githubview.createReposList(data);
