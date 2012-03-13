@@ -1,3 +1,16 @@
+/*!
+ * jQuery Gitview Library v0.0.1
+ *
+ * Copyright 2012, Utensil Song
+ * https://github.com/utensil
+ * 
+ * Released under the MIT licenses.
+ * 
+ * NOTE: it will be sperated to a repository of its own to keep on maintaining.
+ *
+ */
+
+
 (function($){
   
   var githubview = {
@@ -6,36 +19,31 @@
       
       var user_info = data;
       
-      if(jQuery.browser.msie)
-      {
-        //TODO IE is not working yet
-        //user_info = $.parseJSON(data);
-      }
-      
       var user_url = 'https://www.github.com/' + user_info.login;
       var user_repos_url = user_url + '/repositories';
       var user_follower_url = user_url +  '/followers';
       
       var view = $('div.githubview');
-      
-      var view_stat = $('<ul class="githubview-stat"/>');
             
       var view_caption = $('<div class="githubview-caption"/>');
       
-      var view_user = $('<li />');
-      var view_user_link = $('<a />').attr('href', user_url);     
-      var view_avatar = $('<img class="githubview-avatar"/>')
-                          .attr('title', user_info.login)
-                          .attr('src', user_info.avatar_url);
-      view_user_link.append(view_avatar);      
+      var view_stat = $('<div class="githubview-stat"/>');
       
-      var view_repos = $('<li />');
+      var view_user = $('<span class="githubview-avatar" />');
+      var view_user_link = $('<a />').attr('href', user_url);     
+      var view_avatar = $('<img />')
+                          .attr('title', user_info.login)
+                          .attr('alt', user_info.login)
+                          .attr('src', user_info.avatar_url);
+      view_user_link.append(view_avatar);
+      
+      var view_repos = $('<span class="githubview-repos-count" />');
       var view_repos_link = $('<a />').attr('href', user_repos_url);
       var view_repos_count = $('<strong />').text(user_info.public_repos);
       var view_repos_text = $('<span> public repos</span>');  
       
       
-      var view_follow = $('<li />');
+      var view_follow = $('<span class="githubview-followers-count" />');
       var view_follow_link = $('<a />').attr('href', user_follower_url);
       var view_follow_count = $('<strong />').text(user_info.followers);
       var view_follow_text = $('<span> followers</span>');        
@@ -57,12 +65,6 @@
       
       var repos_info = data;
       
-      if(jQuery.browser.msie)
-      {
-        //TODO IE is not working yet
-        //repos_info = $.parseJSON(data);
-      }
-      
       //latest first
       repos_info = repos_info.reverse();
       
@@ -81,8 +83,6 @@
         
         if(rep.fork)
         {
-          // var fork_info = $('<span class="fork-flag" />');
-          // rep_name.prepend(fork_info);
           rep_name.addClass('fork-flag');
         }
         
@@ -99,6 +99,9 @@
         
         var body = $('<div class="body" />');
         var description = $('<p class="description" />').text(rep.description);
+        
+        //TODO convert it to a more readable format like '2 days ago'
+        // <p class="updated-at">Last updated <time class="js-relative-date" datetime="2012-03-10T18:18:34-08:00" title="2012-03-10 18:18:34">8 hours ago</time></p>
         var updated_at = $('<p class="updated-at" />').text('Last updated: ' + rep.updated_at.replace('T', ' ').replace('Z', ' '));
         
         body.append(description).append(updated_at);  
@@ -110,28 +113,6 @@
       
       view.append(view_repos_list);      
       
-      // <li class="public fork">
-        // <ul class="repo-stats">
-            // <li>JavaScript</li>
-          // <li class="watchers"><a href="/utensil/middleman-guides/watchers" title="Watchers">1</a></li>
-          // <li class="forks"><a href="/utensil/middleman-guides/network" title="Forks">31</a></li>
-        // </ul>
-//       
-        // <h3>
-          // <a href="/utensil/middleman-guides">middleman-guides</a>
-        // </h3>
-//       
-          // <p class="fork-flag">Forked from <a href="/middleman/middleman-guides">middleman/middleman-guides</a></p>
-//       
-          // <div class="body">
-              // <p class="description">
-                // Documentation for Middleman
-              // </p>
-//       
-              // <p class="updated-at">Last updated <time class="js-relative-date" datetime="2012-03-10T18:18:34-08:00" title="2012-03-10 18:18:34">8 hours ago</time></p>
-          // </div>
-      // </li>
-      
     }    
   };
   
@@ -139,11 +120,9 @@
        
     var defaults = {
         // @deprecate user: 'utensil', // any github username
-      // @deprecate domNode: document.getElementById('githubview-holder'), // domNode to attach to
-      count: 3,          // (optional) number of repos per widget page, 3 by default
-      showForks: true,  // (optional) show forked repos, true by default
+      //count: 3,          // TODO (optional) number of repos per widget page, 3 by default
+      //showForks: true,  // TODO (optional) show forked repos, true by default
       width: '450px',    // (optional) width of widget, 450px by default
-      // @deprecate frameColor: 'grey',      // @deprecate (optional) frame background color, grey by default
       align: 'center'  // (optional) alignment relative to its parent, 'cernter|left|right'
       // @deprecate compact: false,      // (optional) compact mode or full mode? false by default
       // @deprecate noFrame: false,      // (optional) no fancy widget frame, just repositories
