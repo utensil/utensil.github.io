@@ -1,0 +1,97 @@
+.github-widget .github-widget-caption {
+  background-color: white;
+  border: 1px solid #dddddd;
+  border-radius: 20px 20px 0px 0px;
+  width: 99.6%;
+  padding-bottom: 2px;
+  background: #fafafa;
+  background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#fafafa));
+  background: -moz-linear-gradient(top, #efefef, #fafafa); }
+  .github-widget .github-widget-caption .github-widget-stat > span {
+    text-align: center;
+    margin-bottom: 10px;
+    margin-right: 30px;
+    display: inline-block; }
+    .github-widget .github-widget-caption .github-widget-stat > span.github-widget-avatar {
+      height: 60px;
+      width: 60px;
+      margin-left: 20px;
+      margin-top: 20px;
+      margin-right: 30px; }
+      .github-widget .github-widget-caption .github-widget-stat > span.github-widget-avatar img {
+        border-radius: 5px;
+        height: 60px;
+        width: 60px; }
+        .github-widget .github-widget-caption .github-widget-stat > span.github-widget-avatar img:hover {
+          box-shadow: 1px 1px 1px #333333; }
+    .github-widget .github-widget-caption .github-widget-stat > span.github-widget-repos-count, .github-widget .github-widget-caption .github-widget-stat > span.github-widget-followers-count {
+      line-height: 36px; }
+      .github-widget .github-widget-caption .github-widget-stat > span.github-widget-repos-count a strong, .github-widget .github-widget-caption .github-widget-stat > span.github-widget-followers-count a strong {
+        display: block;
+        font-size: 36px;
+        font-weight: bold;
+        color: black; }
+      .github-widget .github-widget-caption .github-widget-stat > span.github-widget-repos-count a span, .github-widget .github-widget-caption .github-widget-stat > span.github-widget-followers-count a span {
+        display: block;
+        font-size: 11px;
+        color: #999999; }
+      .github-widget .github-widget-caption .github-widget-stat > span.github-widget-repos-count a:hover, .github-widget .github-widget-caption .github-widget-stat > span.github-widget-followers-count a:hover {
+        text-decoration: none; }
+        .github-widget .github-widget-caption .github-widget-stat > span.github-widget-repos-count a:hover strong, .github-widget .github-widget-caption .github-widget-stat > span.github-widget-followers-count a:hover strong {
+          text-shadow: 1px 1px 1px #333333; }
+        .github-widget .github-widget-caption .github-widget-stat > span.github-widget-repos-count a:hover span, .github-widget .github-widget-caption .github-widget-stat > span.github-widget-followers-count a:hover span {
+          color: black; }
+.github-widget ul.github-widget-repos-list {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 300px;
+  overflow-y: scroll; }
+  .github-widget ul.github-widget-repos-list > li {
+    list-style-type: none;
+    display: block;
+    border: 1px solid #dddddd;
+    border-top: none; }
+    .github-widget ul.github-widget-repos-list > li h3 {
+      padding: 5px 5px 5px 5px;
+      padding-left: 25px;
+      background-image: url(../images/icon-public.png);
+      background-position: 5px 50%;
+      background-repeat: no-repeat; }
+      .github-widget ul.github-widget-repos-list > li h3.fork-flag {
+        background-image: url(../images/icon-fork.png); }
+    .github-widget ul.github-widget-repos-list > li ul.repo-stats {
+      display: block;
+      padding: 5px 5px 5px 5px;
+      float: right;
+      z-index: 5; }
+      .github-widget ul.github-widget-repos-list > li ul.repo-stats li {
+        display: inline-block;
+        color: #999999;
+        font-weight: bold; }
+        .github-widget ul.github-widget-repos-list > li ul.repo-stats li.language {
+          text-align: right;
+          padding-right: 5px; }
+        .github-widget ul.github-widget-repos-list > li ul.repo-stats li a {
+          padding-left: 20px;
+          padding-right: 5px;
+          background-repeat: no-repeat;
+          background-position: 2px;
+          text-align: right; }
+          .github-widget ul.github-widget-repos-list > li ul.repo-stats li a:hover {
+            text-decoration: none; }
+          .github-widget ul.github-widget-repos-list > li ul.repo-stats li a.watchers {
+            background-image: url(../images/repostat_watchers.png); }
+          .github-widget ul.github-widget-repos-list > li ul.repo-stats li a.forks {
+            background-image: url(../images/repostat_forks.png); }
+    .github-widget ul.github-widget-repos-list > li .body {
+      padding: 10px 10px 10px 10px;
+      border-top: 1px solid #eeeeee;
+      background: #fafafa;
+      background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#efefef));
+      background: -moz-linear-gradient(top, #fafafa, #efefef); }
+      .github-widget ul.github-widget-repos-list > li .body .updated-at {
+        color: #999999; }
+  .github-widget ul.github-widget-repos-list > li:last {
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px; }

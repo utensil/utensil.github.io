@@ -1,19 +1,17 @@
 /*!
- * jQuery Gitview Library v0.0.1
+ * jQuery Github Widgets
  *
  * Copyright 2012, Utensil Song
  * https://github.com/utensil
  * 
  * Released under the MIT licenses.
  * 
- * NOTE: it will be sperated to a repository of its own to keep on maintaining.
- *
  */
 
 
 (function($){
   
-  var githubview = {
+  var github_widget = {
     
     createCaption: function(data) {
       
@@ -23,13 +21,13 @@
       var user_repos_url = user_url + '/repositories';
       var user_follower_url = user_url +  '/followers';
       
-      var view = $('div.githubview');
+      var view = $('div.github-widget');
             
-      var view_caption = $('<div class="githubview-caption"/>');
+      var view_caption = $('<div class="github-widget-caption"/>');
       
-      var view_stat = $('<div class="githubview-stat"/>');
+      var view_stat = $('<div class="github-widget-stat"/>');
       
-      var view_user = $('<span class="githubview-avatar" />');
+      var view_user = $('<span class="github-widget-avatar" />');
       var view_user_link = $('<a />').attr('href', user_url);     
       var view_avatar = $('<img />')
                           .attr('title', user_info.login)
@@ -37,13 +35,13 @@
                           .attr('src', user_info.avatar_url);
       view_user_link.append(view_avatar);
       
-      var view_repos = $('<span class="githubview-repos-count" />');
+      var view_repos = $('<span class="github-widget-repos-count" />');
       var view_repos_link = $('<a />').attr('href', user_repos_url);
       var view_repos_count = $('<strong />').text(user_info.public_repos);
       var view_repos_text = $('<span> public repos</span>');  
       
       
-      var view_follow = $('<span class="githubview-followers-count" />');
+      var view_follow = $('<span class="github-widget-followers-count" />');
       var view_follow_link = $('<a />').attr('href', user_follower_url);
       var view_follow_count = $('<strong />').text(user_info.followers);
       var view_follow_text = $('<span> followers</span>');        
@@ -68,9 +66,9 @@
       //latest first
       repos_info = repos_info.reverse();
       
-      var view = $('div.githubview');
+      var view = $('div.github-widget');
       
-      var view_repos_list = $('<ul class="githubview-repos-list"/>');
+      var view_repos_list = $('<ul class="github-widget-repos-list"/>');
       for(var i in repos_info)
       {
         var rep = repos_info[i];
@@ -116,7 +114,7 @@
     }    
   };
   
-  $.fn.githubview = function(options) {
+  $.fn.github_widget = function(options) {
        
     var defaults = {
         // @deprecate user: 'utensil', // any github username
@@ -133,7 +131,7 @@
   
   //TODO validate options
   
-  var view = $('<div></div>').addClass('githubview');
+  var view = $('<div></div>').addClass('github-widget');
   view.css({
     'width' : options['width'],
     'margin-left' : (options['align'] == 'left' ? '5px' : 'auto'),
@@ -146,14 +144,14 @@
     dataType : 'jsonp',
     crossDomain: true,
     success: function( data ) {      
-      githubview.createCaption(data.data);
+      github_widget.createCaption(data.data);
       
       $.ajax('https://api.github.com/users/' + options['user'] + '/repos', {
         type : 'get',
         dataType : 'jsonp',
         crossDomain: true,
         success: function( data ) {            
-           githubview.createReposList(data.data);
+           github_widget.createReposList(data.data);
       }});
     }});
   
