@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+      <!-- Always force latest IE rendering engine (even in intranet) &amp; Chrome Frame -->
+    </meta>
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+      <!--[if lt IE 9]>
+        <script src='http://html5shim.googlecode.com/svn/trunk/html5.js' type='text/javascript'></script>
+      <![endif]-->
+    </meta>
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <title>Kenneth C.Louden的《程序设计语言——原理与实践》的一点笔记</title>
+    <link href="/stylesheets/site.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/blog.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/highlight/sunburst.css" media="screen" rel="stylesheet" type="text/css" />
+    
+  </head>
+  <body class=''>
+    <div id='container'>
+      <div id='main' role='main'>
+        <aside class='sidebar'>
+          <nav>
+            <span>
+              <a href='/tech/'>home</a>
+            </span>
+            <span>
+              <a href='/tech/calendar.html'>calendar</a>
+            </span>
+            <span>
+              <a href='/tech/tags.html'>tags</a>
+            </span>
+          </nav>
+        </aside>
+        
+        <div class='content'>
+          <header>
+            <div class='article_nav'>
+              <span class='later'>
+                <a href='/tech/2007/08/29/commented-class-based-num.html'>
+                  < 更新
+                </a>
+              </span>
+              <span class='earlier'>
+                <a href='/tech/2005/08/18/physix.html'>
+                  更早 >
+                </a>
+              </span>
+            </div>
+            <h1>
+              Kenneth C.Louden的《程序设计语言——原理与实践》的一点笔记
+            </h1>
+          </header>
+          <article>
+            <p>编程范式：面向对象程序设计（C++、Java、Smalltalk）、函数式程序设计（Scheme、Haskell、ML）、逻辑式程序设计（Prolog）。</p>
+
+<ul>
+<li>以拜伦之女Ada（历史上第一位程序员：分析机）命名的Ada。</li>
+<li>FORTRAN（FORmula TRANslation）</li>
+<li>COBOL（公共的面向商业语言）——设计目的是使他人能够阅读程序元设计的程序，因而语法复杂。</li>
+<li>Algol：Pascal、C、Ada的鼻祖。</li>
+<li>LISP（LISt Processor）：Common LISP、Scheme。垃圾回收、递归。</li>
+<li>APL：函数式风格、具有大运算符集、要使用特殊终端的希腊符号集、运算能力强大、非结构化。深刻地* 影响的FP。</li>
+<li>BASIC（Beginners All-purpose Symbolic Code）。</li>
+<li>趋势：Web编程、库以及脚本语言。</li>
+</ul>
+
+<p>C++设计时的指导思想：</p>
+
+<ul>
+<li>不应无故不兼容（C和其他系统和语言）</li>
+<li>其发展应由实际编程需要驱动而非由理论上的考虑。</li>
+<li>不因有可能就增加一个纯粹的特性</li>
+<li>任何新增特性的实现，必须以不降低程序运行效率为前提，至少也要保证不增加额外开销。</li>
+<li>不应强调单一程序设计形式。</li>
+<li>维持和强化其强类型检查特点</li>
+<li>“你不知道的东西不会伤害你”</li>
+</ul>
+
+<p>Scheme的语法：</p>
+
+<pre><code>expression -&gt; atom | list
+atom -&gt; number | string | identifier | character | boolean
+list -&gt; `(&#39; expression-sentence `)&#39;
+expression-sentence -&gt; expression expression-sentence | expression 
+</code></pre>
+
+<p>Scheme的核心内容：</p>
+
+<ul>
+<li>表达式中operator要写为前缀（prefix）</li>
+<li>读入-求值-打印 循环。避免求值：quote list | &#39; list</li>
+<li>(if 条件 真时的值 假时的值)</li>
+<li>(cond (条件1 值1) (条件2 值2) (条件3 值3) (else 缺省值))</li>
+<li>没有变量。常量：(define 名字 值)* ，在“将一个名字约束到一个值”的意义上理解。同样的方式可以定义函数。</li>
+<li>暂时约束：(let ((名字1 值1) (名字2 值2)) expression)</li>
+<li>I/O： (read) 、(display 内容) 、(newline)</li>
+<li>表操作：若L为(1 2 3) ，(car L) 为1，(cdr L)为(2 3)， (cons 4 L)为 (4 1 2 3)。</li>
+<li>λ演算：(lamda param-list  body)</li>
+</ul>
+            <section class='meta'>
+              <p>
+                <span class='author'>
+                  <a href='/'>宋皿</a>
+                </span>
+                <span class='time'>
+                  <time datetime='2007-08-28T00:00:00+00:00'>
+                    2007-08-28
+                  </time>
+                </span>
+              </p>
+              <p>
+                <span class='license'>
+                  Published under
+                  <a href='http://creativecommons.org/licenses/by-nc-nd/3.0/' rel='license'>(CC) BY-NC-ND</a>
+                </span>
+                <span class='tags'>
+                  tagged with
+                  <a href='/tech/tags.html#tag-读书笔记'>
+                    读书笔记
+                  </a>
+                </span>
+              </p>
+            </section>
+            <div id='disqus_thread'></div>
+            <script type='text/javascript'>
+              //<![CDATA[
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'utensil-at-github'; // required: replace example with your forum shortname
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+              //]]>
+            </script>
+            <a class='dsq-brlink' href='http://disqus.com'>
+              comments powered by
+              <span class='logo-disqus'>Disqus</span>
+            </a>
+          </article>
+        </div>
+      </div>
+    </div>
+    <script src="/javascripts/jquery-1.7.1.js" type="text/javascript"></script>
+    <script src="/javascripts/highlight.pack.js" type="text/javascript"></script>
+    <script type='text/javascript'>
+      //<![CDATA[
+        hljs.initHighlightingOnLoad();
+        $(document).ready(function() {          
+          $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+        });
+      //]]>
+    </script>
+    
+  </body>
+</html>
+
