@@ -1,0 +1,14 @@
+---
+title: Calendar
+---
+%section.calendar    
+  - children_of('writings').group_by {|a| "#{date_of(a).year}年" }.sort_by { |a| date_of(a).year }.reverse.each do |year, year_articles|
+    %h2= year
+    - year_articles.group_by {|a| "#{date_of(a).month}月" }.sort_by { |a| date_of(a).month }.reverse.each do |month, articles|
+      %div{:id => "calendar-#{month}" }
+        %h3= month
+        %ul.listing
+          - articles.sort_by { |a| date_of(a) }.reverse.each do |article|
+            %li.listing-item
+              %time{:datetime => date_of(article)}=date_of(article).strftime('%Y-%m-%d %H:%M')
+              %a{:href => article.url}=article.data['title']

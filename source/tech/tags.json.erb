@@ -1,0 +1,7 @@
+<%
+  tag_array =  []
+  blog.tags.each do |tag, articles|
+    tag_array << {text: tag, weight: articles.size, link: "#tag-#{tag}"}
+  end 
+%>
+<%= tag_array.to_json %>

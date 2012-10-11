@@ -1,0 +1,78 @@
+h1.title {
+  color:#333333;
+  font-size: 150px;
+  text-shadow: 3px 3px 3px grey;
+  font-family: 'Amaranth', "Bitstream Vera Sans Mono", Consolas, Courier, monospace; 
+  font-weight:bold;
+  text-align:center;
+  width:100%;
+  margin-left:auto;
+  margin-right:auto;
+  white-space:nowrap;  
+
+  a {
+    text-decoration: none;
+  }
+  
+  .fork-me-overlay {
+    position:relative;
+    z-index: 100;
+    top: 17px;
+    border: 0;
+    cursor:hand;
+    cursor:pointer;
+    overflow: hidden;              
+  }
+  
+  .fork-me-before { 
+    margin-right: -149px;  
+    z-index: -100;       
+  }
+}
+
+h2.subtitle {
+  margin-top: 40px;
+  border-top: 0px;
+  border-bottom: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  
+  p {
+    margin-top: 20px;
+    font-size: 20px;
+    font-family: 'PT Mono', 'Courier New', "Helvetica Neue","Luxi Sans","DejaVu Sans",'Microsoft Yahei', Tahoma;
+
+    font-weight: normal;
+    text-align:center;
+
+    &.zh {
+      display:none;
+    }
+    
+    span {
+      word-break:keep-all;
+      white-space:nowrap;
+    }
+    
+    .main-idea {
+      font-size:larger;
+      text-transform: capitalize;
+    }
+  }
+}
+
+#gitview-holder {
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3em;
+}
+
+#gitview-holder > div {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#githubview-holder {
+  margin-top: 3em;
+}

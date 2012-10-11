@@ -1,0 +1,117 @@
+--- 
+title: C++ Reflection 相关
+tags: cpp, test
+---
+
+:redcarpet
+  > 2012年9月按：序言最初我是用英文写的，其对应的中文表述如下：
+
+  > 对于C++反射，我关心的使用领域包括：
+
+  > * 模版元编程可以解决的那一部分编译时反射
+  > * 运行时反射在实现IoC、ORM等中可以让程序员写得更惬意的语法糖衣、DSL
+  > * 在类Rspec测试和Mock中所需要的对于被测程序非侵入式的信息获取和校验
+
+  从 http://www.garret.ru/cppreflection/docs/reflect.html ， 我们可以了解到在C++中达成反射的基本方法：
+  For C++ reflection, I'm interested in the following senarios:
+
+  * Compile-time reflection that can be implemented by meta-template programming
+  * Run-time reflection that can form syntactic sugar and DSL to help developers to implement IoC, ORM etc.
+  * Non-intrusive information extraction and validation in testing and mocking, just like Rspec and Mocha in Ruby. 
+
+  From http://www.garret.ru/cppreflection/docs/reflect.html, we can know the common approaches to implement reflection in C++.
+
+%table.table.table-bordered.table-striped.table-condensed
+  %thead
+    %tr
+      %th Approach
+      %th Advantages
+      %th Disadvantages
+  %tbody
+    %tr
+      %td Parse debugging information
+      %td
+        %ul
+          %li
+            Program should not be changed
+          %li It is possible to extract complete information about types used in the programs
+      %td
+        %ul
+          %li
+            Program was build with enabled debugging support and distributed with debugging
+            information
+          %li
+            There are a lot of different formats of storing debug information, while there are some
+            standards for formats of executable files (COFF, ELF,...) format of debugging information
+            usually is more or less specific to the particular compiler
+    %tr
+      %td Special preprocessor which will parse C++ sources and build class descriptors
+      %td
+        %ul
+          %li Program should not be changed
+      %td
+        %ul
+          %li
+            Alignment and offset of fields in classes, as well as virtual function table format
+            and naming conventions are specific to each compiler, so it is not possible to create generic
+            preprocessor which will produce type information directly. Instead of it, it should generate some
+            C++ code, which should be later processed by normal C++ compiler. So build procedure
+            becomes too complex.
+          %li
+            Parsing of C++ code is not trivial task. Also to be able to modify preprocessed code,
+            this tool should fully handle standard C++ preprocessor directives and has to be
+            called with the same options as normal compiler.
+    %tr
+      %td Create specialized compiler which will support reflection
+      %td
+        %ul
+          %li
+            This is most convenient case for the user - no extra steps during
+            build are required to produce runtime type information.
+          %li
+            Compiler can generate efficient code for reflection methods
+      %td
+        %ul
+          %li
+            Creating own C++ compiler is very challenged task.
+          %li
+            Users will still prefer to use their own favorite tools (Visual C++, Borland,...).
+            It is mostly because most of the modern compiler are not only compilers but IDE with
+            builtin editor, debugger, profiler, wizards, class libraries....
+    %tr
+      %td Let programmer to provide this information himself
+      %td
+        %ul
+          %li
+            This is the most portable approach which can be used with any C++ compiler
+          %li
+            This approach is the simplest to implement
+          %li
+            With this approach it is possible to include additional type information
+            (user defined attributes, for example
+            %i
+              transient
+              %i
+                )
+      %td
+        %ul
+          %li
+            Program has to be changed
+          %li
+            Programmer has to do more work
+          %li
+            There is a chance for programmer to make mistake describing class format
+
+:redcarpet
+
+  * [camp - C++ multi-purpose reflection library](https://github.com/tegesoft/camp) 
+
+  * [Reflection support by means of template metaprogramming](http://lcgapp.cern.ch/project/architecture/ReflectionPaper.pdf)
+
+  * [XCppRefl - C++ Reflection Library](http://www.extreme.indiana.edu/reflcpp/)
+
+  * [Reflex - ](http://root.cern.ch/drupal/content/reflex)
+
+  * [Boost Reflective Programming](https://svn.boost.org/trac/boost/wiki/LibrariesUnderConstruction#ReflectiveProgramming)
+
+  * [Boost.Mirror](http://kifri.fri.uniza.sk/~chochlik/mirror-lib/html/doxygen/mirror/html/examples.html)

@@ -1,0 +1,14 @@
+---
+title: Calendar
+---
+%section.calendar    
+  - blog.articles.group_by {|a| "#{a.date.year}年" }.each do |year, year_articles|
+    %h2= year
+    - year_articles.group_by {|a| "#{a.date.month}月" }.each do |month, articles|
+      %div{:id => "calendar-#{month}" }
+        %h3= month
+        %ul.listing
+          - articles.sort_by { |a| a.source_file }.reverse.each do |article|
+            %li.listing-item
+              %time{:datetime => article.date}=article.date.strftime('%Y-%m-%d')
+              %a{:href => article.url}=article.title

@@ -1,0 +1,9 @@
+<%
+  tag_array =  []
+  tags_of('writings').each do |tag, articles|
+    if articles.size > 1
+      tag_array << {text: tag, weight: articles.size, link: "#tag-#{tag}"}
+    end
+  end 
+%>
+<%= tag_array.to_json %>

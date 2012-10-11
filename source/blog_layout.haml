@@ -1,0 +1,71 @@
+-# coding: utf-8
+!!! 5
+%html
+  %head
+    %meta{:charset => "utf-8"}
+      / Always force latest IE rendering engine (even in intranet) &amp; Chrome Frame
+    %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
+      /[if lt IE 9]
+        %script{:src => "http://html5shim.googlecode.com/svn/trunk/html5.js", :type => "text/javascript"}
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+    %title= current_page.data.title
+    = stylesheet_link_tag "site.css"
+    = stylesheet_link_tag "blog.css"
+    = stylesheet_link_tag "highlight/sunburst.css"    
+    = yield_content :head
+  %body{:class => ''}
+    - @blog_name = ""
+    #container
+      #main{:role => "main"}
+        %aside.sidebar
+          %nav
+            = yield_content :nav
+        = yield_content :sidebar
+        %div.content
+          %header
+            = yield_content :header
+            %h1
+              = current_page.data['title']
+          %article
+            = yield
+            = yield_content :footer
+
+    = javascript_include_tag 'jquery-1.7.1.js'
+    - code_mode = (current_page.data.code_mode || '').split(/\|/)
+    - if code_mode.include?('math')
+      - # = javascript_include_tag 'mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+      - # = javascript_include_tag 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+      = javascript_include_tag 'http://mathjax.connectmv.com/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+      :javascript
+        MathJax.Hub.Config({
+          extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+          tex2jax: {
+              inlineMath: [['$','$'], ['\\(','\\)']],
+              skipTags: ['script', 'noscript', 'style', 'textarea'],
+          }
+        });
+        MathJax.Hub.Queue(function() {
+            // Fix <code> tags after MathJax finishes running. This is a
+            // hack to overcome a shortcoming of Markdown. Discussion at
+            // https://github.com/mojombo/jekyll/issues/199
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i = 0; i < all.length; i += 1) {
+                if(all[i].SourceElement().parentNode.className.indexOf('has-jax') == -1)
+                {
+                  all[i].SourceElement().parentNode.className += ' has-jax';
+                }
+                if(all[i].SourceElement().parentNode.className.indexOf('no-highlight') == -1)
+                {
+                  all[i].SourceElement().parentNode.className += ' no-highlight';
+                }
+            }
+        });
+    - if code_mode.include?('lang') || code_mode.size == 0
+      = javascript_include_tag 'highlight.pack.js'
+      :javascript
+        hljs.initHighlightingOnLoad();
+        $(document).ready(function() {          
+          $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+        });
+    = yield_content :scripts
+    

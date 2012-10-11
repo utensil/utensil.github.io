@@ -1,0 +1,12 @@
+---
+title: Home
+---
+
+%section.calendar    
+  - children_of('writings').sort_by { |a| date_of(a) }.reverse.each do |article|
+    .post
+      %h2
+        %a{:href => article.url}
+          =article.data['title']
+      %div
+        =article.app.render_template(article.source_file)
