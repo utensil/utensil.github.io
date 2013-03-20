@@ -1,0 +1,333 @@
+--- 
+title: 用Middleman搭建静态博客
+tags: test
+code_mode: math|lang
+---
+
+:redcarpet
+  我曾在CSDN和ITEye开技术博客，曾在MSN Live Space、Blogcn等多个地方开过生活博客，曾在网易和QQ控件上传过相册，也在点点经营着自己的文字博客（尽可能摘去具体的人和事之后剩下的纯粹的文字），还在豆瓣上进行我的读书笔记，当然更在腾讯微博上写长长的微博。
+
+  我在这些地方以这些地方要求的格式和书写过程留下我的碎片，这些碎片以寄人篱下的方式存在，然后随着时间渐渐变化，有的甚至就此丢失。
+
+  有一天，你会想要自己想要的书写过程，自己想要的保存格式，自己定制的样子，自己规划的改变，然后这零散的一切应该通过一个统一的入口整合起来，却又保留各自的独立空间。
+
+  这样的愿望使我曾经有过想用Rails做一个“心水志”的app的想法，那大约是把所有这些零散的内容自动抓取然后提供给创作者一个方便的方式整合成自己想要的样子。后来我意识到这样的app难以生存，因为那些承载UGC的站点是如此希望内容和读者都留在他们自己的站点上互动并为他们创造商业价值，甚至多平台同步发布微博的app都不被允许做下去。
+
+  当Github以Jekyll掀起静态博客的浪潮之后，我突然明白，一个无须动态逻辑、无外在服务依赖的可以host在任何一个Web Server的静态博客，以及背后生成它的源代码，正是我想要的。我将以这种方式来完成我想要的整合。
+
+  在这世上，那些最为自己的事情，你只能自己动手。别人的推导和模拟无法替你建立到物理世界的桥梁，别人写的程序与你的需求总是有所偏差，别人设计的博客主题与你的审美总有些许不同，别人的文字无法表达你的真实感受。如果你可以，就不应该依赖别人从而差强人意地生活。
+
+  这就是我学习和倒腾许多东西的动力，一如我技术博客的签名：“对用语句构建世界的迷恋，以及对世界背后的话语的追索”。前半句的外延里，物理公式、程序代码、线条与色彩、文字乃至我所不掌握的音乐，都是构建世界的语句，是它们使我感觉到自己对这个世界的能动性。后半句是说，生活在一个自己可以设法理解的世界对于我而言是多么重要，虽然我或许没有能力为其它的人类贡献认知，但我如此享受以认真的态度消化和重新整合前人的认知的过程。
+
+  需求、技术选型以及做到
+  -----------------------------
+
+  我选择[Middleman](http://middlemanapp.com/)而不是更为著名和官方的Jekyll有许多原因，最终的技术选型自然来自于我对静态博客的需求： 
+
+  ### 用Markdown来写博客
+
+  选择Markdown来写博客在如今是如此地流行和自然，以至于有人或许觉得不言自明。
+
+  没有人想要在写文字的时候操心Word的各种小走形、LaTeX的macro或是HTML的tag，而我也再也无法忍受WYSIWYG的编辑器生成的HTML如此不干净（容易自作主张地带有各种inline CSS）。我想要一份足够简单的纯文本格式，足以表达我的意思，然后生成干净的HTML，然后我再以独立的CSS来展示它。我要这个格式即使在其未渲染的纯文本状态也能轻易看明白里面的结构，我要这个格式足够流行，从而我的文字的源文件有足够的理由以它来保存。
+
+  写到这里，Markdown已经呼之欲出了。
+
+  Markdown能很自然地表达各级标题、段落、引用、列表、链接、图片、强调，而且合法的HTML可以自然地和Markdown混写（最好是单独一段，不过只要小心地inline往往也没什么问题），从而貌似给了它无限地可扩展性。这些都是优点，但是：
+
+  原版Markdown（SM）以尖括号对（\`\`）的方式支持inline code，但以缩进的方式支持code block。后者是一个坏主意，容易造成各种小的排版问题。
+
+  对此，GitHub Flavored Markdown(GFM) 采用一行三个尖括号（\`\`\`）来开始和结束code block，而且在开始的三个尖括号后面可以紧跟代码的编程语言名，在渲染后的HTML里编程语言名会成为一个class。这种方式很好，所以我需要这种方式。
+
+  无论是SM还是GFM，由于强调的格式里有下划线，会导致正常文字中的下划线被理解为强调的开始，导致一些非预期的格式，因此，当文字中出现下划线（往往是函数名），只好使用inline code的尖括号来包围、保护。
+
+  另外，SM不支持表格。我不能接受在我需要表格的时候，Markdown的源文件里面是一堆HTML的tag。
+
+  GFM虽然文档中没有正式声称，但实际上支持PHP Markdown Extra里面的表格：
+
+  ```
+  | left-align  |   central-align  |   right-align     |         
+  |:------------|:----------------:|------------------:|
+  | left-align  |   central-align  |   right-align     |   
+  ```
+
+  会渲染成
+
+  | left-align  |   central-align  |   right-align     |         
+  |:------------|:----------------:|------------------:|
+  | left-align  |   central-align  |   right-align     | 
+
+  综合上面的这些原因，我最终选择了Github所用的redcarpet作为我的Markdown引擎（从而也就使用里面的extensions），并以如下的选项配置：
+
+  `source/config.rb`：
+
+  ```ruby
+  set :markdown_engine, :redcarpet
+  set :markdown, :tables => true,               #表格    
+                 :autolink => true,             #自动将url转换为链接    
+                 :no_intra_emphasis => true,    #减少下划线问题   
+                 :fenced_code_blocks => true,   #支持\`\`\`式的code block      
+                 #:smartypants => true,         #不需要自动转换省略号等      
+                 #:superscript => true,         #不需要自动转换上标，需要的时候我会用MathJax启用LaTeX    
+                 :space_after_headers => true   # ### 这样的token之后必须有空格，才视之后的内容为小标题
+  ```
+  ### 用Haml来写复杂页面或者layout
+
+  由于一开始做Rails用的都是ERB，一直对其它的template engine不熟悉。我对[Haml](http://haml.info/)的第一印象并不好，直到有一天我想要一种写Yaml的方式来生成Xml，但又保留像ERB的访问ruby数据和方法的能力，才发现Haml正是我想要的。一朝用了Haml，能够用缩进来表达层级关系，就再也不愿意回到手工书写和关闭Html tag的日子了。由俭入奢易，由奢入俭难。
+
+  Haml最令人惊喜的还是它Filter的功能。这实际上提供了一个内嵌其它template engine的机会，而且还以`#{}`的格式附加了与ruby代码的interpolation。
+
+  Filter支持Markdown使得混搭Markdown与Haml变得十分容易。想象我写着写着Markdown，突然发现它不足以表达我想要表达的格式，难道我还要重新用Haml`%p`一下每个段落么？有了Filter，我只需要把之前写的内容全选，Tab一下增加缩进，并在最前面加上一行`:markdown`，然后再把当前文件的后缀名改为haml就可以。
+
+  又比如下面这个表格：
+
+%div.table.table-bordered.table-striped.table-condensed
+  :redcarpet
+    | 为什么  |   然而           |          但是     |         
+    |:--------|:----------------:|------------------:|
+    |可以     |   拒绝           |      选择         | 
+
+:redcarpet
+  它的源码是：
+
+  ```haml
+  %div.table.table-bordered.table-striped.table-condensed
+    :redcarpet
+      | 为什么  |   然而           |          但是     |         
+      |:--------|:----------------:|------------------:|
+      |可以     |   拒绝           |      选择         | 
+  ```
+
+  Haml的Filter也很容易定制，所以我把定制了Redcarpet Filter来替换默认的Markdown Filter：
+
+  `source/config.rb`：
+
+  ```ruby
+  module Haml::Filters::Redcarpet
+    include Haml::Filters::Base
+    lazy_require "redcarpet"
+
+    def render(text)
+      Redcarpet::Markdown.new(Redcarpet::Render::HTML, 
+                    :tables => true,
+                    :autolink => true, 
+                    :no_intra_emphasis => true,
+                    :fenced_code_blocks => true,
+                    #:smartypants => true,
+                    #:superscript => true ,
+                    :space_after_headers => true).render(text)
+    end
+  end
+  ```
+
+  不过，Haml在整个博客中最主要的作用是写layout：
+
+  `source/config.rb`：
+
+  ```ruby
+  set :md, :layout_engine => :haml
+  set :haml, :layout_engine => :haml
+
+  with_layout 'tech_layout.haml' do
+    page "/tech/*"
+  end
+
+  with_layout 'writings_layout.haml' do
+    page "/writings/*"
+  end
+  ```
+
+  写着写着正好看到一篇文章[《Haml Sucks for Content》](http://chriseppstein.github.com/blog/2010/02/08/haml-sucks-for-content/)，标题看上去是吐槽Haml的，其实只是说Haml不适合写内容，Markdown更适合，文中还提供了很多Haml实用的小技巧，可供大家参考。
+
+  Middleman通过模板引擎之集大成者Tilt来支持Haml，还有下面的SCSS。
+
+  ### 用SCSS来写样式
+
+  在很多年前那个还存在DHTML这种概念的落后时代，CSS是一个很先进的东西，它把样式从结构中剥离，把HTML搞干净了（当然XHTML那种学究式的纯粹结构的路子已经被HTML5证明是歧路）。更重要的是它提供了一种表达DOM元素路径的优美方式，所以现在js里面我们不用CSS语法来查找DOM元素都觉得不爽。
+
+  但是CSS表达DOM元素路径的优美方式适合写js却不适合写CSS，这是一个很讽刺的事情。一个简单的`div > p > span`，`div`你要写样式吧，下面的`div > p`你要写吧，`div > p > span`还得写一次，这简直就是每次调用一个程序要用程序的完整路径的灾难。没有`cd`，没有working directory。
+
+  所以[SCSS](http://sass-lang.com/)最能省笔墨的是它的嵌套CSS语法，也不知为啥CSS 3.0不搞这个。
+
+  变量也很重要。大点的样式都需要参数化，查找替换可是容易误伤或者遗漏的。
+
+  Mixin这个东西就更是handy了。CSS里总有些结合若干property的定式、套路，比如跨浏览器的hack。每次都单独列出每项property，是可忍孰不可忍。
+
+  所有的语法糖衣也好，其它编程工具也好，无非都是为了省重复笔墨，然后把重复的共用的东西收拢，便于管理和变更。天下大势，分久必合，合久必分，有稳定可预期的公，有充分发挥余地的私，所求大致不过如此。
+
+  SCSS的姐妹SASS则走上一条曲高和寡而且必要性不大的道路，被大多数用户以剃刀原则给打入冷宫。
+
+  另外一个类似SCSS的东西是Less，由于Twitter放出的Bootstrap前端框架用它，所以最近也有点热。Tilt也支持Less。不过我不太喜欢。
+
+  ### 能支持嵌套布局（nested layouts）
+
+  人们规划层级关系的时候，往往搞个父子关系够用就差不多了，但其实平时最起码是要有三层关系的。拿layout来说，全站总有些共用的地方吧，子站或者子主题总有些共用的地方吧，再然后才是Markdown来写的、纯粹的内容。
+
+  上面演示了用`with_layout`的block来设置子主题共用的layout，然后在比如说在`writings_layout.haml`里面，再写一个：
+
+  ```haml
+  - wrap_layout :blog_layout do
+    - content_for :nav do
+      - # 导航啥的
+    - content_for :header do
+      - # 页眉啥的
+    - content_for :footer do
+      - # 页脚啥的
+    = yield
+
+  ```
+
+  然后blog_layout.haml就可以写全站共有的东西了：
+
+  ```haml
+  -# coding: utf-8
+  !!! 5
+  %html
+    %head
+      %meta{:charset => "utf-8"}
+        / Always force latest IE rendering engine (even in intranet) &amp; Chrome Frame
+      %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
+        /[if lt IE 9]
+          %script{:src => "http://html5shim.googlecode.com/svn/trunk/html5.js", :type => "text/javascript"}
+      %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+      %title= current_page.data.title
+      = stylesheet_link_tag "site.css"
+      = stylesheet_link_tag "blog.css"
+      = #还有一些别的样式
+      = yield_content :head
+    %body{:class => ''}
+      - @blog_name = ""
+      #container
+        #main{:role => "main"}
+          %aside.sidebar
+            %nav
+              = yield_content :nav
+          = yield_content :sidebar
+          %div.content
+            %header
+              = yield_content :header
+              %h1
+                = current_page.data['title']
+            %article
+              = yield
+              = yield_content :footer
+
+      = javascript_include_tag 'jquery-1.7.1.js'
+      - #还有一些别的js
+      = yield_content :scripts
+  ```
+
+  ### 能够进行语法高亮并且能够展示数学、物理公式和各种图表
+
+  对于程序员而言，语法高亮基本是个刚需了。而且我特别喜欢那种不同语法要素不同颜色，尤其是写着写着被IDE认出来是啥然后变成正确颜色的感觉。色彩是上苍赐给人类最美好的东西之一。以前我还采用色彩驱动编程，有语法或者语义错误的时候Eclipse的高亮就会不对，所以编码首先是把颜色写对，然后才开始编译、调试。
+
+  后台式的语法高亮不好。人们总是喜欢用python的[pygments](http://pygments.org/)，哪怕在ruby里架个桥都要用，我是不能忍。ruby自己的[coderay](http://coderay.rubychan.de/)不够出色，能高亮的语言也少。这些倒也罢了。后台做的高亮，把html搞得一团糟，样式和html搅在一起，不能忍。
+
+  所以选择了js来做这个事情，Html里就是一段`pre > code`。具体选择的是[Highlight.js](http://softwaremaniacs.org/soft/highlight/en/)。它支持的语言还算够多，还能认出语言，甚至在语言混合的情况下，自适应地尝试给出最合乎预期的结果。
+
+  样式我选择了暗色调的Sunburst主题：
+
+  ```haml
+  = stylesheet_link_tag "highlight/sunburst.css"    
+  ```
+
+  对于一个物理爱好者而言，数学、物理公式也是刚需。我选择了js的[MathJax](http://www.mathjax.org/)。它的书写自然是用[LaTaX](http://www.tug.org/texshowcase/)的子集。它的渲染支持Html+CSS+WebFonts/png，支持SVG，支持MathML，其中SVG看起来最顺眼舒适。
+
+  主要需要解决两者混合显示的问题。假设我想写篇博客，一边介绍LaTeX怎么写，一边展示其效果，就会需要。
+
+  下面是代码，利用了Middleman支持在每篇文章前面添加的元信息(frontmatter)，来让我可以利用元信息显式地召唤两者之一或者混合：
+
+  ```haml
+  - code_mode = (current_page.data.code_mode || '').split(/\|/)
+  - if code_mode.include?('math')
+    - # = javascript_include_tag 'mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+    - # = javascript_include_tag 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+    = javascript_include_tag 'http://mathjax.connectmv.com/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+    :javascript
+      MathJax.Hub.Config({
+        TeX: { 
+          equationNumbers: { autoNumber: "all" }, 
+          extensions: ["enclose.js"]
+        },
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            skipTags: ['script', 'noscript', 'style', 'textarea'],
+        }
+      });
+      MathJax.Hub.Queue(function() {
+          // Fix <code> tags after MathJax finishes running. This is a
+          // hack to overcome a shortcoming of Markdown. Discussion at
+          // https://github.com/mojombo/jekyll/issues/199
+          var all = MathJax.Hub.getAllJax(), i;
+          for(i = 0; i < all.length; i += 1) {
+              if(all[i].SourceElement().parentNode.className.indexOf('has-jax') == -1)
+              {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+              }
+              if(all[i].SourceElement().parentNode.className.indexOf('no-highlight') == -1)
+              {
+                all[i].SourceElement().parentNode.className += ' no-highlight';
+              }
+          }
+      });
+  - if code_mode.include?('lang') || code_mode.size == 0
+    = javascript_include_tag 'highlight.pack.js'
+    :javascript
+      hljs.initHighlightingOnLoad();
+      $(document).ready(function() {          
+        $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+      });
+  ```
+
+  这是一段普通的LaTex代码：
+
+  ```tex
+  When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
+  $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+  ```
+
+  它的markdown源代码的关键是：
+
+  <pre><code class="markdown">
+    ```tex
+      ……公式内容……
+    ```
+  </code></pre>
+
+  这是上面那段LaTex用MathJax渲染之后的效果：
+
+  ```no-highlight
+  When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
+  $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+  ```
+
+  它的markdown源代码的关键是：
+
+  <pre><code class="markdown">
+    ```no-highlight
+      ……公式内容……
+    ```
+  </code></pre>
+  
+  ### 其它需求
+
+  还有一些其它需求，比如：
+
+  1. 能进行定制化；
+  2. 需要一个站点下能支持多个博客（技术博客、文哲博客、生活博客、读书笔记、相册）；
+  3. 可以轻松将其它格式或来源的博客、微博等导入；
+  4. 支持中文；
+  5. 需要支持评论。
+
+  一点一点来说：
+
+  1. Middleman允许程序员自己充分的定制；
+  2. middleman-blog这个gem目前对于多个博客支持并不好，但可以通过人工提取元信息的方式来完成calendar、tag的提取等功能，具体可见[本站的源码](https://github.com/utensil/utensil.github.com/tree/middleman)，尤其是`lib/custom_helpers.rb`和几个layout文件；
+  3. 主要依靠Html to Markdown类的工具，我是把[DownmarkIt](https://github.com/cousine/downmark_it) 改了一下实现的；还会需要自动通过汉字标题生成汉语拼音的permlink的工具[PinYin.rb](http://www.upulife.com/leo/?p=260)；
+  4. Jekyll对中文支持问题多多，突出表现在中文的Tag或Category，Middleman也有一些，不过我通过一些办法规避了，具体见[这个Issue](https://github.com/middleman/middleman/issues/589)；
+  5. 其实这个很不刚需，但集成一个[Disqus](http://disqus.com/)并不困难，所以顺手做了，具体见[本站的源码](https://github.com/utensil/utensil.github.com/tree/middleman)，尤其是几个layout文件。
+
+
+
+
+  
