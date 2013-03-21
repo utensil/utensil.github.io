@@ -38,6 +38,10 @@
       = javascript_include_tag 'http://mathjax.connectmv.com/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
       :javascript
         MathJax.Hub.Config({
+          TeX: { 
+            equationNumbers: { autoNumber: "all" }, 
+            extensions: ["enclose.js"]
+          },
           extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
           tex2jax: {
               inlineMath: [['$','$'], ['\\(','\\)']],
