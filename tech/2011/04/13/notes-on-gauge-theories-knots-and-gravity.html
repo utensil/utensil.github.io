@@ -482,6 +482,10 @@
     <script type='text/javascript'>
       //<![CDATA[
         MathJax.Hub.Config({
+          TeX: { 
+            equationNumbers: { autoNumber: "all" }, 
+            extensions: ["enclose.js"]
+          },
           extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
           tex2jax: {
               inlineMath: [['$','$'], ['\\(','\\)']],
