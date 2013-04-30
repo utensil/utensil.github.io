@@ -1,6 +1,6 @@
 ---
 title: 中文分词那些事
-tags: AI
+tags: AI, 集锦
 ---
 
 分词库

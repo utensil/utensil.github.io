@@ -1,6 +1,6 @@
 ---
 title: Ruby On Rails之继续乾坤大挪移
-tags: rails, 自学记录
+tags: ruby, 自学记录
 ---
 
 > 2012年9月按：rails的变化一日千里，我过往几篇关于rails的博客都过时得很快。当初从CSDN迁移到javaeye的时候，抛弃了一篇关于怎么从1.x迁移到2.x的博客，现在这篇博客也真的很想抛弃了。现在RadRails对于我而言已经笨重得没有必要，完全迁移到了Sublime Text 2（类似Mac下的TextMate）之下，Rails也早就走到了3.x。

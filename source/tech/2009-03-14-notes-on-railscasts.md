@@ -1,6 +1,6 @@
 ---
 title: RailsCast 笔记【不完整】
-tags: rails, 自学记录
+tags: ruby, 自学记录
 ---
 
 走过了弯路，看过了那些粗制滥造、过时、或者至少不够有深度的书之后，才知道：Ruby for Rails+The Ruby Programming Language+Agile Web Development with Rails+RailsCast这一个套装，才是学习Ruby on Rails最快最好的途径。其中RailsCast是免费的视频，目前已有152集。它的最大价值是让你直观地感觉到Rails中隐藏的力量。如果你整个 系列走下来，当你遇到一个问题时，你知道在Rails中大约可以以什么方式做到。当你心中有了明确的方向，只需要手持API Reference Manual，就可以解决一路上的问题。

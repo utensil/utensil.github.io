@@ -1,6 +1,6 @@
 ---
 title: wxRuby尝鲜 
-tags: wx
+tags: wx, ruby
 ---
 
 wxRuby最好玩的地方是它对wxWidgets多加了一层糖衣的语法。
