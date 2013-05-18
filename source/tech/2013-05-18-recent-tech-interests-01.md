@@ -1,7 +1,6 @@
 --- 
 title: 近来的技术兴趣（上）
 tags: 自学记录
-published: false
 ---
 
 > 在这世上，那些最为自己的事情，你只能自己动手。别人的推导和模拟无法替你建立到物理世界的桥梁，别人写的程序与你的需求总是有所偏差，别人设计的博客主题与你的审美总有些许不同，别人的文字无法表达你的真实感受。如果你可以，就不应该依赖别人从而差强人意地生活。
@@ -255,3 +254,5 @@ RTX插件
 [An Exercise with Statistical Relational Learning Systems](https://lirias.kuleuven.be/bitstream/123456789/230569/1/srl)
 
 [PRISM is a general programming language intended for symbolic-statistical modeling](http://sato-www.cs.titech.ac.jp/prism/)
+
+> 未完待续，继续写（下）
