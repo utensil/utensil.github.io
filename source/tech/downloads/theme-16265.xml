@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<colorTheme id="16265" name="UtensilAleviaDark" modified="2013-04-30 12:13:47" author="utensil" website="utensil.github.io">
+    <searchResultIndication color="#808000" />
+    <filteredSearchResultIndication color="#808000" />
+    <occurrenceIndication color="#808000" />
+    <writeOccurrenceIndication color="#808000" />
+    <findScope color="#DDF0FF" />
+    <deletionIndication color="#D25252" italic="false" underline="false" strikethrough="false" />
+    <sourceHoverBackground color="#191919" />
+    <singleLineComment color="#C6ABD8" italic="true" />
+    <multiLineComment color="#C7A3E4" italic="true" />
+    <commentTaskTag color="#C7A3E4" bold="true" italic="false" underline="false" strikethrough="false" />
+    <javadoc color="#C7A3E4" italic="false" />
+    <javadocLink color="#548FA0" italic="false" />
+    <javadocTag color="#C7E4A3" bold="true" italic="false" underline="false" strikethrough="false" />
+    <javadocKeyword color="#C7E4A3" bold="true" italic="false" />
+    <class color="#9CF828" bold="true" italic="false" underline="false" strikethrough="false" />
+    <interface color="#87F025" italic="false" />
+    <method color="#F7C527" italic="false" />
+    <methodDeclaration color="#F1C438" italic="false" />
+    <bracket color="#FFFFFF" italic="false" />
+    <number color="#00F0F0" italic="false" />
+    <string color="#477488" italic="false" />
+    <operator color="#EC6C1E" italic="false" />
+    <keyword color="#CC7833" bold="true" italic="false" />
+    <annotation color="#C7E4A3" bold="false" italic="false" />
+    <staticMethod color="#B79A5E" bold="false" italic="false" underline="false" strikethrough="false" />
+    <localVariable color="#3C758D" bold="false" italic="false" underline="false" strikethrough="false" />
+    <localVariableDeclaration color="#3C758D" italic="false" underline="false" strikethrough="false" />
+    <field color="#357A8F" italic="false" underline="false" strikethrough="false" />
+    <staticField color="#C0C0C0" italic="false" underline="false" strikethrough="false" />
+    <staticFinalField color="#80FF80" italic="false" underline="false" strikethrough="false" />
+    <deprecatedMember color="#FFFFFF" italic="false" underline="false" strikethrough="false" />
+    <enum color="#408000" italic="false" underline="false" strikethrough="false" />
+    <inheritedMethod color="#E3B735" italic="false" underline="false" strikethrough="false" />
+    <abstractMethod color="#F1C436" italic="false" underline="false" strikethrough="false" />
+    <parameterVariable color="#4B9CE9" italic="false" underline="false" strikethrough="false" />
+    <typeArgument color="#D9B0AC" italic="false" underline="false" strikethrough="false" />
+    <typeParameter color="#CDB1AD" italic="false" underline="false" strikethrough="false" />
+    <constant color="#80FF80" italic="false" underline="false" strikethrough="false" />
+    <background color="#191919" />
+    <currentLine color="#222220" />
+    <foreground color="#FFFFFF" />
+    <lineNumber color="#F9F9F9" />
+    <selectionBackground color="#414C3B" />
+    <selectionForeground color="#FFFFFF" />
+</colorTheme>
