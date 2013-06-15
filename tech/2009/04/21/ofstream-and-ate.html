@@ -9,7 +9,7 @@
         <script src='http://html5shim.googlecode.com/svn/trunk/html5.js' type='text/javascript'></script>
       <![endif]-->
     </meta>
-    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'>
     <title>ofstream与ate的故事</title>
     <link href="/stylesheets/site.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="/stylesheets/blog.css" media="screen" rel="stylesheet" type="text/css" />
@@ -53,110 +53,110 @@
           </header>
           <article>
             <p>很久之前，我和Swalky在写Huffman Tree压缩的时候，遇到了一个问题：我们想在一个已经写入了一些内容的文件中部（或头部）写一些内容（用于修改文件的一些meta信息），结果发现总是 不行。如果用ofstream的默认构造函数，文件原有内容就不会保留下来，如果用了ios::app，无论怎么用seekp来定位，所写的内容都会跟在 文件原有内容的最后面。怎么办呢？</p>
-
-<p>本着RTFM的心态，他去看C++ Primer，我则去看TCPL，以及网上的C++ Reference( <a href="http://www.cplusplus.com/reference/">http://www.cplusplus.com/reference/</a> )：</p>
-
-<blockquote>
-<p>mode</p>
-
-<p>Flags describing the requested i/o mode for the file. This is an object of type ios_base::openmode, which consists on a combination of one or more of the following flags defined as member constants:</p>
-
-<ul>
-<li>app (app end) Set the stream&#39;s position indicator to the end of the stream before each output operation.</li>
-<li>ate (at e nd) Set the stream&#39;s position indicator to the end of the stream on opening.</li>
-<li>binary  (binary ) Consider stream as binary rather than text.</li>
-<li>in  (in put) Allow input operations on the stream.</li>
-<li>out (out put) Allow output operations on the stream.</li>
-<li>trunc (trunc ate) Any current content is discarded, assuming a length of zero on opening.</li>
-</ul>
-</blockquote>
-
-<p>我们注意到一个重要的区别：app会在每次写操作之前都把写指针置于文件末尾，而ate模式则只在打开时才将写指针置于文件末尾。于是我们非常兴奋地将ofstream置于ios::ate，结果发现seekp仍然不能正常工作。</p>
-
-<p>于是我把TCPL的《流》一章反复读了几遍，尤其很认真地看了流的缓冲区streambuf的实现，我突然意识到，如果不赋予流读文件的能力，没有读的缓冲区，流就无法seekp到文件的中部。
-我试着改用这段代码来构造流：</p>
-
-<pre><code class="cpp">fstream(filename, ios::in|ios::out|ios::ate) 
-</code></pre>
-
-<p>程序的运行成功了！我很兴奋，因为当时是通过对流的实现的分析推断出这个结论的。
-后来有一次有人在群上问C中如何这么做，我经过一番实验，发现只有以r+模式打开文件，fseek才起作用。这其实仍是基于同样的原理。这里把C的fopen文档贴出来：</p>
-
-<blockquote>
-<p>mode</p>
-
-<p>C string containing a file access modes. It can be:</p>
-
-<ul>
-<li>&quot;r&quot; Open a file for reading. The file must exist.</li>
-<li>&quot;w&quot; Create an empty file for writing. If a file with the same name already exists its content is erased and the file is treated as a new empty file.</li>
-<li>&quot;a&quot; Append to a file. Writing operations append data at the end of the file. The file is created if it does not exist.</li>
-<li>&quot;r+&quot;  Open a file for update both reading and writing. The file must exist.</li>
-<li>&quot;w+&quot;  Create an empty file for both reading and writing. If a file with the same name already exists its content is erased and the file is treated as a new empty file.</li>
-<li>&quot;a+&quot;  Open a file for reading and appending. All writing operations are performed at the end of the file, protecting the previous content to be overwritten. You can reposition (fseek , rewind ) the internal pointer to anywhere in the file for reading, but writing operations will move it back to the end of file. The file is created if it does not exist</li>
-</ul>
-</blockquote>
-
-<p>r+的意思是同时读写，而且该文件必须已经存在。用w+是错误的，因为它会把现存文件的所有内容清空。
-最后附上当时的测试代码（用一个宏开关来分别测试C和C++）：</p>
-
-<pre><code class="cpp">#include &lt;iostream&gt;  
-#include &lt;fstream&gt;  
-#include &lt;string&gt;  
-#include &lt;cstdio&gt;  
-
-using namespace std;  
-
-int main()  
-{  
-    const char * original = &quot;012345678901234567890123456789&quot;; //30 chars  
-    const char * overwrite = &quot;abcdeabcde&quot;;  
-    const char * filename = &quot;test.txt&quot;;  
-
-    fstream fout;  
-
-    fout.open(filename, ios::out|ios::trunc); //destroy any current content  
-
-    fout &lt;&lt; original;  
-
-    fout.close();  
-
-#define TESTING_CPP 1  
-#if TESTING_CPP  
-    fout.open(filename, ios::in|ios::out|ios::ate);  
-
-    fout.seekp(7);  
-
-    fout &lt;&lt; overwrite;  
-    fout.close();  
-#else  
-    FILE * fout_c;  
-
-    if(fout_c = fopen(filename, &quot;r+&quot;))  
-    {  
-        fseek(fout_c, 7, SEEK_SET);  
-        fprintf(fout_c, overwrite);  
-        fclose(fout_c);  
-    }  
-#endif //TESTING_CPP  
-
-    fout.open(filename, ios::in);  
-
-    while(!fout.eof())  
-    {  
-        cout &lt;&lt; static_cast&lt;char&gt;(fout.get());  
-    }  
-
-    return 0;  
-}
-</code></pre>
+            
+            <p>本着RTFM的心态，他去看C++ Primer，我则去看TCPL，以及网上的C++ Reference( <a href="http://www.cplusplus.com/reference/">http://www.cplusplus.com/reference/</a> )：</p>
+            
+            <blockquote>
+            <p>mode</p>
+            
+            <p>Flags describing the requested i/o mode for the file. This is an object of type ios_base::openmode, which consists on a combination of one or more of the following flags defined as member constants:</p>
+            
+            <ul>
+            <li>app (app end) Set the stream&#39;s position indicator to the end of the stream before each output operation.</li>
+            <li>ate (at e nd) Set the stream&#39;s position indicator to the end of the stream on opening.</li>
+            <li>binary  (binary ) Consider stream as binary rather than text.</li>
+            <li>in  (in put) Allow input operations on the stream.</li>
+            <li>out (out put) Allow output operations on the stream.</li>
+            <li>trunc (trunc ate) Any current content is discarded, assuming a length of zero on opening.</li>
+            </ul>
+            </blockquote>
+            
+            <p>我们注意到一个重要的区别：app会在每次写操作之前都把写指针置于文件末尾，而ate模式则只在打开时才将写指针置于文件末尾。于是我们非常兴奋地将ofstream置于ios::ate，结果发现seekp仍然不能正常工作。</p>
+            
+            <p>于是我把TCPL的《流》一章反复读了几遍，尤其很认真地看了流的缓冲区streambuf的实现，我突然意识到，如果不赋予流读文件的能力，没有读的缓冲区，流就无法seekp到文件的中部。
+            我试着改用这段代码来构造流：</p>
+            
+            <pre><code class="cpp">fstream(filename, ios::in|ios::out|ios::ate) 
+            </code></pre>
+            
+            <p>程序的运行成功了！我很兴奋，因为当时是通过对流的实现的分析推断出这个结论的。
+            后来有一次有人在群上问C中如何这么做，我经过一番实验，发现只有以r+模式打开文件，fseek才起作用。这其实仍是基于同样的原理。这里把C的fopen文档贴出来：</p>
+            
+            <blockquote>
+            <p>mode</p>
+            
+            <p>C string containing a file access modes. It can be:</p>
+            
+            <ul>
+            <li>&quot;r&quot; Open a file for reading. The file must exist.</li>
+            <li>&quot;w&quot; Create an empty file for writing. If a file with the same name already exists its content is erased and the file is treated as a new empty file.</li>
+            <li>&quot;a&quot; Append to a file. Writing operations append data at the end of the file. The file is created if it does not exist.</li>
+            <li>&quot;r+&quot;  Open a file for update both reading and writing. The file must exist.</li>
+            <li>&quot;w+&quot;  Create an empty file for both reading and writing. If a file with the same name already exists its content is erased and the file is treated as a new empty file.</li>
+            <li>&quot;a+&quot;  Open a file for reading and appending. All writing operations are performed at the end of the file, protecting the previous content to be overwritten. You can reposition (fseek , rewind ) the internal pointer to anywhere in the file for reading, but writing operations will move it back to the end of file. The file is created if it does not exist</li>
+            </ul>
+            </blockquote>
+            
+            <p>r+的意思是同时读写，而且该文件必须已经存在。用w+是错误的，因为它会把现存文件的所有内容清空。
+            最后附上当时的测试代码（用一个宏开关来分别测试C和C++）：</p>
+            
+            <pre><code class="cpp">#include &lt;iostream&gt;  
+            #include &lt;fstream&gt;  
+            #include &lt;string&gt;  
+            #include &lt;cstdio&gt;  
+            
+            using namespace std;  
+            
+            int main()  
+            {  
+                const char * original = &quot;012345678901234567890123456789&quot;; //30 chars  
+                const char * overwrite = &quot;abcdeabcde&quot;;  
+                const char * filename = &quot;test.txt&quot;;  
+            
+                fstream fout;  
+            
+                fout.open(filename, ios::out|ios::trunc); //destroy any current content  
+            
+                fout &lt;&lt; original;  
+            
+                fout.close();  
+            
+            #define TESTING_CPP 1  
+            #if TESTING_CPP  
+                fout.open(filename, ios::in|ios::out|ios::ate);  
+            
+                fout.seekp(7);  
+            
+                fout &lt;&lt; overwrite;  
+                fout.close();  
+            #else  
+                FILE * fout_c;  
+            
+                if(fout_c = fopen(filename, &quot;r+&quot;))  
+                {  
+                    fseek(fout_c, 7, SEEK_SET);  
+                    fprintf(fout_c, overwrite);  
+                    fclose(fout_c);  
+                }  
+            #endif //TESTING_CPP  
+            
+                fout.open(filename, ios::in);  
+            
+                while(!fout.eof())  
+                {  
+                    cout &lt;&lt; static_cast&lt;char&gt;(fout.get());  
+                }  
+            
+                return 0;  
+            }
+            </code></pre>
             <section class='meta'>
               <p>
                 <span class='author'>
                   <a href='/'>宋皿</a>
                 </span>
                 <span class='time'>
-                  <time datetime='2009-04-21T00:00:00+00:00'>
+                  <time datetime='2009-04-21 00:00:00 UTC'>
                     2009-04-21
                   </time>
                 </span>
@@ -175,17 +175,15 @@ int main()
               </p>
             </section>
             <div id='disqus_thread'></div>
-            <script type='text/javascript'>
-              //<![CDATA[
-                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                var disqus_shortname = 'utensil-at-github'; // required: replace example with your forum shortname
-                /* * * DON'T EDIT BELOW THIS LINE * * */
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-              //]]>
+            <script>
+              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+              var disqus_shortname = 'utensil-at-github'; // required: replace example with your forum shortname
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
             </script>
             <a class='dsq-brlink' href='http://disqus.com'>
               comments powered by
@@ -197,20 +195,16 @@ int main()
     </div>
     <script src="/javascripts/jquery-1.7.1.js" type="text/javascript"></script>
     <script src="/javascripts/highlight.pack.js" type="text/javascript"></script>
-    <script type='text/javascript'>
-      //<![CDATA[
-        hljs.initHighlightingOnLoad();
-        $(document).ready(function() {          
-          $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
-        });
-      //]]>
+    <script>
+      hljs.initHighlightingOnLoad();
+      $(document).ready(function() {          
+        $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+      });
     </script>
     <!-- ! start Mixpanel -->
-    <script type='text/javascript'>
-      //<![CDATA[
-        (function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!== typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]); b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]); mixpanel.init("eda89891866a7e90b6699df21e79ea61");
-        mixpanel.track("visit");
-      //]]>
+    <script>
+      (function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!== typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]); b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]); mixpanel.init("eda89891866a7e90b6699df21e79ea61");
+      mixpanel.track("visit");
     </script>
     <!-- ! end Mixpanel -->
     

@@ -1,4 +1,4 @@
-/* line 1, index.css.scss */
+/* line 1, W:/SVN/AleviaSpace/projects/utensil.github.com/source/stylesheets/index.css.scss */
 h1.title {
   color: #333333;
   font-size: 150px;
@@ -10,10 +10,10 @@ h1.title {
   margin-left: auto;
   margin-right: auto;
   white-space: nowrap; }
-  /* line 13, index.css.scss */
+  /* line 13, W:/SVN/AleviaSpace/projects/utensil.github.com/source/stylesheets/index.css.scss */
   h1.title a {
     text-decoration: none; }
-  /* line 17, index.css.scss */
+  /* line 17, W:/SVN/AleviaSpace/projects/utensil.github.com/source/stylesheets/index.css.scss */
   h1.title .fork-me-overlay {
     position: relative;
     z-index: 100;
@@ -22,49 +22,49 @@ h1.title {
     cursor: hand;
     cursor: pointer;
     overflow: hidden; }
-  /* line 27, index.css.scss */
+  /* line 27, W:/SVN/AleviaSpace/projects/utensil.github.com/source/stylesheets/index.css.scss */
   h1.title .fork-me-before {
     margin-right: -149px;
     z-index: -100; }
 
-/* line 33, index.css.scss */
+/* line 33, W:/SVN/AleviaSpace/projects/utensil.github.com/source/stylesheets/index.css.scss */
 h2.subtitle {
   margin-top: 40px;
   border-top: 0px;
   border-bottom: 0px;
   border-left: 0px;
   border-right: 0px; }
-  /* line 40, index.css.scss */
+  /* line 40, W:/SVN/AleviaSpace/projects/utensil.github.com/source/stylesheets/index.css.scss */
   h2.subtitle p {
     margin-top: 20px;
     font-size: 20px;
     font-family: 'PT Mono', 'Courier New', "Helvetica Neue","Luxi Sans","DejaVu Sans",'Microsoft Yahei', Tahoma;
     font-weight: normal;
     text-align: center; }
-    /* line 48, index.css.scss */
+    /* line 48, W:/SVN/AleviaSpace/projects/utensil.github.com/source/stylesheets/index.css.scss */
     h2.subtitle p.zh {
       display: none; }
-    /* line 52, index.css.scss */
+    /* line 52, W:/SVN/AleviaSpace/projects/utensil.github.com/source/stylesheets/index.css.scss */
     h2.subtitle p span {
       word-break: keep-all;
       white-space: nowrap; }
-    /* line 57, index.css.scss */
+    /* line 57, W:/SVN/AleviaSpace/projects/utensil.github.com/source/stylesheets/index.css.scss */
     h2.subtitle p .main-idea {
       font-size: larger;
       text-transform: capitalize; }
 
-/* line 64, index.css.scss */
+/* line 64, W:/SVN/AleviaSpace/projects/utensil.github.com/source/stylesheets/index.css.scss */
 #gitview-holder {
   width: 500px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 3em; }
 
-/* line 71, index.css.scss */
+/* line 71, W:/SVN/AleviaSpace/projects/utensil.github.com/source/stylesheets/index.css.scss */
 #gitview-holder > div {
   margin-left: auto;
   margin-right: auto; }
 
-/* line 76, index.css.scss */
+/* line 76, W:/SVN/AleviaSpace/projects/utensil.github.com/source/stylesheets/index.css.scss */
 #githubview-holder {
   margin-top: 3em; }

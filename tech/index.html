@@ -9,7 +9,7 @@
         <script src='http://html5shim.googlecode.com/svn/trunk/html5.js' type='text/javascript'></script>
       <![endif]-->
     </meta>
-    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'>
     <title>Home</title>
     <link href="/stylesheets/site.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="/stylesheets/blog.css" media="screen" rel="stylesheet" type="text/css" />
@@ -51,7 +51,7 @@
           </header>
           <article>
             <h1 class='title'>Uten<span class='fork-me-before'>sil</span><a href='https://github.com/utensil' target='_blank'>
-              <img class='fork-me-overlay' src='../images/fork.png' />
+              <img class='fork-me-overlay' src='../images/fork.png'>
             </a></h1>
             <h2 class='subtitle' title='对用语句构建世界的迷恋，以及对世界背后的话语的追索。'>
               <p>
@@ -71,35 +71,27 @@
     </div>
     <script src="/javascripts/jquery-1.7.1.js" type="text/javascript"></script>
     <script src="/javascripts/highlight.pack.js" type="text/javascript"></script>
-    <script type='text/javascript'>
-      //<![CDATA[
-        hljs.initHighlightingOnLoad();
-        $(document).ready(function() {          
-          $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
-        });
-      //]]>
+    <script>
+      hljs.initHighlightingOnLoad();
+      $(document).ready(function() {          
+        $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+      });
     </script>
     <!-- ! start Mixpanel -->
-    <script type='text/javascript'>
-      //<![CDATA[
-        (function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!== typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]); b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]); mixpanel.init("eda89891866a7e90b6699df21e79ea61");
-        mixpanel.track("visit");
-      //]]>
+    <script>
+      (function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!== typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]); b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]); mixpanel.init("eda89891866a7e90b6699df21e79ea61");
+      mixpanel.track("visit");
     </script>
     <!-- ! end Mixpanel -->
     <script src="/javascripts/jquery.tipTip.js" type="text/javascript"></script>
-    <script type='text/javascript'>
-      //<![CDATA[
-        $('h2.subtitle').tipTip({defaultPosition: "left"});
-      //]]>
+    <script>
+      $('h2.subtitle').tipTip({defaultPosition: "left"});
     </script>
     <script src="/javascripts/jquery-github-widget.js" type="text/javascript"></script>
-    <script type='text/javascript'>
-      //<![CDATA[
-        $('#github-widget-holder').github_widget({
-          user : 'utensil'
-        });
-      //]]>
+    <script>
+      $('#github-widget-holder').github_widget({
+        user : 'utensil'
+      });
     </script>
   </body>
 </html>

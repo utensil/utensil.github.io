@@ -9,7 +9,7 @@
         <script src='http://html5shim.googlecode.com/svn/trunk/html5.js' type='text/javascript'></script>
       <![endif]-->
     </meta>
-    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'>
     <title>一个用sed给xml的标签编号的Bash脚本</title>
     <link href="/stylesheets/site.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="/stylesheets/blog.css" media="screen" rel="stylesheet" type="text/css" />
@@ -53,45 +53,45 @@
           </header>
           <article>
             <blockquote>
-<p>2012年9月按：这件事情的实际功效不值一提。这样的事情更适合用一门真正的脚本语言（ruby、python等等）来做，用bash来做有点别扭。不过在生产上，有时除了bash和那些最为普遍的unix命令行工具，你并没有脚本语言环境，纵然有，你也没有外网环境来安装一些第三方包。这就是为什么，实际工作中的我们往往需要熟练迅速地把unix那些原始而专注的小工具组装成特殊场合适用的军刀。说起来感叹当初没有工作经验的自己，这么一点小功能这么慢做完，都会发篇博客纪念一下，那这几年工作中熟练而迅速的组装，可以写多少博客了？</p>
-</blockquote>
-
-<p>记录一下这个小脚本，试探了很久才研究出这个方法来给我的一个xml文件编号。</p>
-
-<p>这个文件最初是从博客上直接复制粘贴下来的，根据其格式先对其html tag替换做好标记，然后用一句sed转换成xml的：</p>
-
-<pre><code class="bash">cat susan.txt|
-sed -e &#39;s/title/(.*/)$/&lt;//content&gt;/r/n&lt;//blog&gt;/r/n&lt;blog&gt;/r/n&lt;title&gt;/1&lt;//title&gt;/&#39;|
-sed -e &#39;s/timestamp/(.*/)/&lt;timestamp&gt;/1&lt;//timestamp&gt;/r/n&lt;content&gt;/&#39;|
-sed -e &#39;s/[ ]+/  /&#39; &gt; susanfmt.xml
-</code></pre>
-
-<p>当然，还要稍作调整。</p>
-
-<p>但接着我需要对博客进行编号，即每一个<blog>我都需要变成<blog id="编号">，sed自己是干不了了，所以结合一点Bash：</p>
-
-<pre><code class="bash">declare -i j=1
-
-for ((i=$(cat susanfmt.xml|tee susanalt.xml|wc -l);i&gt;=1;i--)) 
-do
-  sed -i -e &quot;$i&quot;&quot;s/&lt;blog&gt;/&lt;blog id==/&quot;$i/&quot;&gt;/&quot; susanalt.xml
-  grep &quot;&lt;blog id==/&quot;$i/&quot;&gt;&quot; susanalt.xml
-  if [ $? -eq 0 ]
-  then
-    sed -i -e &quot;$i&quot;&quot;s/&lt;blog id==/&quot;$i/&quot;&gt;/&lt;blog id=/&quot;$j/&quot;&gt;/&quot; susanalt.xml
-    j=$j+1
-  fi
-done
-</code></pre>
-
-<p>以上，先将目的文档susanfmt.xml复制到susanalt.xml，同时计算出行数。从最后一行到第一行，先将遇到的<code>&lt;blog&gt;</code>替换成<code>&lt;blog id==&quot;该行行数&quot;&gt;</code>，注意多了一个=号，这是防止与最终结果相冲突。这明显不是我们要的，用grep的返回值确认的确做了一次替换后，将id==&quot;行数&quot;改成id=&quot;编号&quot;。有点怪异，而且重复工作也多，效率较低，但是这是目前唯一想到的办法。</p>
+            <p>2012年9月按：这件事情的实际功效不值一提。这样的事情更适合用一门真正的脚本语言（ruby、python等等）来做，用bash来做有点别扭。不过在生产上，有时除了bash和那些最为普遍的unix命令行工具，你并没有脚本语言环境，纵然有，你也没有外网环境来安装一些第三方包。这就是为什么，实际工作中的我们往往需要熟练迅速地把unix那些原始而专注的小工具组装成特殊场合适用的军刀。说起来感叹当初没有工作经验的自己，这么一点小功能这么慢做完，都会发篇博客纪念一下，那这几年工作中熟练而迅速的组装，可以写多少博客了？</p>
+            </blockquote>
+            
+            <p>记录一下这个小脚本，试探了很久才研究出这个方法来给我的一个xml文件编号。</p>
+            
+            <p>这个文件最初是从博客上直接复制粘贴下来的，根据其格式先对其html tag替换做好标记，然后用一句sed转换成xml的：</p>
+            
+            <pre><code class="bash">cat susan.txt|
+            sed -e &#39;s/title/(.*/)$/&lt;//content&gt;/r/n&lt;//blog&gt;/r/n&lt;blog&gt;/r/n&lt;title&gt;/1&lt;//title&gt;/&#39;|
+            sed -e &#39;s/timestamp/(.*/)/&lt;timestamp&gt;/1&lt;//timestamp&gt;/r/n&lt;content&gt;/&#39;|
+            sed -e &#39;s/[ ]+/  /&#39; &gt; susanfmt.xml
+            </code></pre>
+            
+            <p>当然，还要稍作调整。</p>
+            
+            <p>但接着我需要对博客进行编号，即每一个<blog>我都需要变成<blog id="编号">，sed自己是干不了了，所以结合一点Bash：</p>
+            
+            <pre><code class="bash">declare -i j=1
+            
+            for ((i=$(cat susanfmt.xml|tee susanalt.xml|wc -l);i&gt;=1;i--)) 
+            do
+              sed -i -e &quot;$i&quot;&quot;s/&lt;blog&gt;/&lt;blog id==/&quot;$i/&quot;&gt;/&quot; susanalt.xml
+              grep &quot;&lt;blog id==/&quot;$i/&quot;&gt;&quot; susanalt.xml
+              if [ $? -eq 0 ]
+              then
+                sed -i -e &quot;$i&quot;&quot;s/&lt;blog id==/&quot;$i/&quot;&gt;/&lt;blog id=/&quot;$j/&quot;&gt;/&quot; susanalt.xml
+                j=$j+1
+              fi
+            done
+            </code></pre>
+            
+            <p>以上，先将目的文档susanfmt.xml复制到susanalt.xml，同时计算出行数。从最后一行到第一行，先将遇到的<code>&lt;blog&gt;</code>替换成<code>&lt;blog id==&quot;该行行数&quot;&gt;</code>，注意多了一个=号，这是防止与最终结果相冲突。这明显不是我们要的，用grep的返回值确认的确做了一次替换后，将id==&quot;行数&quot;改成id=&quot;编号&quot;。有点怪异，而且重复工作也多，效率较低，但是这是目前唯一想到的办法。</p>
             <section class='meta'>
               <p>
                 <span class='author'>
                   <a href='/'>宋皿</a>
                 </span>
                 <span class='time'>
-                  <time datetime='2008-09-17T00:00:00+00:00'>
+                  <time datetime='2008-09-17 00:00:00 UTC'>
                     2008-09-17
                   </time>
                 </span>
@@ -110,17 +110,15 @@ done
               </p>
             </section>
             <div id='disqus_thread'></div>
-            <script type='text/javascript'>
-              //<![CDATA[
-                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                var disqus_shortname = 'utensil-at-github'; // required: replace example with your forum shortname
-                /* * * DON'T EDIT BELOW THIS LINE * * */
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-              //]]>
+            <script>
+              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+              var disqus_shortname = 'utensil-at-github'; // required: replace example with your forum shortname
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
             </script>
             <a class='dsq-brlink' href='http://disqus.com'>
               comments powered by
@@ -132,20 +130,16 @@ done
     </div>
     <script src="/javascripts/jquery-1.7.1.js" type="text/javascript"></script>
     <script src="/javascripts/highlight.pack.js" type="text/javascript"></script>
-    <script type='text/javascript'>
-      //<![CDATA[
-        hljs.initHighlightingOnLoad();
-        $(document).ready(function() {          
-          $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
-        });
-      //]]>
+    <script>
+      hljs.initHighlightingOnLoad();
+      $(document).ready(function() {          
+        $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+      });
     </script>
     <!-- ! start Mixpanel -->
-    <script type='text/javascript'>
-      //<![CDATA[
-        (function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!== typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]); b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]); mixpanel.init("eda89891866a7e90b6699df21e79ea61");
-        mixpanel.track("visit");
-      //]]>
+    <script>
+      (function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!== typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]); b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]); mixpanel.init("eda89891866a7e90b6699df21e79ea61");
+      mixpanel.track("visit");
     </script>
     <!-- ! end Mixpanel -->
     
