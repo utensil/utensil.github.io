@@ -1,6 +1,7 @@
 ---
 title: Calendar
 ---
+-# coding: utf-8
 %section.calendar    
   - children_of('writings').group_by {|a| "#{date_of(a).year}年" }.sort_by { |a| date_of(a).year }.reverse.each do |year, year_articles|
     %h2= year

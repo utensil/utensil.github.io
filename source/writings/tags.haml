@@ -1,6 +1,7 @@
 ---
 title: Tags
 ---
+-# coding: utf-8
 %section.tags
   #tag_cloud
   - tags_of('writings', true).sort_by{|tag, articles| -articles.size }.each do |tag_and_articles|

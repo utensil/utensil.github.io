@@ -1,6 +1,7 @@
 ---
 title: Calendar
----
+--- 
+-# coding: utf-8
 %section.calendar    
   - blog.articles.group_by {|a| "#{a.date.year}年" }.each do |year, year_articles|
     %h2= year

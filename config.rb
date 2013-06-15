@@ -17,7 +17,7 @@
 
 # CodeRay syntax highlighting in Haml
 # First: gem install haml-coderay
-require 'haml-coderay'
+# require 'haml-coderay'
 
 # CoffeeScript filters in Haml
 # First: gem install coffee-filter
@@ -70,9 +70,10 @@ require 'haml-coderay'
 
 set :encoding,    "utf-8"
 
+require "redcarpet"
+
 module Haml::Filters::Redcarpet
-  include Haml::Filters::Base
-  lazy_require "redcarpet"
+  include Haml::Filters::Base  
 
   def render(text)
     Redcarpet::Markdown.new(Redcarpet::Render::HTML, 

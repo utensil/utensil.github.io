@@ -26,7 +26,7 @@ module CustomHelpers
   def date_of(rs)
     return DateTime.now unless is_blog?(rs)
 
-    puts source_file_name_of(rs)
+    #puts source_file_name_of(rs)
     m = source_file_name_of(rs).match /(\d{4})-(\d{2})-(\d{2})-(\d{2})-(\d{2})/
 
     unless m.nil?
