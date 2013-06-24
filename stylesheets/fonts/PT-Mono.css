@@ -1,9 +1,1 @@
-@media screen {
-  @font-face {
-    font-family: 'PT Mono';
-    font-style: normal;
-    font-weight: normal;
-    src: url('CxeV9_zG4LzCrLDT6JD44Q.eot');
-    src: local('PT Mono'), local('PTMono-Regular'), url('jmle3kzCPnW8O7_gZGRDlQ.woff') format('woff'), url('CxeV9_zG4LzCrLDT6JD44Q.eot') format('embedded-opentype');
-  }
-}
+@media screen{@font-face{font-family:'PT Mono';font-style:normal;font-weight:400;src:url('CxeV9_zG4LzCrLDT6JD44Q.eot');src:local('PT Mono'),local('PTMono-Regular'),url('jmle3kzCPnW8O7_gZGRDlQ.woff') format('woff'),url('CxeV9_zG4LzCrLDT6JD44Q.eot') format('embedded-opentype')}}

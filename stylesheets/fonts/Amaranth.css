@@ -1,9 +1,1 @@
-@media screen {
-  @font-face {
-    font-family: 'Amaranth';
-    font-style: normal;
-    font-weight: normal;
-    src: url('OVeYmpOgAXrJsaP-CIAb-fesZW2xOQ-xsNqO47m55DA.eot');
-    src: local('Amaranth'), url('OVeYmpOgAXrJsaP-CIAb-fesZW2xOQ-xsNqO47m55DA.eot') format('embedded-opentype'), url('hh4Od9pccylRpuf5LUPgEobN6UDyHWBl620a-IRfuBk.woff') format('woff');
-  }
-}
+@media screen{@font-face{font-family:'Amaranth';font-style:normal;font-weight:400;src:url('OVeYmpOgAXrJsaP-CIAb-fesZW2xOQ-xsNqO47m55DA.eot');src:local('Amaranth'),url('OVeYmpOgAXrJsaP-CIAb-fesZW2xOQ-xsNqO47m55DA.eot') format('embedded-opentype'),url('hh4Od9pccylRpuf5LUPgEobN6UDyHWBl620a-IRfuBk.woff') format('woff')}}
