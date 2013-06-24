@@ -9,7 +9,7 @@ gem 'neat'
 gem 'redcarpet'
 #gem 'haml-coderay'
 gem 'nokogiri'
-gem 'middleman-minify-html' 
+#gem 'middleman-minify-html' 
 
 group :development do
   #gem 'guard-middleman'
