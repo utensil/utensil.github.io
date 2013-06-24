@@ -28,10 +28,10 @@
       
       var view_user = $('<span class="github-widget-avatar" />');
       var view_user_link = $('<a />').attr('href', user_url);     
-      var view_avatar = $('<img />')
-                          .attr('title', user_info.login)
-                          .attr('alt', user_info.login)
-                          .attr('src', user_info.avatar_url);
+      var view_avatar = $('<img />');
+      view_avatar.attr('title', user_info.login);
+      view_avatar.attr('alt', user_info.login);
+      view_avatar.attr('src', user_info.avatar_url);
       view_user_link.append(view_avatar);
       
       var view_repos = $('<span class="github-widget-repos-count" />');
@@ -61,6 +61,8 @@
     createReposList : function(data){
       
       var repos_info = data;
+
+      //console.log(repos_info);
       
       //latest first
       repos_info = repos_info.reverse();
@@ -119,7 +121,8 @@
         // @deprecate user: 'utensil', // any github username
       //count: 3,          // TODO (optional) number of repos per widget page, 3 by default
       //showForks: true,  // TODO (optional) show forked repos, true by default
-      width: '450px',    // (optional) width of widget, 450px by default
+      width: '95%',    // (optional) width of widget, 95%/450px by default
+      'max-width': '450px', 
       align: 'center'  // (optional) alignment relative to its parent, 'cernter|left|right'
       // @deprecate compact: false,      // (optional) compact mode or full mode? false by default
       // @deprecate noFrame: false,      // (optional) no fancy widget frame, just repositories
@@ -133,6 +136,7 @@
   var view = $('<div></div>').addClass('github-widget');
   view.css({
     'width' : options['width'],
+    'max-width' : options['max-width'],
     'margin-left' : (options['align'] == 'left' ? '5px' : 'auto'),
     'margin-right' : (options['align'] == 'right' ? '5px' : 'auto')
   });

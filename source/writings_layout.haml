@@ -56,4 +56,9 @@
       %a.dsq-brlink{:href => "http://disqus.com"}
         comments powered by
         %span.logo-disqus Disqus
+  - content_for :scripts do
+    - if is_blog?(current_page)
+      -#= javascript_include_tag 'jquery.touchy.js'
+      = javascript_include_tag 'jquery.touchSwipe.js'
+      = javascript_include_tag 'blog_swipe.js'
   = yield

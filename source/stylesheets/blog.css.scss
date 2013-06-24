@@ -24,7 +24,12 @@
 .content {
   font-size: 13px;
   line-height:24px;
-  @include span-columns(8);
+
+  width: 100%;
+  @media(min-width: 28.75em) {
+    @include span-columns(8);
+  }
+
   line-height: 1.6;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -377,12 +382,17 @@ ul.listing {
   li.listing-item {
     font-size: 16px;
     //font-family:"Galdeano","Hiragino Sans GB","Microsoft YaHei",Trebuchet,"Trebuchet MS",Tahoma,"Lucida Grande","Lucida Sans Unicode",Verdana,sans-serif;
-    padding-top: .2em;
     time {
-      color:#999;
+      color: #999999;
+
+      display: block;
+
+      @media(min-width: 28.75em) {
+        display: inline;
+        margin-right: 2em;
+      }
     }
     a {
-      padding:.2em 1em;
       color: #98B58D;
       text-decoration: none;
     } 
@@ -407,24 +417,37 @@ ul.listing {
  */
 
 aside.sidebar {
-  @include span-columns(2);
+  width: 100%;
+
+  @media(min-width: 28.75em) {
+    @include span-columns(2);
+  }
+  
   nav {
     font-family:Electrolize,sans-serif;
     font-size:1.1em;
     text-transform:uppercase;
-    text-align:right;
-    margin-top: 5em;
+
+    @media(min-width: 28.75em) {
+      text-align:right;
+      margin-top: 5em;
+    }
 
     a {
-      display:block;
-      padding:.7em 1em;
-      color:#000;
 
-      &:hover {
+      display:inline;
+      @media(min-width: 28.75em) {
+        display:block;
+      }
+
+      padding: 0.7em 1em;
+      color: #000000;
+
+      &:hover, &:active, &.current {
         background-color:#98b58d;
         text-decoration:none;
         color:#f9f9f9;
-        -webkit-transition:color .2s linear;
+        @include transition(all 0.2s linear 0s);
       }
     }
 

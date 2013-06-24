@@ -1,6 +1,12 @@
 h1.title {
   color:#333333;
-  font-size: 150px;
+
+  font-size: 75px;
+
+  @media(min-width: 28.75em) {
+    font-size: 150px;
+  }
+
   text-shadow: 3px 3px 3px grey;
   font-family: 'Amaranth', "Bitstream Vera Sans Mono", Consolas, Courier, monospace; 
   font-weight:bold;
@@ -21,11 +27,24 @@ h1.title {
     border: 0;
     cursor:hand;
     cursor:pointer;
-    overflow: hidden;              
+    overflow: hidden;
+
+    height: 75px;
+    width: 75px;
+
+    @media(min-width: 28.75em) {
+      height: 150px;
+      width: 150px;
+    }              
   }
   
-  .fork-me-before { 
-    margin-right: -149px;  
+  .fork-me-before {
+    margin-right: -75px;
+
+    @media(min-width: 28.75em) {
+      margin-right: -149px;
+    }
+
     z-index: -100;       
   }
 }
@@ -39,7 +58,12 @@ h2.subtitle {
   
   p {
     margin-top: 20px;
-    font-size: 20px;
+
+    font-size: 15px;
+    @media(min-width: 28.75em) {
+      font-size: 20px;
+    }
+
     font-family: 'PT Mono', 'Courier New', "Helvetica Neue","Luxi Sans","DejaVu Sans",'Microsoft Yahei', Tahoma;
 
     font-weight: normal;

@@ -20,29 +20,4 @@ title: Tags
   = stylesheet_link_tag "jqcloud.css"
 - content_for :scripts do
   = javascript_include_tag "jqcloud-1.0.1.js"
-  :javascript
-    $(function() {
-      $.getJSON('tags.json', function(tag_array, statusText) {
-        $("#tag_cloud").jQCloud(tag_array, {
-          width: Math.min(60 * tag_array.length, 400),
-          height: Math.min(30 * tag_array.length, 250),
-          //shape: 'rectangular',
-          afterCloudRender: function() {
-            $('a', this).click(function() {
-              var show_tag_id = $(this).attr('href').toString().substring(1);
-              $('[id^=tag-]').each(function(i, e) {
-                console.log(encodeURI($(e).attr('id').toString()), show_tag_id);
-                if(encodeURI($(e).attr('id').toString()) != show_tag_id)
-                {
-                  $(e).hide();
-                }
-                else
-                {
-                  $(e).show();
-                }
-              });
-            });
-          }
-        });
-      });
-    });
+  = javascript_include_tag "tags.js"
