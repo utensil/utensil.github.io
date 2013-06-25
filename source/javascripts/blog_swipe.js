@@ -28,26 +28,28 @@
 
 $(".content article").swipe( {
     swipeLeft:function(event, direction, distance, duration, fingerCount) {
+
         var later = $('.article_nav .later a');
 
-        if(later != [])
+        if(later.length != 0)
         {
             window.location = later.attr('href');
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     },
     swipeRight:function(event, direction, distance, duration, fingerCount) {
+
         var earlier = $('.article_nav .earlier a');
 
-        if(earlier != [])
+        if(earlier.length != 0)
         {
             window.location = earlier.attr('href');
-            return true;
+            return false;
         } 
 
-        return false;
+        return true;
     },
     maxTimeThreshold: 1000
 });
