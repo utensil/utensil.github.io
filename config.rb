@@ -117,6 +117,10 @@ end
 #ignore '/writings/*.md'
 #ignore '/writings/*.haml'
 
+ignore '**/Thumbs.db'
+ignore '*_layout.haml'
+
+
 #activate :blog do |writings_blog|
 #  writings_blog.prefix = "writings"
 #  writings_blog.layout = 'writings_layout'
@@ -136,7 +140,7 @@ configure :build do
   activate :cache_buster
   
   # Use relative URLs
-  activate :relative_assets
+  # activate :relative_assets
   
   # Compress PNGs after build
   # First: gem install middleman-smusher

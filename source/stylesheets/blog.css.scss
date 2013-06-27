@@ -402,7 +402,7 @@ ul.listing {
 #tag_cloud {
   //margin:2em auto;
   font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",'Microsoft Yahei',   Tahoma;
-  @include box-shadow(0 0 5px 3px hsla(0, 0%, 0%, 0.65));
+  box-shadow: 0 0 5px 3px hsla(0, 0%, 0%, 0.65);
   padding: 5px 5px 5px 5px;
 }
 
@@ -482,7 +482,7 @@ aside.sidebar {
 //
 //blockquote p {
 //  margin:0;
-//  padding:.5em 0;
+//  padding:0.5em 0;
 //}
 //
 //pre,code {
