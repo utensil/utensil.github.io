@@ -27,7 +27,7 @@
 //});
 
 $(".content article").swipe( {
-    swipeLeft:function(event, direction, distance, duration, fingerCount) {
+    swipeRight:function(event, direction, distance, duration, fingerCount) {
 
         var later = $('.article_nav .later a');
 
@@ -39,7 +39,7 @@ $(".content article").swipe( {
 
         return true;
     },
-    swipeRight:function(event, direction, distance, duration, fingerCount) {
+    swipeLeft:function(event, direction, distance, duration, fingerCount) {
 
         var earlier = $('.article_nav .earlier a');
 
