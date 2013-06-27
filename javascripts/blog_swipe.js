@@ -25,4 +25,4 @@
 //
 //    return false;    
 //});
-$(".content article").swipe({swipeLeft:function(e,t,n,r,i){var s=$(".article_nav .later a");return s!=[]?(window.location=s.attr("href"),!0):!1},swipeRight:function(e,t,n,r,i){var s=$(".article_nav .earlier a");return s!=[]?(window.location=s.attr("href"),!0):!1},maxTimeThreshold:1e3});
+$(".content article").swipe({swipeRight:function(e,t,n,r,i){var s=$(".article_nav .later a");return s.length!=0?(window.location=s.attr("href"),!1):!0},swipeLeft:function(e,t,n,r,i){var s=$(".article_nav .earlier a");return s.length!=0?(window.location=s.attr("href"),!1):!0},maxTimeThreshold:1e3});
