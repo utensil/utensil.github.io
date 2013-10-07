@@ -40,7 +40,7 @@ PDF文件重排
 
 发现了ruby的库[pdf-reader](https://github.com/yob/pdf-reader)。用它成功读取了PDF文件的文本内容和每个文本的位置，从而用position:absolute的CSS把PDF渲染成HTML。一开始是渲染单页，然后推广到多页的PDF。
 
-纯粹的图片我还没有实验，但看起来并不苦难。
+纯粹的图片我还没有实验，但看起来并不困难。
 
 库里自带一种根据位置相对关系把单个的字符合并成文本块的算法，十分有用，提升了渲染效果。可以根据这个思路，对数学公式进行合并，避免发生公式被重排拆散的问题。有了文本块，可以根据文本块的相对关系来计算文本块相互之间的优先级，也可以把单个的文本块进行换行等，从而实现重排。
 
@@ -254,5 +254,18 @@ RTX插件
 [An Exercise with Statistical Relational Learning Systems](https://lirias.kuleuven.be/bitstream/123456789/230569/1/srl)
 
 [PRISM is a general programming language intended for symbolic-statistical modeling](http://sato-www.cs.titech.ac.jp/prism/)
+
+### 书籍
+
+* 《Clever Algorithms: Nature-Inspired Programming Recipes》
+* 《Information Theory, Inference and Learning Algorithms》
+* 《Machine Learning: A Probabilistic Perspective》
+* 《Speech and Language Processing: an Introducation to Natural Language Processing, Computational L inguistics, and Speech Recognition》
+* 《统计自然语言处理基础》
+* 《数据挖掘中的新方法：支持向量机》
+* 《集体智慧编程》与《智能Web算法》其一
+* 《人工智能:一种现代方法》
+* 《游戏开发中的人工智能》
+* 《小型智能机器人制作全攻略》
 
 > 未完待续，继续写（下）
