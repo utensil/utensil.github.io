@@ -1,5 +1,5 @@
-- wrap_layout :blog_layout do
-  - content_for :nav do
+- wrap_layout :blog_layout do  
+  - content_for :nav do 
     - @blog_name = "writings"
     %span
       %a{:href => "/#{@blog_name}/"} home
@@ -8,40 +8,39 @@
     %span
       %a{:href => "/#{@blog_name}/tags.html"} tags
   - content_for :header do
-    - if is_blog?(current_page)
+    - if current_article
       %div.article_nav
         %span.later
-          - if next_ = next_of(current_page)
+          - if next_ = current_article.next_article
             %a{:href => next_.url}
               < 更新
           - else
             〇 已是最新
         %span.earlier
-          - if prev_ = prev_of(current_page)
+          - if prev_ = current_article.previous_article
             %a{:href => prev_.url}
               更早 >
           - else
             已是最早 〇
   - content_for :footer do
-    - if is_blog?(current_page)
+    - if current_article
       %section.meta
         %p
           %span.author
             %a{:href => "/"} 宋皿
           %span.time
-            %time{:datetime => date_of(current_page)}
-              = date_of(current_page).strftime('%Y-%m-%d %H:%M')
+            %time{:datetime => current_article.date}
+              = current_article.date.strftime('%Y-%m-%d')
         %p
           %span.license
             Published under
             %a{:href => "http://creativecommons.org/licenses/by-nc-nd/3.0/", :rel => "license"} (CC) BY-NC-ND
-          - 
-          - if tags = current_page.data['tags'].split(',').keep_if { |t| (tags_of('writings')[t.strip] || []).size > 1 }
+          - if current_article.tags
             %span.tags
-              - if tags.size > 0
+              - if current_article.tags.size > 0
                 tagged with
-              - tags.each do |tag|
-                %a{:href => "/#{@blog_name}/tags.html#tag-#{tag.strip}"}
+              - current_article.tags.each do |tag|
+                %a{:href => "/#{@blog_name}/tags.html#tag-#{tag}"}
                   = tag
       #disqus_thread
       :javascript
@@ -57,8 +56,8 @@
         comments powered by
         %span.logo-disqus Disqus
   - content_for :scripts do
-    - if is_blog?(current_page)
-      -#= javascript_include_tag 'jquery.touchy.js'
-      = javascript_include_tag 'jquery.touchSwipe.js'
-      = javascript_include_tag 'blog_swipe.js'
+    - if current_article
+      - #= javascript_include_tag 'jquery.touchy.js'
+      - #= javascript_include_tag 'jquery.touchSwipe.js'
+      - #= javascript_include_tag 'blog_swipe.js'
   = yield

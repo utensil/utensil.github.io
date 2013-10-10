@@ -3,7 +3,7 @@ title: Calendar
 --- 
 -# coding: utf-8
 %section.calendar    
-  - blog.articles.group_by {|a| "#{a.date.year}年" }.each do |year, year_articles|
+  - blog('tech').articles.group_by {|a| "#{a.date.year}年" }.each do |year, year_articles|
     %h2= year
     - year_articles.group_by {|a| "#{a.date.month}月" }.each do |month, articles|
       %div{:id => "calendar-#{month}" }

@@ -4,12 +4,14 @@ title: Tags
 -# coding: utf-8
 %section.tags
   #tag_cloud
-  - blog.tags.each do |tag, articles|
+  - blog('tech').tags.each.sort_by{|tag, articles| -articles.size }.each do |tag_and_articles|
+    - tag = tag_and_articles[0]
+    - articles = tag_and_articles[1]
     %div{:id => "tag-#{tag}" }
       %h3
         = tag
       %ul.listing
-        - articles.reverse_each do |article|
+        - articles.each do |article|
           %li.listing-item
             %time{:datetime => article.date}=article.date.strftime('%Y-%m-%d')
             %a{:href => article.url}=article.title

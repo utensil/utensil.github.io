@@ -101,17 +101,24 @@ set :md, :layout_engine => :haml
 set :haml, :layout_engine => :haml #, :encoding => 'utf-8'
 
 with_layout 'tech_layout.haml' do
-  page "/tech/*"
+  page "/tech/*.html"
 end
 
 with_layout 'writings_layout.haml' do
-  page "/writings/*"
+  page "/writings/*.html"
 end
 
 require "middleman-blog"
 activate :blog do |tech_blog|
-  tech_blog.prefix = "tech"
+  tech_blog.name = 'tech'
+  tech_blog.prefix = 'tech'
   tech_blog.layout = 'tech_layout'
+end
+
+activate :blog do |writings_blog|
+  writings_blog.name = 'writings'
+  writings_blog.prefix = 'writings'
+  writings_blog.layout = 'writings_layout'
 end
 
 #ignore '/writings/*.md'
@@ -150,6 +157,3 @@ configure :build do
   # Or use a different image path
   # set :http_path, "/Content/images/"
 end
-
-require "lib/custom_helpers"
-helpers CustomHelpers
