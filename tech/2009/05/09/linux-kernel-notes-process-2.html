@@ -5,16 +5,16 @@
     <!-- Always force latest IE rendering engine (even in intranet) &amp; Chrome Frame -->
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
     <!--[if (lt IE 9)&(!IEMobile)]>
-      <script src="/javascripts/html5.js?1372327946" type="text/javascript"></script>
+      <script src="/javascripts/html5.js?1381507010" type="text/javascript"></script>
     <![endif]-->
     <meta content='width=device-width, initial-scale=1.0' name='viewport'>
     <title>Linux 2.6内核笔记【Process-2：切换】</title>
-    <link href="/stylesheets/site.css?1372327964" media="screen" rel="stylesheet" type="text/css" />
-    <link href="/stylesheets/blog.css?1372327964" media="screen" rel="stylesheet" type="text/css" />
-    <link href="/stylesheets/highlight/sunburst.css?1372327964" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/site.css?1381507014" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/blog.css?1381507014" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/highlight/sunburst.css?1381507014" media="screen" rel="stylesheet" type="text/css" />
     
     <!--[if lt IE 9]>
-      <script src="/javascripts/respond.js?1372327931" type="text/javascript"></script>
+      <script src="/javascripts/respond.js?1381507006" type="text/javascript"></script>
     <![endif]-->
   </head>
   <body class=''>
@@ -130,20 +130,20 @@
                                &quot;1:\t&quot;                                              
                                &quot;popl %%ebp\n\t&quot;                                    
                                &quot;popfl&quot;                                             
-                               :&quot;=m&quot; (prev-&gt;thread.esp),&quot;=m&quot; (prev-&gt;thread.eip),   
+                               :&quot;=m&quot; (prev->thread.esp),&quot;=m&quot; (prev->thread.eip),   
                                 &quot;=a&quot; (last),&quot;=S&quot; (esi),&quot;=D&quot; (edi)                  
-                               :&quot;m&quot; (next-&gt;thread.esp),&quot;m&quot; (next-&gt;thread.eip),     
+                               :&quot;m&quot; (next->thread.esp),&quot;m&quot; (next->thread.eip),     
                                 &quot;2&quot; (prev), &quot;d&quot; (next));                           
             } while (0)
             </code></pre>
             
             <p>简单解说一下这里用到的gcc的inline汇编语法。首先看上去像是汇编代码的自然就是汇编代码了，每个指令写到一对&quot;&quot;中（这是换行接着写同一个 string的好办法）还要加\n\t实在是比较麻烦但还算清晰可读。如果熟悉AT&amp;T的汇编语法，读起来不是难事。</p>
             
-            <p>第一个冒号后面有很多类似于&quot;=m&quot; (prev-&gt;thread.esp)的东东以逗号相隔，这些是这段汇编所输出的操作数，=表达了这个意思。其中m代表内存中的变量，a代 表%eax，S代表%esi，D代表%edi。但&quot;=m&quot; (prev-&gt;thread.esp)和&quot;=a&quot;(last)是完全不同的输出方向，前者在movl %%esp,%0一句中（%0代表了prev-&gt;thread.esp）把%esp的内容输出给了prev-&gt;thread.esp，后者则 独立成句，直接在整段汇编的最后自动将last的值写到%eax，完成了last的使命。</p>
+            <p>第一个冒号后面有很多类似于&quot;=m&quot; (prev->thread.esp)的东东以逗号相隔，这些是这段汇编所输出的操作数，=表达了这个意思。其中m代表内存中的变量，a代 表%eax，S代表%esi，D代表%edi。但&quot;=m&quot; (prev->thread.esp)和&quot;=a&quot;(last)是完全不同的输出方向，前者在movl %%esp,%0一句中（%0代表了prev->thread.esp）把%esp的内容输出给了prev->thread.esp，后者则 独立成句，直接在整段汇编的最后自动将last的值写到%eax，完成了last的使命。</p>
             
             <p>第二个冒号后面的则是输入给这段汇编的操作数。其中d代表%edx。2代表了prev的值将与%2（也就是&quot;=a&quot;(last)）共用一个寄存器。</p>
             
-            <p>这些操作数在汇编中以%n（n是数字）的形式引用，输出和输入站在一个队里报数：输出的第一个是%0，顺次递增，到了&quot;m&quot; (next-&gt;thread.esp)就排到了%5，依此类推。</p>
+            <p>这些操作数在汇编中以%n（n是数字）的形式引用，输出和输入站在一个队里报数：输出的第一个是%0，顺次递增，到了&quot;m&quot; (next->thread.esp)就排到了%5，依此类推。</p>
             
             <p>本来还应该有一个冒号，用来告诉编译器会被破坏的寄存器（因为笨笨的C编译器认为只有他自己在改寄存器，常常自作主张作出假设进行优化）。这里中途 在jmp __switch_to我们的确破坏过%eax，但我们巧妙地改回来了（看下面），我们也破坏了%ebp和eflags，但我们通过一对push和pop 却也恢复了它们。因此我们不需要告诉编译器我们改过，因为我们改回来了。</p>
             
@@ -162,16 +162,16 @@
             pushfl  
             pushl %ebp  
             
-            %esp =&gt; prev-&gt;thread.esp   /*保存了prev的esp */  
-            next-&gt;thread.esp =&gt; %esp   /*读出next之前保存的esp。这个时候，由于esp被改成了next的Kernel Stack，而标示process的thread_info挨着esp（参见笔记process-1中的对current的解释），我们现在实际变成了是在进程next的语境中执行了。不过我们还没有真正开始执行next自己的代码，且看下面 */  
+            %esp =&gt; prev->thread.esp   /*保存了prev的esp */  
+            next->thread.esp =&gt; %esp   /*读出next之前保存的esp。这个时候，由于esp被改成了next的Kernel Stack，而标示process的thread_info挨着esp（参见笔记process-1中的对current的解释），我们现在实际变成了是在进程next的语境中执行了。不过我们还没有真正开始执行next自己的代码，且看下面 */  
             
-            1 =&gt; prev-&gt;thread.eip /*把标号为1的代码的地址存入prev-&gt;thread.eip中，以备将来恢复。如果有人不知道，说明一下：CPU的eip寄存器中放的是CPU要执行的下一行代码的地址 */  
+            1 =&gt; prev->thread.eip /*把标号为1的代码的地址存入prev->thread.eip中，以备将来恢复。如果有人不知道，说明一下：CPU的eip寄存器中放的是CPU要执行的下一行代码的地址 */  
             
             /* 正是下面这两句的巧妙配合使得这两句执行完后，CPU完完全全跑去执行next代码，不再执行后面的代码。这也正是原书没有讲清楚的（过于分散了），各位读者注意咯!*/  
             
-            pushl next-&gt;thread.eip /* 把原先保存下来的next的下一条指令地址，push到next的Kernel stack顶部。这个next-&gt;thread.eip通常储存的是next被切换之前push进stack的那个标号为1的代码地址（简称：next的1），但如果next从未被切换过，即是一个刚被fork了、新开始执行的进程，那么存在next-&gt;thread.eip中的就是 ret_from_fork()函数的起始地址。 */  
+            pushl next->thread.eip /* 把原先保存下来的next的下一条指令地址，push到next的Kernel stack顶部。这个next->thread.eip通常储存的是next被切换之前push进stack的那个标号为1的代码地址（简称：next的1），但如果next从未被切换过，即是一个刚被fork了、新开始执行的进程，那么存在next->thread.eip中的就是 ret_from_fork()函数的起始地址。 */  
             
-            jmp __switch_to /* __switch_to是一个用寄存器来传达参数的函数，里面执行了检查、保存FPU、保存debug寄存器等琐事。重点是：__switch_to是一个函数！这里居然用的是jmp而不是call！这正是巧妙之处。__switch_to()作为一个函数执行完了之后会返回(ret)，但由于我们不是call它的（call 会自动把下一条指令的地址push入stack顶部，相应地返回的时候ret会从stack的顶部获取返回地址——下一条指令的地址，这是一种完美的配合），ret就把上一句push入stack顶部的next-&gt;thread.eip当作下一条指令了，于是我们就自然而然地顺着next之前执行的地址执行下去了，直到下一次process切换回来。 */  
+            jmp __switch_to /* __switch_to是一个用寄存器来传达参数的函数，里面执行了检查、保存FPU、保存debug寄存器等琐事。重点是：__switch_to是一个函数！这里居然用的是jmp而不是call！这正是巧妙之处。__switch_to()作为一个函数执行完了之后会返回(ret)，但由于我们不是call它的（call 会自动把下一条指令的地址push入stack顶部，相应地返回的时候ret会从stack的顶部获取返回地址——下一条指令的地址，这是一种完美的配合），ret就把上一句push入stack顶部的next->thread.eip当作下一条指令了，于是我们就自然而然地顺着next之前执行的地址执行下去了，直到下一次process切换回来。 */  
             
             /* .......下面的代码不会继续执行......直到进程切换回来然后跳到prev的1 */  
             
@@ -233,8 +233,8 @@
         </div>
       </div>
     </div>
-    <script src="/javascripts/jquery-1.7.1.js?1372327917" type="text/javascript"></script>
-    <script src="/javascripts/highlight.pack.js?1372327951" type="text/javascript"></script>
+    <script src="/javascripts/jquery-1.7.1.js?1381507009" type="text/javascript"></script>
+    <script src="/javascripts/highlight.pack.js?1381507011" type="text/javascript"></script>
     <script>
       hljs.initHighlightingOnLoad();
       $(document).ready(function() {          
@@ -247,8 +247,8 @@
       mixpanel.track("visit");
     </script>
     <!-- ! end Mixpanel -->
-    <script src="/javascripts/jquery.touchSwipe.js?1372327877" type="text/javascript"></script>
-    <script src="/javascripts/blog_swipe.js?1372328734" type="text/javascript"></script>
+    <script src="/javascripts/jquery.touchSwipe.js?1381507004" type="text/javascript"></script>
+    <script src="/javascripts/blog_swipe.js?1381507012" type="text/javascript"></script>
   </body>
 </html>
 
