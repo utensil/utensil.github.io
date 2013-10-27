@@ -23,3 +23,7 @@ Caution: make your working directory clean before you do this (either stash or c
 WARNING: All pages (even those created on private repos) will be publicly viewable
 
 * It may take up to 10 minutes to activate GitHub Pages for your account
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/utensil/utensil.github.com/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
