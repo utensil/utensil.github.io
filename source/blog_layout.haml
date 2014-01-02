@@ -37,8 +37,8 @@
     - code_mode = (current_page.data.code_mode || '').split(/\|/)
     - if code_mode.include?('math')
       - # = javascript_include_tag 'mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
-      - # = javascript_include_tag 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
-      = javascript_include_tag 'http://mathjax.connectmv.com/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+      = javascript_include_tag 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+      - # = javascript_include_tag 'http://mathjax.connectmv.com/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
       :javascript
         MathJax.Hub.Config({
           TeX: { 
