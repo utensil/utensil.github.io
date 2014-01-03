@@ -1,25 +1,50 @@
-## Instructions for setting up __username.github.com__ *
+utensil.github.io
+=====================
 
-  Create a repo named username.github.com
-  Push a `master` branch to GitHub and enjoy!
+My personal blog, including my technical blog and my writings.
 
-## Instructions for setting up __username.github.com/repo-name__ *
+How To
+--------
+
+### Prepare
 
 ```
-  cd /path/to/repo-name
-  git symbolic-ref HEAD refs/heads/gh-pages
-  rm .git/index
-  git clean -fdx
-  echo "My GitHub Page" > index.html
-  git add .
-  git commit -a -m "First pages commit"
-  git push origin gh-pages
+#for editing the source
+git clone git@github.com:utensil/utensil.github.com.git utensil-middleman
+cd utensil-middleman/
+git checkout -b middleman origin/middleman
+gem install bundler
+bundle
+
+#for publishing
+cd ..
+git clone git@github.com:utensil/utensil.github.com.git utensil.github.com
+```
+### Run
+
+```
+cd utensil-middleman/
+bundle exec middleman server
 ```
 
-[Read the Full Documentation](http://pages.github.com/)
+### Build
 
-Caution: make your working directory clean before you do this (either stash or commit), otherwise this will lose any changes you've made to your project since the last commit.
+```
+cd utensil-middleman/
+bundle exec middleman build
+```
 
-WARNING: All pages (even those created on private repos) will be publicly viewable
+### Publish
 
-* It may take up to 10 minutes to activate GitHub Pages for your account
+```
+cd utensil.github.com
+cp -rf ../utensil-middleman/build/* ./
+git commit -a -m 'commit log'
+git push origin
+```
+
+Licence
+--------
+
+MIT Licence, see LICENCE.
+Copyright (c) 2011-2014 Utensil Song (https://github.com/utensil)
