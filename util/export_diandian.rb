@@ -5,7 +5,9 @@ require 'open-uri'
 require 'nokogiri'
 
 pinyin = PinYin::PinYin.instance
-next_page_link = 'http://utensil-river.diandian.com/post/2013-03-18/40048129304'
+# paste the newest link here
+next_page_link = 'http://utensil-river.diandian.com/post/2014-01-05/40060688236'
+stop_link = 'http://utensil-river.diandian.com/post/2013-03-18/40048129304'
 doc = Nokogiri::HTML(open(next_page_link).read)
 
 while true do
@@ -31,9 +33,11 @@ while true do
     end
   end
 
-  next_page_link = (doc/'.pageturn a.next_page')
+  next_page_link = (doc/'.pageturn a.next_page') 
+
   if next_page_link.size > 0
     next_page_link = next_page_link[0].attr('href')
+    break if next_page_link == stop_link
     doc = Nokogiri::HTML(open(next_page_link).read)
   else
     break
