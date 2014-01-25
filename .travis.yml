@@ -1,0 +1,13 @@
+branches:
+  only:
+  - middleman
+language: ruby
+before_script:
+- export REPO_URL="https://$GH_TOKEN@github.com/$GH_REPO.git"
+- ./deploy/pre_deploy.sh
+script:
+- ./deploy/deploy.sh
+env:
+  global:
+  - GH_REPO="utensil/utensil.github.com"
+  - secure: SdOIScKsnxAlITLntlgNL9J6UswGJdW9q23GZaSuHDoDgUOVGgqFpyDZBGqAJ2g7VVI3xTccGJevZDEE7J8MmakEKwEsLpVVUoeKdnfkAm4kct0GREA1DNB0YL+2fbJIaMFGWc75/YVUjKxBQloWs/4DDhWmVxd9Xwi3Q+ekQPI=
