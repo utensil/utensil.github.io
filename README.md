@@ -1,10 +1,12 @@
 utensil.github.io
 =====================
 
+[![Build Status](https://travis-ci.org/utensil/utensil.github.com.png?branch=middleman)](https://travis-ci.org/utensil/utensil.github.com)
+
 My personal blog, including my technical blog and my writings.
 
-How To
---------
+How To Build Manually
+------------------------
 
 ### Prepare
 
