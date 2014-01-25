@@ -3,10 +3,10 @@ branches:
   - middleman
 language: ruby
 before_script:
-- # nothing
+- 
 script:
 - bash ./deploy/deploy.sh
 env:
   global:
   - GH_REPO="utensil/utensil.github.com"
-  - secure: SdOIScKsnxAlITLntlgNL9J6UswGJdW9q23GZaSuHDoDgUOVGgqFpyDZBGqAJ2g7VVI3xTccGJevZDEE7J8MmakEKwEsLpVVUoeKdnfkAm4kct0GREA1DNB0YL+2fbJIaMFGWc75/YVUjKxBQloWs/4DDhWmVxd9Xwi3Q+ekQPI=
+  - secure: qliv3YR2/dxC744o7SjEnFrhTtAGgGrnNV9LM+kZPiyhaMvHfo7cuVKdWkgnkTM9z0gNkOXJIcs4PSV/TzbHEQfc5Y9ia7++tzPz5JNmR3Cko3AwdtZAjkN9EEwSSFynH11zycU+rFT+0qVoEOstrDMirKyVM56U0+TbBpb/lNU=

@@ -35,4 +35,4 @@ git config remote.origin.url $REPO_URL
 git add -f .
 git commit -m "$lastCommit"
 git config remote.origin.url
-git push origin
+git push -q origin
