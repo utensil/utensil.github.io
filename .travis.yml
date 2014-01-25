@@ -9,4 +9,4 @@ script:
 env:
   global:
   - GH_REPO="utensil/utensil.github.com"
-  - secure: qliv3YR2/dxC744o7SjEnFrhTtAGgGrnNV9LM+kZPiyhaMvHfo7cuVKdWkgnkTM9z0gNkOXJIcs4PSV/TzbHEQfc5Y9ia7++tzPz5JNmR3Cko3AwdtZAjkN9EEwSSFynH11zycU+rFT+0qVoEOstrDMirKyVM56U0+TbBpb/lNU=
+  - secure: PHXX9ejyJhWD8y288Q3aUmABYLxzUf55JQCWMmoB3a+XYANXddnZsQPrTALhluzuxZX/x3xlNKirGZasu22NGP5ftWf2Uvf23ySEMJVdtIdYV7rl8ihPmduwVmCJDM76Q4yc8ZFEAZXvLW5Kzzqz3fKIvuYyXcNlz1MAFkV1iF4=
