@@ -6,8 +6,8 @@ require 'nokogiri'
 
 pinyin = PinYin::PinYin.instance
 # paste the newest link here
-next_page_link = 'http://utensil-river.diandian.com/post/2014-01-05/40060688236'
-stop_link = 'http://utensil-river.diandian.com/post/2013-03-18/40048129304'
+next_page_link = 'http://utensil-river.diandian.com/post/2014-07-22/40062272726'
+stop_link = 'http://utensil-river.diandian.com/post/2014-01-05/40060688236'
 doc = Nokogiri::HTML(open(next_page_link).read)
 
 while true do
