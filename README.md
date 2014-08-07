@@ -48,5 +48,6 @@ git push origin
 Licence
 --------
 
-MIT Licence, see LICENCE.
+Codes are licensed by MIT License, see `LICENSE.md`. Blog contents are licensed by [(CC) BY-NC-ND](http://creativecommons.org/licenses/by-nc-nd/3.0/).
+
 Copyright (c) 2011-2014 Utensil Song (https://github.com/utensil)
