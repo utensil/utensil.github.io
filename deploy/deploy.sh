@@ -5,8 +5,8 @@
 git clone --depth=50 --branch=master git://github.com/utensil/utensil.github.com.git build
 (
   cd build
-  # remove all files except .git and .travis.yml
-  ls -1|xargs rm -rf
+  # remove all files except README.md, .git and .travis.yml
+  ls -1|grep -v README.md|xargs rm -rf
 )
 
 # build site to "build"
@@ -33,6 +33,6 @@ git remote add origin $REPO_URL
 git config remote.origin.url $REPO_URL
 
 git add -f .
-git rm $(git ls-files --deleted)
+git rm $(git ls-files --deleted|grep -v README.md)
 git commit -m "$lastCommit"
 git push -q origin
