@@ -33,5 +33,6 @@ git remote add origin $REPO_URL
 git config remote.origin.url $REPO_URL
 
 git add -f .
+git rm $(git ls-files --deleted)
 git commit -m "$lastCommit"
 git push -q origin
