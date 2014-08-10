@@ -11,7 +11,7 @@ git clone --depth=50 --branch=master git://github.com/utensil/utensil.github.com
 
 # build site to "build"
 
-bundle exec middleman build
+bundle exec middleman build --verbose
 
 lastCommit=$(git log --oneline | head -n 1)
 
