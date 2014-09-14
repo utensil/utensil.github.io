@@ -6,7 +6,11 @@ code_mode: math
 
 > 本文目前是草稿状态。
 
-范畴理论（Category Theory）
+本文拟覆盖如下内容：
+
+* 基础：集、群、环、场
+* 范畴理论（Category Theory）
+* Topos
 
 Related to :
 
@@ -32,6 +36,18 @@ Books:
 
 * [Group Theory](http://birdtracks.eu/version9.0/index.html)
 * [Geometry, Topology and Physics, Second Edition](http://www.amazon.com/Geometry-Topology-Physics-Edition-Graduate/dp/0750306068/ref=sr_1_1?ie=UTF8&qid=1410699218&sr=8-1)
+
+Wikipedia:
+
+* http://zh.wikipedia.org/wiki/范畴论
+* http://en.wikipedia.org/wiki/Topos
+* http://en.wikipedia.org/wiki/Category_theory
+* http://en.wikipedia.org/wiki/Set_(mathematics)
+* http://en.wikipedia.org/wiki/Group_(mathematics)
+* http://en.wikipedia.org/wiki/Ring_(mathematics)
+* http://en.wikipedia.org/wiki/Field_(mathematics)
+* http://en.wikipedia.org/wiki/Monomorphism
+* http://en.wikipedia.org/wiki/Epimorphism
 
 
 
