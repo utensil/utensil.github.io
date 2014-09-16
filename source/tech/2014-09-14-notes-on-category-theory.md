@@ -51,7 +51,14 @@ Wikipedia:
 * http://en.wikipedia.org/wiki/Monomorphism
 * http://en.wikipedia.org/wiki/Epimorphism
 
+Prefixes and Postfixes:
 
+* homo-
+* epi-
+* mono-
+* iso-
+* -oid
+* -ism
 
 
 
