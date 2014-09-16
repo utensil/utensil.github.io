@@ -46,6 +46,8 @@ Wikipedia:
 * http://en.wikipedia.org/wiki/Group_(mathematics)
 * http://en.wikipedia.org/wiki/Ring_(mathematics)
 * http://en.wikipedia.org/wiki/Field_(mathematics)
+* http://en.wikipedia.org/wiki/Groupoid
+* http://en.wikipedia.org/wiki/Homotopy
 * http://en.wikipedia.org/wiki/Monomorphism
 * http://en.wikipedia.org/wiki/Epimorphism
 
