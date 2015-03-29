@@ -222,12 +222,12 @@ code_mode: math|lang
 
   后台式的语法高亮不好。人们总是喜欢用python的[pygments](http://pygments.org/)，哪怕在ruby里架个桥都要用，我是不能忍。ruby自己的[coderay](http://coderay.rubychan.de/)不够出色，能高亮的语言也少。这些倒也罢了。后台做的高亮，把html搞得一团糟，样式和html搅在一起，不能忍。
 
-  所以选择了js来做这个事情，Html里就是一段`pre > code`。具体选择的是[Highlight.js](http://softwaremaniacs.org/soft/highlight/en/)。它支持的语言还算够多，还能认出语言，甚至在语言混合的情况下，自适应地尝试给出最合乎预期的结果。
+  所以选择了js来做这个事情，Html里就是一段`pre > code`。具体选择的是[Highlight.js](https://highlightjs.org/)。它支持的语言还算够多，还能认出语言，甚至在语言混合的情况下，自适应地尝试给出最合乎预期的结果。
 
-  样式我选择了暗色调的Sunburst主题：
+  样式我选择了暗色调的Railscasts主题：
 
   ```haml
-  = stylesheet_link_tag "highlight/sunburst.css"    
+  = stylesheet_link_tag "highlight/railscasts.css"    
   ```
 
   对于一个物理爱好者而言，数学、物理公式也是刚需。我选择了js的[MathJax](http://www.mathjax.org/)。它的书写自然是用[LaTaX](http://www.tug.org/texshowcase/)的子集。它的渲染支持Html+CSS+WebFonts/png，支持SVG，支持MathML，其中SVG看起来最顺眼舒适。
@@ -264,9 +264,9 @@ code_mode: math|lang
               {
                 all[i].SourceElement().parentNode.className += ' has-jax';
               }
-              if(all[i].SourceElement().parentNode.className.indexOf('no-highlight') == -1)
+              if(all[i].SourceElement().parentNode.className.indexOf('nohighlight') == -1)
               {
-                all[i].SourceElement().parentNode.className += ' no-highlight';
+                all[i].SourceElement().parentNode.className += ' nohighlight';
               }
           }
       });
@@ -296,7 +296,7 @@ code_mode: math|lang
 
   这是上面那段LaTex用MathJax渲染之后的效果：
 
-  ```no-highlight
+  ```nohighlight
   When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
   $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
   ```
@@ -304,7 +304,7 @@ code_mode: math|lang
   它的markdown源代码的关键是：
 
   <pre><code class="markdown">
-    ```no-highlight
+    ```nohighlight
       ……公式内容……
     ```
   </code></pre>

@@ -241,19 +241,13 @@ RTX插件
 
 ### 带概率的逻辑方面（主要是Markov Logic Network）
 
-[Markov logic network](http://en.wikipedia.org/wiki/Markov_logic_network)
-
-[Alchemy - Open Source AI](http://alchemy.cs.washington.edu/) [onlineengine](http://alchemy.cs.washington.edu/api/html/index.html)
-
-[Alchemy 2.0: Probabilistic theorem proving ](https://code.google.com/p/alchemy-2/)
-
-[markov thebeast: Markov Logic / Statistical Relational Learning Software](https://code.google.com/p/thebeast/)
-
-[machine learning open source software](http://mloss.org/software/)
-
-[An Exercise with Statistical Relational Learning Systems](https://lirias.kuleuven.be/bitstream/123456789/230569/1/srl)
-
-[PRISM is a general programming language intended for symbolic-statistical modeling](http://sato-www.cs.titech.ac.jp/prism/)
+* [Markov logic network](http://en.wikipedia.org/wiki/Markov_logic_network)
+* [Alchemy - Open Source AI](http://alchemy.cs.washington.edu/) [onlineengine](http://alchemy.cs.washington.edu/api/html/index.html)
+* [Alchemy 2.0: Probabilistic theorem proving ](https://code.google.com/p/alchemy-2/)
+* [markov thebeast: Markov Logic / Statistical Relational Learning Software](https://code.google.com/p/thebeast/)
+* [machine learning open source software](http://mloss.org/software/)
+* [An Exercise with Statistical Relational Learning Systems](https://lirias.kuleuven.be/bitstream/123456789/230569/1/srl)
+* [PRISM is a general programming language intended for symbolic-statistical modeling](http://sato-www.cs.titech.ac.jp/prism/)
 
 ### 书籍
 

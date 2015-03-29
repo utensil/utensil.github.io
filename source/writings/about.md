@@ -1,5 +1,6 @@
 ---
 title: About
+blog: writings
 ---
 
 这里是自己文字的采撷。以及一些自己喜欢的文字的摘抄。

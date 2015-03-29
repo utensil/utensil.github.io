@@ -1,10 +1,11 @@
 ---
 title: Tags
+blog: tech
 ---
 -# coding: utf-8
 %section.tags
   #tag_cloud
-  - blog('tech').tags.each.sort_by{|tag, articles| -articles.size }.each do |tag_and_articles|
+  - blog.tags.each.sort_by{|tag, articles| -articles.size }.each do |tag_and_articles|
     - tag = tag_and_articles[0]
     - articles = tag_and_articles[1]
     %div{:id => "tag-#{tag}" }
