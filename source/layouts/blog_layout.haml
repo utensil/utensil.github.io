@@ -52,7 +52,7 @@
             / = safe_yield_content :header
             %h1
               = current_page.data['title']
-          %article
+          %article.markdown-body
             = yield
             - if is_blog_article? 
               %section.meta
