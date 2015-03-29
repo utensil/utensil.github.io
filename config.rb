@@ -71,7 +71,7 @@
   # set :http_prefix, "/Content/images/"
 # end
 
-
+Time.zone = 'Hongkong'
 set :encoding,    "utf-8"
 
 require "redcarpet"
@@ -88,6 +88,19 @@ module Haml::Filters::Redcarpet
                   #:smartypants => true,
                   #:superscript => true ,
                   :space_after_headers => true).render(text)
+  end
+end
+
+helpers do
+  def safe_yield_content(symbol)
+    ret = ""
+    begin
+      ret = yield_content symbol
+    rescue Exception => e
+      ret = "#{symbol}\n#{e.message}\n#{e.backtrace.inspect}"
+      puts ret
+    end
+    return ret
   end
 end
 
@@ -112,20 +125,22 @@ set :haml, :layout_engine => :haml #, :encoding => 'utf-8'
 #   page "/writings/*.html"
 # end
 
-page "/tech/*.html", :layout => 'tech_layout'
-page "/writings/*.html", :layout => 'writings_layout'
+page "/tech/*.html", :layout => 'blog_layout'
+page "/writings/*.html", :layout => 'blog_layout'
+
+set :layout, false
 
 require "middleman-blog"
 activate :blog do |tech_blog|
   tech_blog.name = 'tech'
   tech_blog.prefix = 'tech'
-  tech_blog.layout = 'tech_layout'
+  tech_blog.layout = 'blog_layout'
 end
 
 activate :blog do |writings_blog|
   writings_blog.name = 'writings'
   writings_blog.prefix = 'writings'
-  writings_blog.layout = 'writings_layout'
+  writings_blog.layout = 'blog_layout'
 end
 
 #ignore '/writings/*.md'
@@ -133,12 +148,6 @@ end
 
 ignore '**/Thumbs.db'
 ignore '*_layout.haml'
-
-
-#activate :blog do |writings_blog|
-#  writings_blog.prefix = "writings"
-#  writings_blog.layout = 'writings_layout'
-#end
 
 # Build-specific configuration
 configure :build do
