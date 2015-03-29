@@ -11,4 +11,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw] # http://stackoverflo
 #gem 'haml-coderay'
 # gem 'nokogiri', '~> 1.6' # see https://github.com/sparklemotion/nokogiri/issues/1256
 #gem 'middleman-minify-html' 
-gem 'wdm', '~> 0.1', platforms: [:mingw, :mswin, :x64_mingw]
+gem 'wdm', '~> 0.1', platforms: [:mingw, :mswin]
