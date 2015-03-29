@@ -1,6 +1,9 @@
+---
+blog: tech
+---
 <%
   tag_array =  []
-  blog('tech').tags.each do |tag, articles|
+  blog.tags.each do |tag, articles|
     tag_array << {text: tag, weight: articles.size, link: "#tag-#{tag}"}
   end 
 %>

@@ -1,6 +1,9 @@
+---
+blog: writings
+---
 <%
   tag_array =  []
-  blog('writings').tags.each do |tag, articles|
+  blog.tags.each do |tag, articles|
     if articles.size > 1
       tag_array << {text: tag, weight: articles.size, link: "#tag-#{tag}"}
     end
