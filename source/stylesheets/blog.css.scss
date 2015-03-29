@@ -4,8 +4,25 @@
 /*
  * Variables
  */
-$text_font: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", 'Microsoft Yahei', Tahoma;
+$header_font: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", "Microsoft Yahei", Tahoma;
+$text_font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $color_locust_approx: #98b58d;
+
+@font-face {
+  font-family: 'Fantasque Sans Mono Regular';
+      src: url('fonts/FantasqueSansMono-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Fantasque Sans Mono Regular';
+      src: url('fonts/FantasqueSansMono-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+$code_font: "Fantasque Sans Mono Regular", Helvetica,arial,nimbussansl,liberationsans,freesans,clean,sans-serif,"Segoe UI Emoji","Segoe UI Symbol";
 
 /*
  * Skelton
@@ -38,8 +55,10 @@ $color_locust_approx: #98b58d;
 // Overrides
 .markdown-body {
 
+  font-family: $text_font;
+
   h1, h2, h3, h4, h5, h6 {
-    font-family: $text_font;
+    font-family: $header_font;
   }
 
   h1 {
@@ -68,7 +87,7 @@ $color_locust_approx: #98b58d;
   }
 
   p {
-    //font-family: $text_font;
+    font-family: $text_font;
     font-size: 16px;
   }
 
@@ -76,7 +95,7 @@ $color_locust_approx: #98b58d;
     display: block;
     padding: 8.5px;
     margin: 0px 0px 9px;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 18px;
     background-color: #F5F5F5;
     border: 1px solid rgba(0, 0, 0, 0.15);
@@ -84,12 +103,18 @@ $color_locust_approx: #98b58d;
     white-space: pre-wrap;
     word-break: break-all;
     word-wrap: break-word;
-    
+    font-family: $code_font;
+
     code {
         display: block;
         padding: 0.5em;
         background: none repeat scroll 0% 0% #000;
         color: #F8F8F8;
+        white-space: pre-wrap; /* css-3 */
+        white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+        white-space: -pre-wrap; /* Opera 4-6 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        word-wrap: break-word; /* Internet Explorer 5.5+ */
     }
   }
 }
@@ -109,12 +134,12 @@ header {
   margin-bottom: 1em;
 
   h1 {
-    font-family: $text_font;
+    font-family: $header_font;
     margin-bottom: 0.2em;
   }
 
   & > div.article_nav {
-    font-family: $text_font;
+    font-family: $header_font;
     display: block;
     height: 1.6em; 
 
@@ -204,7 +229,7 @@ aside.sidebar {
 
 #tag_cloud {
   //margin:2em auto;
-  font-family: $text_font;
+  font-family: $header_font;
   box-shadow: 0 0 5px 3px hsla(0, 0%, 0%, 0.65);
   padding: 5px 5px 5px 5px;
 }

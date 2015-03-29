@@ -11,7 +11,7 @@
     %title= current_page.data.title
     = stylesheet_link_tag 'site.css'
     = stylesheet_link_tag 'blog.css'
-    = stylesheet_link_tag 'highlight/sunburst.css'    
+    = stylesheet_link_tag 'highlight/railscasts.css'    
     = safe_yield_content :head
     /[if lt IE 9]
       = javascript_include_tag 'respond.js'
@@ -116,9 +116,9 @@
                 {
                   all[i].SourceElement().parentNode.className += ' has-jax';
                 }
-                if(all[i].SourceElement().parentNode.className.indexOf('no-highlight') == -1)
+                if(all[i].SourceElement().parentNode.className.indexOf('nohighlight') == -1)
                 {
-                  all[i].SourceElement().parentNode.className += ' no-highlight';
+                  all[i].SourceElement().parentNode.className += ' nohighlight';
                 }
             }
         });
