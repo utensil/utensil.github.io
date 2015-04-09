@@ -1,6 +1,7 @@
 ---
 title: Kenneth C.Louden的《程序设计语言——原理与实践》的一点笔记
 tags: 读书笔记
+date: 2007-08-29 17:00:00 +0800
 ---
 
 编程范式：面向对象程序设计（C++、Java、Smalltalk）、函数式程序设计（Scheme、Haskell、ML）、逻辑式程序设计（Prolog）。

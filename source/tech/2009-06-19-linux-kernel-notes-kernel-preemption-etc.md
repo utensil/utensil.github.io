@@ -1,6 +1,7 @@
 ---
 title: Linux 2.6内核笔记【中断、异常、抢占内核】
 tags: 内核, linux, 读书笔记
+date: 2009-06-19 12:00:00 +0800
 ---
 
 > 2009.6.18更新：参考http://linux.derkeiler.com/Mailing-Lists/Kernel/2004-03/4562.html ，查证LXR，重新诠释PREEMPT_ACTIVE标志。
