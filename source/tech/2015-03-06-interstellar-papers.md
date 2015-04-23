@@ -74,3 +74,8 @@ Kip Thorne在《The Science of Interstellar》的纪录片里说，这次对虫�
 
 所以原来诺兰电影关于穿越虫洞内部的影像是高度艺术化过了的物理……哭……我还是太天真了……
 
+本文以书评与影评的形式首发在豆瓣：
+
+* [书评](http://book.douban.com/review/7397525/)
+* [影评](http://movie.douban.com/review/7398149/)
+
