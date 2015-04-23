@@ -1,6 +1,6 @@
---- 
+---
 title: 关于《Interstellar》里的黑洞与虫洞可视化的论文与其关键内容意译
-tags: 
+tags: 物理
 ---
 
 Kip Thorne在《The Science of Interstellar》的纪录片里说，这次对虫洞和黑洞的可视化，够他写2篇论文了。然后我就一直在找他写的那2篇论文。
