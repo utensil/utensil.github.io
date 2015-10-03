@@ -178,11 +178,11 @@ $$ w \wedge v = - v \wedge w $$
 
 的外代数 $ \wedge $。
 
-这个代数构成了$  \wedgeV $。
+这个代数构成了$  \wedge V $。
 
 严格的代数规则见书中，其中这个反交换规则是不包含在内的，而是作为一个自然的推论。
 
-我们定义p-形式为“p个1-形式的$  \wedgeV $乘”的线性组合。
+我们定义p-形式为“p个1-形式的$  \wedge V $乘”的线性组合。
 
 一般情况下，p-形式具有如下的形式：
 
@@ -225,7 +225,7 @@ $$ \nabla \times E + \partial_t B = 0 $$
 
 首先把B作为2-形式处理：
 
-`$$ B = B_x dy\wedgedz + B_y dz\wedgedx + B_z dx\wedgedy $$`
+`$$ B = B_x dy \wedge dz + B_y dz \wedge dx + B_z dx \wedge dy $$`
 
 E作为1-形式处理：
 
@@ -233,9 +233,9 @@ E作为1-形式处理：
 
 定义统一电磁场$ F $为$ R^4 $上的2-形式：
 
-$$ F = B + E\wedgedt $$
+$$ F = B + E \wedge dt $$
 
-$$ F =  \frac{1}{2} F_{\mu\upsilon} dx^\mu\wedgedx^\upsilon $$
+$$ F =  \frac{1}{2} F_{\mu\upsilon} dx^\mu \wedge dx^\upsilon $$
 
 其分量组成一个反对称的矩阵，见书中。
 
@@ -280,7 +280,7 @@ $$ \forall w \in V [ g(v, w) == 0 ]  \Rightarrow v = 0 $$
 
 正交，也就是满足：
 
-$$ g(e_\mu, e_\upsilon) = ( \mu==\upsilon ? 0 : \textpm 1 ) $$
+$$ g(e_\mu, e_\upsilon) = ( \mu==\upsilon ? 0 : ±1 ) $$
 
 $ Signature(p, q) $：$ q $是正交基中-1的数目。$ p+q=n $
 
@@ -383,7 +383,7 @@ $$ J = j - ρdt $$
 
 $$ *d*F=J $$
 
-根据上一节，我们知道：在$ R^4 $上，$ ** = \textpm 1 $
+根据上一节，我们知道：在$ R^4 $上，$ ** = ±1 $
 
 当$ **=1 $时，也就是当流形是黎曼的时候，书中讨论了2-形式的self-dual和anti-self-dual。
 
