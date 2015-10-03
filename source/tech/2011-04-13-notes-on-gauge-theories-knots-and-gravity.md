@@ -296,7 +296,7 @@ $$ g^{\mu\upsilon} = g_{\mu\upsilon}^{-1} $$
 
 定义1-形式的内积：
 
-`$$ <\omega, \mu> = g^{\alphaβ} \omega_\alpha \mu_β $$`
+`$$ <\omega, \mu> = g^{\alpha\beta} \omega_\alpha \mu_\beta $$`
 
 再定义 p-形式的内积：
 
@@ -377,7 +377,7 @@ $$ j = j_i dx^i $$
 
 在加上电荷成分，定义 current
 
-$$ J = j - ρdt $$
+$$ J = j - \rou dt $$
 
 按同样的把戏，不难验算第二对方程可以写成：
 
