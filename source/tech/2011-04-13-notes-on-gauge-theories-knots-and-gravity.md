@@ -1,4 +1,4 @@
---- 
+---
 title: 《规范场，扭结和引力》读书笔记
 tags: 物理, 读书笔记
 code_mode: math|lang
@@ -23,13 +23,13 @@ $$ *d*F=J $$
 
 本章意在以坐标无关的方式介绍流形。
 
-以开集、拓扑空间、领域等概念开场，介绍了$ chart $这种能够把拓扑空间映射为$ R^n $的东西，从而定义了$ n $维流形。
+以开集、拓扑空间、领域等概念开场，介绍了$ chart $这种能够把拓扑空间映射为$ \mathbb{R}^n $的东西，从而定义了$ n $维流形。
 
-从而自然也就可以把定义在$ n $维流形上的函数$ f $，通过$ f \rightarrow f \cdot chart^{-1} $的方式，变成了在$ R^n $上定义的函数。
+从而自然也就可以把定义在$ n $维流形上的函数$ f $，通过$ f \rightarrow f \cdot chart^{-1} $的方式，变成了在$ \mathbb{R}^n $上定义的函数。
 
 稍微讨论了一下流形的连续和光滑。
 
-$ C^∞(M) $ 表示流形$ M $上的光滑实值函数的集合。
+$ \mathbb{C}^{\infty}(M) $ 表示流形$ M $上的光滑实值函数的集合。
 
 第三章 Vector Fields
 --------------------------
@@ -38,23 +38,23 @@ $ C^∞(M) $ 表示流形$ M $上的光滑实值函数的集合。
 
 这一小节革新了我们对向量场的传统观念。
 
-不再把向量视为具有大小和方向的箭头，而视为在其方向上的对任意$ f $的方向导数，即$ v = v^μ \partial_μ $。
+不再把向量视为具有大小和方向的箭头，而视为在其方向上的对任意$ f $的方向导数，即$ v = v^\mu \partial_\mu $。
 
 进一步抽象地将流形$ M $上的向量场$ v $定义为：
 
-$$ v: C^∞(M) \rightarrow C^∞(M) $$
+$$ v: \mathbb{C}^{\infty}(M) \rightarrow \mathbb{C}^{\infty}(M) $$
 
 并且满足线性法则以及Leibniz法则:
 
 $$ v (f + g) = vf + vg $$
 
-$$ v (α f) = α vf $$
+$$ v (\alpha f) = \alpha vf $$
 
 $$ v(fg) = v(f) g + f v(g) $$
 
 并定义了向量场的和与积。
 
-随后证明了 `$ \\{ \partial_μ \\} $` 形成$ Vect(R^n) $的一组基，也即任意$ v $都可以唯一地表示为$ v^μ \partial_μ $的形式，。
+随后证明了 `$ \\{ \partial_\mu \\} $` 形成$ Vect(\mathbb{R}^n) $的一组基，也即任意$ v $都可以唯一地表示为$ v^\mu \partial_\mu $的形式，。
 
 综上，我们意识到了向量场的方向导数本质，并回归了向量的分量定义。
 
@@ -62,23 +62,23 @@ $ Vect(M) $，表示$ M $上所有向量场的集合。
 
 $ v $在点$ p $，定义了切向量。点$ p $的所有的切向量组成$ T_p M $。
 
-$ γ： R \rightarrow M $，定义了曲线。
+$ \gamma : R \rightarrow M $，定义了曲线。
 
 ### 第二小节  逆变和协变
 
 我稍微滥用一下定义域这个词来解释：
 
-如果有微分同胚（diffeomorphism）$ φ: M \rightarrow N $，另有$  f : N \rightarrow R $，那么：$ f φ ： M \rightarrow R $。
+如果有微分同胚（diffeomorphism）$ \phi: M \rightarrow N $，另有$  f : N \rightarrow R $，那么：$ f \phi ： M \rightarrow R $。
 
-如果我们定义 $ φ^* f = f  φ $，那么$ φ^* $就是一种把一个定义域在$ N $的函数$ f $“拉回（pullback）”定义域$ M $的操作。
+如果我们定义 $ \phi^* f = f  \phi $，那么$ \phi^* $就是一种把一个定义域在$ N $的函数$ f $“拉回（pullback）”定义域$ M $的操作。
 
 我们称实值函数$ f $具有逆变（contravariant）的性质，因为它在拉回操作下保持了同样的行为。
 
 那么再给出“推前（pushforward）”定义：
 
-$$ (φ_* v)f = v ( φ^* f ) $$
+$$ (\phi_* v)f = v ( \phi^* f ) $$
 
-其中，$ f: N \rightarrow R， v:  C^∞(M) \rightarrow C^∞(M)  $。
+其中，$ f: N \rightarrow R， v:  \mathbb{C}^{\infty}(M) \rightarrow \mathbb{C}^{\infty}(M)  $。
 
 注意看：
 右边是通过先把$ f $从定义域$ N $拉回到$ M $，然后将向量场作用其上。
@@ -92,11 +92,11 @@ $$ (φ_* v)f = v ( φ^* f ) $$
 
 ### 第三小节 流和李括号
 
-顺着$ v $，我们可以得到积分曲线$ γ $。想象一个点顺着$ γ $流动，在时间$ t $我们就得到了这么一个映射：
+顺着$ v $，我们可以得到积分曲线$ \gamma $。想象一个点顺着$ \gamma $流动，在时间$ t $我们就得到了这么一个映射：
 
-$$ φ_t : M \rightarrow M $$
+$$ \phi_t : M \rightarrow M $$
 
-$ \\{φ_t \\} $也就成为了$ v $生成的流。
+$ \\{\phi_t \\} $也就成为了$ v $生成的流。
 
 李括号其实很像柏松括号，或者说算符的互易子。
 
@@ -111,18 +111,18 @@ $$ [v, w] = v w - w v $$
 
 向量场是倒腾函数的，1-形式则是把向量场倒腾成另外的函数。
 
-$$ ω： Vect(M) \rightarrow C^∞(M) $$
+$$ \omega： Vect(M) \rightarrow \mathbb{C}^{\infty}(M) $$
 
 同样需要满足线性法则：
 
-$$ ω（v + w）= ω v + ω  w $$
-$$ ω (g v ) = g ω ( v ) $$
+$$ \omega（v + w）= \omega v + \omega  w $$
+$$ \omega (g v ) = g \omega ( v ) $$
 
 注意，这里从向量场定义里的数乘变成了函乘。
 
 同样，很容易定义1-形式的和与函积。
 
-$ Ω^1(M) $表示M上的所有1-形式的集合。
+$ \Omega^1(M) $表示M上的所有1-形式的集合。
 
 定义一种特殊的1-形式——外微分$ df $：
 
@@ -130,15 +130,15 @@ $$ df(v) = v f $$
 
 接下来通过对 $ d \sin x = \cos x dx $ 两边的分别变形，在外微分的语境下，阐释了微分形式不变形的真谛。
 
-$ \\{ dx^μ \\} $ 形成 1-形式在$ R^n $上的一组基。
+$ \\{ dx^\mu \\} $ 形成 1-形式在$ \mathbb{R}^n $上的一组基。
 
 于是可以定义：
 
-`$$ ω_μ = w(\partial_μ) $$`
+`$$ \omega_\mu = w(\partial_\mu) $$`
 
 得到：
 
-$$ ω = ω_μ dx^μ  $$
+$$ \omega = \omega_\mu dx^\mu  $$
 
 这样1-形式也被我们展开成了分量形式。
 
@@ -146,7 +146,7 @@ $$ ω = ω_μ dx^μ  $$
 
 于是我们很自然得到了余切向量：
 
-`$$ ω_p(v_p) = ω(v)(p) $$`
+`$$ \omega_p(v_p) = \omega(v)(p) $$`
 
 点$ p $的所有余切向量组成$ T^*_p M $。
 
@@ -158,37 +158,37 @@ $$ ω = ω_μ dx^μ  $$
 
 在不同的坐标选择之间，如何变换？
 
-`$$ \partial_μ = T^υ_μ \partial'_υ $$`
+`$$ \partial_\mu = T^\upsilon_\mu \partial'_\upsilon $$`
 
 很容易推得：
 
-$$ T^υ_μ = \partial x'^υ / \partial x^μ  $$
+$$ T^\upsilon_\mu = \partial x'^\upsilon / \partial x^\mu  $$
 
 而且这个变换关系也适用在向量场和1-形式上：
 
-$$ v'^υ = T^υ_μ v^μ $$
+$$ v'^\upsilon = T^\upsilon_\mu v^\mu $$
 
-$$  ω'^υ = ω^υ_μ ω^μ $$
+$$  \omega'^\upsilon = \omega^\upsilon_\mu \omega^\mu $$
 
 ### 第四小节 p-形式
 
 通过定义 只需满足
 
-$$ w ∧ v = - v ∧ w $$
+$$ w \wedge v = - v \wedge w $$
 
-的外代数 $ ∧ $。
+的外代数 $ \wedge $。
 
-这个代数构成了$  ∧V $。
+这个代数构成了$  \wedgeV $。
 
 严格的代数规则见书中，其中这个反交换规则是不包含在内的，而是作为一个自然的推论。
 
-我们定义p-形式为“p个1-形式的∧乘”的线性组合。
+我们定义p-形式为“p个1-形式的$  \wedgeV $乘”的线性组合。
 
 一般情况下，p-形式具有如下的形式：
 
-$$ 1/(p!) ω_1...p dx^1 ∧ ... ∧ dx^p $$
+$$ 1/(p!) \omega_1...p dx^1 \wedge ... \wedge dx^p $$
 
-$ v∧ w $和$ u ∧ v ∧ w $我们得到了类似叉乘$ v × w $和三乘 $ u \cdot (v × w) $的结果，区别在于，叉乘的结果是向量， 三乘的结果是标量，而这里的结果分别是2-形式和3-形式。
+$ v\wedge w $和$ u \wedge v \wedge w $我们得到了类似叉乘$ v × w $和三乘 $ u \cdot (v × w) $的结果，区别在于，叉乘的结果是向量， 三乘的结果是标量，而这里的结果分别是2-形式和3-形式。
 
 在这个过程中，我们发现叉乘的右手规则，其实是不必要的，唯有当我们企图把一个2-形式映射为一个1-形式的时候，才会涉及到手性。
 
@@ -196,12 +196,12 @@ $ v∧ w $和$ u ∧ v ∧ w $我们得到了类似叉乘$ v × w $和三乘 $ u
 
 我们定义严格的外微分：
 
-$$ d: Ω^p（M）\rightarrow Ω^{p+1}(M) $$
+$$ d: \omega^p（M）\rightarrow \omega^{p+1}(M) $$
 
 1. $ p $从$ 0 \rightarrow 1 $的定义还是基于之前的外微分定义；
 2. 满足线性规则
-3. $ d(ω ∧μ) = dω∧μ + (-1)^p  ω∧ dμ $。 
-4. $ d^2 ω = 0 $。
+3. $ d(\omega \wedge\mu) = d\omega\wedge\mu + (-1)^p  \omega\wedge d\mu $。
+4. $ d^2 \omega = 0 $。
 
 于是我们看得很清楚，在$ R^3 $中
 
@@ -225,7 +225,7 @@ $$ \nabla \times E + \partial_t B = 0 $$
 
 首先把B作为2-形式处理：
 
-`$$ B = B_x dy∧dz + B_y dz∧dx + B_z dx∧dy $$`
+`$$ B = B_x dy\wedgedz + B_y dz\wedgedx + B_z dx\wedgedy $$`
 
 E作为1-形式处理：
 
@@ -233,9 +233,9 @@ E作为1-形式处理：
 
 定义统一电磁场$ F $为$ R^4 $上的2-形式：
 
-$$ F = B + E∧dt $$
+$$ F = B + E\wedgedt $$
 
-$$ F =  \frac{1}{2} F_{μυ} dx^μ∧dx^υ $$
+$$ F =  \frac{1}{2} F_{\mu\upsilon} dx^\mu\wedgedx^\upsilon $$
 
 其分量组成一个反对称的矩阵，见书中。
 
@@ -276,74 +276,74 @@ $$ g(v, w) =  g (w, v) $$
 
 $$ \forall w \in V [ g(v, w) == 0 ]  \Rightarrow v = 0 $$
 
-有了度规，可以选取一组正交的基：$ \\{ e_μ \\} $
+有了度规，可以选取一组正交的基：$ \\{ e_\mu \\} $
 
-正交，也就是满足： 
+正交，也就是满足：
 
-$$ g(e_μ, e_υ) = ( μ==υ ? 0 : ± 1 ) $$
- 
+$$ g(e_\mu, e_\upsilon) = ( \mu==\upsilon ? 0 : \textpm 1 ) $$
+
 $ Signature(p, q) $：$ q $是正交基中-1的数目。$ p+q=n $
 
-对 $ γ: [0,1] \rightarrow M $定义弧长（类空时）或原时（类时时）：
+对 $ \gamma : [0,1] \rightarrow M $定义弧长（类空时）或原时（类时时）：
 
-$$\int \sqrt{g(γ'(t), γ'(t))} dt $$
+$$\int \sqrt{g(\gamma'(t), \gamma'(t))} dt $$
 
-$$ g_{μυ} = g(e_μ, e_υ)  $$
+$$ g_{\mu\upsilon} = g(e_\mu, e_\upsilon)  $$
 
-$$ g^{μυ} = g_{μυ}^{-1} $$
+$$ g^{\mu\upsilon} = g_{\mu\upsilon}^{-1} $$
 
 度规的指标升降不在此赘述。
 
 定义1-形式的内积：
 
-`$$ <ω, μ> = g^{αβ} ω_α μ_β $$`
+`$$ <\omega, \mu> = g^{\alphaβ} \omega_\alpha \mu_β $$`
 
 再定义 p-形式的内积：
 
-$$ < e^1 ∧ ... ∧ e^p, f^1 ∧ ... ∧ f^p > = \det [ < e^i, f^j >] $$
+$$ < e^1 \wedge ... \wedge e^p, f^1 \wedge ... \wedge f^p > = \det [ < e^i, f^j >] $$
 
 ### 第三小节 体积形式
 
-给定V的两组基： `$ \\{ e_μ \\} $`， `$ \\{ f_μ \\} $`
+给定V的两组基： `$ \\{ e_\mu \\} $`， `$ \\{ f_\mu \\} $`
 
-有映射 $ T : V \rightarrow V $，使得： 
+有映射 $ T : V \rightarrow V $，使得：
 
-`$$ T e_μ = f_μ $$`
+`$$ T e_\mu = f_\mu $$`
 
 如果，$ \det  T > 0 $，我们说，这两组基，具有相同的取向。
 
-定义体积元为 
+定义体积元为
 
-$$ e_1 ∧ ... ∧ e_n $$
+$$ e_1 \wedge ... \wedge e_n $$
 
-，它是 $ ∧^n V $ 中的非零元素。
+，它是 $ \wedge^n V $ 中的非零元素。
 
-设另一组基 `$ f_υ = T^μ_υ e_μ $` ，则得到：
+设另一组基 `$ f_\upsilon = T^\mu_\upsilon e_\mu $` ，则得到：
 
 `$$
-f_1 ∧ ... ∧ f_n
-= (T^i_1 e_i) ∧ ... ∧ ( T^i_n e_i) 
-= sign(σ) T^σ(1)_1 ... T^σ(1)_1 e_1 ∧ ... ∧ e_n
-= \det  T e_1 ∧ ... ∧ e_n
+f_1 \wedge ... \wedge f_n
+= (T^i_1 e_i) \wedge ... \wedge ( T^i_n e_i)
+= sign(\sigma) T^\sigma(1)_1 ... T^\sigma(1)_1 e_1 \wedge ... \wedge e_n
+= \det  T e_1 \wedge ... \wedge e_n
 $$`
 
-其中$ σ $是一组1..n的全排列/全置换，$ sign(σ) $则是n维的Levi-Civita符号，详见维基百科。
+其中$ \sigma $是一组1..n的全排列/全置换，$ sign(\sigma) $则是n维的Levi-Civita符号，详见维基百科。
 
-定义M上的体积形式ω为无处消失的n-形式，其标准形式为：
+定义M上的体积形式\omega为无处消失的n-形式，其标准形式为：
 
-$$ ω = dx^1 ∧ ... ∧ x^n $$
+$$ \omega = dx^1 \wedge ... \wedge x^n $$
 
-对于每一个点，$ ω_p $都是$ T^*_p M $的一个体积元。
+对于每一个点，$ \omega_p $都是$ T^*_p M $的一个体积元。
 
 从上面可以看出，体积形式和基的取向密切相关，实际上，如果体积形式不存在，流形是不可取向的。比如在Mobius strip上，无法选定一组光滑变化的基。
 
-若有取向的$chart$ `$ φ_α : U_α \rightarrow R^n $` 覆盖 $ M $ ，则
+若有取向的$chart$ `$ \phi_\alpha : U_\alpha \rightarrow \mathbb{R}^n $` 覆盖 $ M $ ，则
 
-`$$ g_{μυ} = g(\partial_μ, \partial_υ) $$`
+`$$ g_{\mu\upsilon} = g(\partial_\mu, \partial_\upsilon) $$`
 
 而体积形式的正则形式为：
 
-$$ vol = \sqrt{|\det  g|} dx^1 ∧ ... ∧ x^n $$
+$$ vol = \sqrt{|\det  g|} dx^1 \wedge ... \wedge x^n $$
 
 这个形式的体积形式，将不受$ chart $选择的变化的影响，保持不变。证明见书。
 
@@ -353,11 +353,11 @@ $$ vol = \sqrt{|\det  g|} dx^1 ∧ ... ∧ x^n $$
 
 面元到面元的映射：
 
-$$ * : Ω^p（M）\rightarrow Ω^{n-p} (M) $$
+$$ * : \omega^p（M）\rightarrow \omega^{n-p} (M) $$
 
 满足：
 
-$$ \forall ω,  μ \in Ω^p（M）：ω ∧ * μ = <ω, μ> vol $$
+$$ \forall \omega,  \mu \in \omega^p（M）：\omega \wedge * \mu = <\omega, \mu> vol $$
 
 从此定义，不难推算出落实到按基的Hodge Star Operator的计算方法。详细见书中习题。
 
@@ -383,7 +383,7 @@ $$ J = j - ρdt $$
 
 $$ *d*F=J $$
 
-根据上一节，我们知道：在$ R^4 $上，$ **=±1 $
+根据上一节，我们知道：在$ R^4 $上，$ ** = \textpm 1 $
 
 当$ **=1 $时，也就是当流形是黎曼的时候，书中讨论了2-形式的self-dual和anti-self-dual。
 
