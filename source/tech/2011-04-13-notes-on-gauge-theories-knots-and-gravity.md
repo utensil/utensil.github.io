@@ -62,13 +62,13 @@ $ Vect(M) $，表示$ M $上所有向量场的集合。
 
 $ v $在点$ p $，定义了切向量。点$ p $的所有的切向量组成$ T_p M $。
 
-$ \gamma : R \rightarrow M $，定义了曲线。
+$ \gamma : \mathbb{R} \rightarrow M $，定义了曲线。
 
 ### 第二小节  逆变和协变
 
 我稍微滥用一下定义域这个词来解释：
 
-如果有微分同胚（diffeomorphism）$ \phi: M \rightarrow N $，另有$  f : N \rightarrow R $，那么：$ f \phi ： M \rightarrow R $。
+如果有微分同胚（diffeomorphism）$ \phi: M \rightarrow N $，另有$  f : N \rightarrow \mathbb{R} $，那么：$ f \phi ： M \rightarrow \mathbb{R} $。
 
 如果我们定义 $ \phi^* f = f  \phi $，那么$ \phi^* $就是一种把一个定义域在$ N $的函数$ f $“拉回（pullback）”定义域$ M $的操作。
 
@@ -78,7 +78,7 @@ $ \gamma : R \rightarrow M $，定义了曲线。
 
 $$ (\phi_* v)f = v ( \phi^* f ) $$
 
-其中，$ f: N \rightarrow R， v:  \mathbb{C}^{\infty}(M) \rightarrow \mathbb{C}^{\infty}(M)  $。
+其中，$ f: N \rightarrow \mathbb{R}， v:  \mathbb{C}^{\infty}(M) \rightarrow \mathbb{C}^{\infty}(M)  $。
 
 注意看：
 右边是通过先把$ f $从定义域$ N $拉回到$ M $，然后将向量场作用其上。
@@ -203,7 +203,7 @@ $$ d: \omega^p（M）\rightarrow \omega^{p+1}(M) $$
 3. $ d(\omega \wedge\mu) = d\omega\wedge\mu + (-1)^p  \omega\wedge d\mu $。
 4. $ d^2 \omega = 0 $。
 
-于是我们看得很清楚，在$ R^3 $中
+于是我们看得很清楚，在$ \mathbb{R}^3 $中
 
 1. $ \operatorname{grad} $是$ p $从$ 0 \rightarrow 1 $
 2. $ \operatorname{curl} $是$ p $从$ 1 \rightarrow 2 $
@@ -231,7 +231,7 @@ E作为1-形式处理：
 
 `$$ E = E_x dx + E_y dy + E_z dz $$`
 
-定义统一电磁场$ F $为$ R^4 $上的2-形式：
+定义统一电磁场$ F $为$ \mathbb{R}^4 $上的2-形式：
 
 $$ F = B + E \wedge dt $$
 
@@ -245,9 +245,9 @@ $$ dF = 0 $$
 
 通过将其拆成类空部分和类时部分，不难重新推导出第一对方程。
 
-但这个方程的普遍性不仅仅适用于可以将流形M拆成$ R \times R^3 $的情形。
+但这个方程的普遍性不仅仅适用于可以将流形M拆成$ \mathbb{R} \times \mathbb{R}^3 $的情形。
 
-注意：我们通常概念意义上的电场和磁场，则只有在可以将流形M拆成$ R \times R^3 $的情形下，才有定义。
+注意：我们通常概念意义上的电场和磁场，则只有在可以将流形M拆成$ \mathbb{R} \times \mathbb{R}^3 $的情形下，才有定义。
 
 ### 第二小节 度规
 
@@ -258,7 +258,7 @@ $$ dF = 0 $$
 
 定义向量空间V上的度规g为：
 
-$$ g: V \times V \rightarrow R $$
+$$ g: V \times V \rightarrow \mathbb{R} $$
 
 满足：
 
@@ -383,7 +383,7 @@ $$ J = j - ρdt $$
 
 $$ *d*F=J $$
 
-根据上一节，我们知道：在$ R^4 $上，$ ** = ±1 $
+根据上一节，我们知道：在$ \mathbb{R}^4 $上，$ ** = ±1 $
 
 当$ **=1 $时，也就是当流形是黎曼的时候，书中讨论了2-形式的self-dual和anti-self-dual。
 
