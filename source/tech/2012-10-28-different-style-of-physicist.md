@@ -105,16 +105,13 @@ $$ F_{[\mu\nu,\lambda]} = 0 $$
 
 按照原图的设定，2B物理学家使用Maxwell方程组的积分形式。
 
+$$ \oiint\limits_{\partial V} \vec{E} \cdot d \vec{\sigma} = \frac{Q}{\epsilon} \label{eq:2bmw1} $$
 
-$$ \enclose{circle}[]{\iint_{\partial V}} \vec{E} \cdot d \vec{\sigma} = \frac{Q}{\epsilon} \label{eq:2bmw1} $$
+$$ \oint\limits_{\partial S} \vec{B} \cdot d \vec{l} = \mu I + \mu \epsilon \frac{\partial \Phi ( \vec{E} )}{\partial t} \label{eq:2bmw2} $$
 
-$$ \oint_{\partial S} \vec{B} \cdot d \vec{l} = \mu I + \mu \epsilon \frac{\partial \Phi ( \vec{E} )}{\partial t} \label{eq:2bmw2} $$
+$$ \oiint\limits_{\partial V} \vec{B} \cdot d \vec{\sigma} = 0 \label{eq:2bmw3} $$
 
-$$ \enclose{circle}[]{\iint_{\partial V}} \vec{B} \cdot d \vec{\sigma} = 0 \label{eq:2bmw3} $$
-
-$$ \oint_{\partial S} \vec{E} \cdot d \vec{l} = - \frac{\partial \Phi ( \vec{B} )}{\partial t} \label{eq:2bmw4} $$
-
-我无奈地发现MathJax不支持`\oiint`，所以只好画了个`\enclose{circle}[]{\iint}`，姑且算是娱乐吧。
+$$ \oint\limits_{\partial S} \vec{E} \cdot d \vec{l} = - \frac{\partial \Phi ( \vec{B} )}{\partial t} \label{eq:2bmw4} $$
 
 积分形式说起来就打瞌睡，不展开了。对于人类这种比较宏观的生物，积分形式有它的用途，但是它不是描述物理规律的合适形态。
 
