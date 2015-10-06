@@ -274,13 +274,18 @@ $$ g(v, w) =  g (w, v) $$
 
 非退化：
 
-$$ \forall w \in V [ g(v, w) == 0 ]  \Rightarrow v = 0 $$
+$$ \forall w \in V [ g(v, w) = 0 ]  \Rightarrow v = 0 $$
 
 有了度规，可以选取一组正交的基：$ \\{ e_\mu \\} $
 
 正交，也就是满足：
 
-$$ g(e_\mu, e_\upsilon) = ( \mu==\upsilon ? 0 : ±1 ) $$
+$$
+g(e_\mu, e_\upsilon) = \cases{
+  0  & \text{当} \mu = \upsilon\cr
+  ±1 & \text{当} \mu \neq \upsilon
+}
+$$
 
 $ Signature(p, q) $：$ q $是正交基中-1的数目。$ p+q=n $
 
