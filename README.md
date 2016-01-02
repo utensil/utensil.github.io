@@ -1,7 +1,7 @@
 utensil.github.io
 =====================
 
-[![Build Status](https://travis-ci.org/utensil/utensil.github.com.png?branch=middleman)](https://travis-ci.org/utensil/utensil.github.com) [![Stories in Ready](https://badge.waffle.io/utensil/utensil.github.com.png?label=ready&title=Ready)](http://waffle.io/utensil/utensil.github.com) [![Dependency Status](https://www.versioneye.com/user/projects/53e7069535080d77a40000f7/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53e7069535080d77a40000f7) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/utensil/utensil.github.com?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/utensil/utensil.github.io.png?branch=middleman)](https://travis-ci.org/utensil/utensil.github.com) [![Stories in Ready](https://badge.waffle.io/utensil/utensil.github.com.png?label=ready&title=Ready)](http://waffle.io/utensil/utensil.github.com) [![Dependency Status](https://www.versioneye.com/user/projects/53e7069535080d77a40000f7/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53e7069535080d77a40000f7) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/utensil/utensil.github.com?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 My personal blog, including my technical blog and my writings.
 
