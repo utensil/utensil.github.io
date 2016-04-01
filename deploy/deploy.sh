@@ -2,7 +2,7 @@
 
 # check out master to "build" and clean up
 
-git clone --depth=50 --branch=master git://github.com/utensil/utensil.github.com.git build
+git clone --depth=50 --branch=master git://github.com/$GH_REPO build
 (
   cd build
   # remove all files except README.md, .git and .travis.yml
