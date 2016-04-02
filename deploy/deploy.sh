@@ -2,7 +2,7 @@
 
 lastCommit=$(git log --oneline | head -n 1)
 
-git remote update
+git remote set-branches --add origin master
 git fetch
 
 mkdir build
