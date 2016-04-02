@@ -23,7 +23,7 @@ git status
 echo "remotes pre pre-authorized remote url"
 git remote -v
 git config remote.origin.url $REPO_URL
-git pull
+git pull origin HEAD:master
 
 git add --all -f .
 git rm $(git ls-files --deleted|grep -v README.md)
