@@ -28,7 +28,7 @@ git pull
 git add --all -f .
 git rm $(git ls-files --deleted|grep -v README.md)
 git commit -m "$lastCommit"
-git push
+git push origin HEAD:master
 
 #cd ..
 #mv build/.git ./
