@@ -6,6 +6,7 @@ mkdir build
 mv .git build/
 cd build
 git checkout -b master origin/master
+git checkout master
 git branch -a
 cd ../
 
