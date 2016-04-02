@@ -1,16 +1,14 @@
 #!/bin/bash
 
+lastCommit=$(git log --oneline | head -n 1)
+
 mkdir build
 mv .git build/
 (cd build; git checkout -b master origin/master)
 
-# build site to "build"
-
+mv build/.git ./
 bundle exec middleman build --verbose
-
-lastCommit=$(git log --oneline | head -n 1)
-
-# push to remote
+mv .git build/
 
 cd build
 
