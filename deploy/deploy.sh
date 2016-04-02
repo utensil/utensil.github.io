@@ -22,13 +22,13 @@ echo "STATUS"
 git status
 echo "remotes pre pre-authorized remote url"
 git remote -v
-git remote add site $REPO_URL
-git pull site
+git config remote.origin.url $REPO_URL
+git pull
 
 git add --all -f .
 git rm $(git ls-files --deleted|grep -v README.md)
 git commit -m "$lastCommit"
-git push site HEAD:master
+git push
 
 #cd ..
 #mv build/.git ./
