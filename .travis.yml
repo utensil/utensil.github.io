@@ -10,5 +10,5 @@ script:
 - bash ./deploy/deploy.sh
 env:
   global:
-  - GH_REPO="utensil/utensil.github.com"
+  - GH_REPO="utensil/utensil.github.io"
   - secure: PHXX9ejyJhWD8y288Q3aUmABYLxzUf55JQCWMmoB3a+XYANXddnZsQPrTALhluzuxZX/x3xlNKirGZasu22NGP5ftWf2Uvf23ySEMJVdtIdYV7rl8ihPmduwVmCJDM76Q4yc8ZFEAZXvLW5Kzzqz3fKIvuYyXcNlz1MAFkV1iF4=

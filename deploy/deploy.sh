@@ -23,6 +23,7 @@ git status
 echo "remotes pre pre-authorized remote url"
 git remote -v
 git remote add site $REPO_URL
+git pull site
 
 git add --all -f .
 git rm $(git ls-files --deleted|grep -v README.md)
