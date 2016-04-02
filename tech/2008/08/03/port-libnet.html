@@ -1,0 +1,172 @@
+<!DOCTYPE html> <html> <head> <meta charset=utf-8> <meta content='IE=edge,chrome=1' http-equiv=X-UA-Compatible> <!--[if (lt IE 9)&(!IEMobile)]><script src="/javascripts/html5.js?1459608292"></script><![endif]--> <meta content='width=device-width, initial-scale=1.0' name=viewport> <title>如何将libnet移植到MinGW</title> <link href="/stylesheets/site.css?1459608289" rel=stylesheet /> <link href="/stylesheets/blog.css?1459608289" rel=stylesheet /> <link href="/stylesheets/highlight/railscasts.css?1459608289" rel=stylesheet /> <!--[if lt IE 9]><script src="/javascripts/respond.js?1459608291"></script><![endif]--> </head> <body class=''> <div id=container> <div id=main role=main> <aside class=sidebar> <nav> <span> <a href='/tech/'>home</a> </span> <span> <a href='/tech/calendar.html'>calendar</a> </span> <span> <a href='/tech/tags.html'>tags</a> </span> </nav> </aside> <div class=content> <header> <div class=article_nav> <span class=later> <a href='/tech/2008/08/18/boost-graph-library-translated.html'> < 更新 </a> </span> <span class=earlier> <a href='/tech/2008/07/09/after-exam.html'> 更早 > </a> </span> </div> <h1> 如何将libnet移植到MinGW </h1> </header> <article class=markdown-body> <blockquote> <p>2012年4月4日按：长期无人维护的The Libnet Packet Construction Library （ <a href="http://packetfactory.openwall.net/projects/libnet/">http://packetfactory.openwall.net/projects/libnet/</a> ）重新活在了 <a href="https://github.com/sam-github/libnet">https://github.com/sam-github/libnet</a> 。这里有两个杯具：一、原作者unreachable，说明这可能是一位陨落的程序员；二、我当年写的（粗暴的）《如何将libnet移植到MinGW》不再适用……</p> </blockquote> <p>鉴于网上存在两个libnet，本文中所谓libnet是指位于 <a href="http://www.packetfactory.net/libnet/">http://www.packetfactory.net/libnet/</a> 的The Libnet Packet Construction Library。</p> <p>libnet是一个小型的接口函数库，主要用C语言写成，提供了低层网络数据报的构造、处理和发送功能。libnet的开发目的是：建立一个简单统一的网络编程接口以屏蔽不同操作系统低层网络编程的差别，使得程序员将精力集中在解决关键问题上。它的主要特点是：</p> <ul> <li>高层接口：libnet主要用C语言写成。</li> <li>可移植性：libnet目前可以在Linux、FreeBSD、Solaris、WindowsNT等操作系统上运行，并且提供了统一的接口。</li> <li>数据报构造：libnet提供了一系列的TCP/IP数据报文的构造函数以方便用户使用。</li> <li>数据报的处理：libnet提供了一系列的辅助函数，利用这些辅助函数，帮助用户简化那些烦琐的事务性的编程工作。</li> <li>数据报发送：libnet允许用户在两种不同的数据报发送方法中选择。</li> </ul> <p>另外libnet允许程序获得对数据报的绝对的控制，其中一些是传统的网络程序接口所不提供的。这也是libnet的魅力之一。</p> <p>详细介绍可参见《使用libnet与libpcap构造TCP/IP协议软件》（ <a href="http://www.ibm.com/developerworks/cn/linux/l-tcpip/">http://www.ibm.com/developerworks/cn/linux/l-tcpip/</a> ）。</p> <p>本来看到libnet源代码树根目录中的configure脚本，我以为只需要在MSYS下键入configure然后make就可以了。谁料断断续续折腾了几个星期，根据gcc的出错信息强行修改了十余处源代码，才使其编译通过，却又遭遇大量链接出错，实在令人气馁。今天决心从问题的根源下手，终于用一个比原先简洁得多的修改方案使其通过编译和链接，特写此博客予以记述。</p> <h3>基本前提</h3> <p>正确下载和安装MinGW和MSYS，假设分别位于C:\MinGW和C:\msys。（下载地址：<a href="http://sourceforge.net/project/showfiles.php?group_id=2435">http://sourceforge.net/project/showfiles.php?group_id=2435</a> ）</p> <h3>准备工作</h3> <p>1）从 <a href="http://www.packetfactory.net/libnet/dist/">http://www.packetfactory.net/libnet/dist/</a> 下载libnet的源代码。我选择的文件是libnet-1.1.3-RC-01.tar.gz。解压。将其内容复制到D:\libnet，注意，此操作的结果应使D:\libnet下有include、src等子文件夹。也可自选其它位置，本文按D:\libnet进行叙述。</p> <p>2）因为libnet依赖于libpcap，所以要从 <a href="http://www.winpcap.org/devel.htm">http://www.winpcap.org/devel.htm</a> 下载Developer&#39;s Pack。我选择的是4.0.2。解压。将Include子文件夹中的文件复制到D:\libnet\include。Gnuc.h文件会冲突，这无关紧要，我选择保留libnet自己那个。将Lib子文件夹中的文件复制到D:\libnet/lib（原来没有这个文件夹的，自己建）。</p> <p>3）试着编译一下：在msys中</p> <pre><code class="bash">cd /d/libnet
+            ./configure
+            make
+            </code></pre> <p>如果configure出错，说明MinGW或MSYS安装不正确。可能是没有将C:\MinGW\bin加入PATH，修改C:\msys\profile，在</p> <pre><code class="bash">if [ $MSYSTEM == MINGW32 ]; then
+              export PATH=&quot;.:/usr/local/bin:/mingw/bin:/bin:$PATH&quot;
+            else
+              export PATH=&quot;.:/usr/local/bin:/bin:/mingw/bin:$PATH&quot;
+            fi
+            </code></pre> <p>后面加上：</p> <pre><code class="bash">export PATH=&quot;/c/MinGW/bin:$PATH&quot;
+            </code></pre> <p>其它错误类型本文不予考虑。</p> <p>如果make出错，这属于正常，除非它说的是找不到pcap.h，这样的话，请检查第二步做对没有。</p> <p>读者可自行尝试修正其错误，也可按照下面这个简洁方案。</p> <p>4）顺便介绍一下如何察看MinGW的预定义宏：</p> <pre><code class="bash">gcc -dM -E - &lt; nul
+            </code></pre> <p>这个命令在处理跨平台和移植性问题时相当有用。比如从它的输出可以看出，<code>_WIN32</code>、<code>__WIN32__</code>、<code>__MINGW32__</code>等宏已经被定义，这样，面对那些基于这些宏的预处理语句，就有一个清晰些的思路，不用去猜。</p> <h3>修改方案</h3> <p>1）修改include/win32/libnet.h为：</p> <pre><code class="cpp">#if (__MINGW32__)
+            #include &quot;pcap.h&quot;
+            #define HAVE_NET_ETHERNET_H 0
+            #include &quot;../libnet.h&quot;
+            #include &lt;wincrypt.h&gt;
+            #else
+            原来文件内容
+            #endif
+            </code></pre> <p>观察第4行，这是把编译器导引回去读include/libnet.h，那个头文件是为UNIX-Like系统写的，也是最初的头文件，Linux下或Cygwin下都用它，没什么问题。本文件（include/win32/libnet.h）是为VC写的，由于libnet没有被官方地移植到MinGW，在src/*.c文件中，把又是Win32又不是Cygwin的情况都按照是VC处理了。结果MinGW被牛头不对马嘴地安上了只适合VC的头文件，自然会出问题了。但是include/libnet.h也不是直接就能用，需要进行一些微调。这里面几个语句的顺序非常重要。</p> <p>2）修改include/libnet-functions.h中函数<code>libnet_open_raw4(libnet_t *l)</code>前的</p> <pre><code class="cpp">#if ((__WIN32__) &amp;&amp; !(__CYGWIN__))
+            </code></pre> <p>为</p> <pre><code class="cpp">#if ((__WIN32__) &amp;&amp; !(__CYGWIN__)) &amp;&amp; !(__MINGW32__)
+            </code></pre> <p>3）修改src/libnet_link_none.c为</p> <pre><code class="cpp">#if (__MINGW32__)
+            #include &quot;libnet_link_win32.c&quot;
+            #else
+            原文件内容
+            #endif
+            </code></pre> <p>此处修改是权宜之计，因为不知为什么，libnet_link_win32.c没有被编译，却把没做任何事的libnet_link_none给编译了。与其去研究Makefile，不如来个调包。</p> <p>4）此时编译可通过。然而出现大量undefined reference这种链接错误。修改之前make过程生成的src/libnet.la中的</p> <pre><code class="makefile">dependency_libs=&#39;&#39;
+            </code></pre> <p>为</p> <pre><code class="makefile">dependency_libs=&#39;-lwsock32 -lws2_32 -liphlpapi -L/d/libnet/lib -lwpcap -lpacket&#39;
+            </code></pre> <p>注意，其中-L/d/libnet/lib一项，是叫gcc到D:\libnet\lib去寻找libwpcap.a和libpacket.a。要根据你自己放置它们的位置进行调整。</p> <p>此时链接会成功，但编译到例子 <code>get_addr.c</code> 时，出现错误undefined reference to <code>_imp__optarg</code>。这样libnet就成功编译了。例子之所以出错，是因为它使用了getopt来处理例子中需要处理的命令行参数，而该函数在MinGW似乎有可移植性问题，MinGW mailing list上有一个人在2006年问了这个问题怎么解决，到现在还没有人答他。所幸这个问题不影响libnet库本身。</p> <p>此时你会在src/.lib下发现编译好的libnet.a。大小为19M多，是静态库。</p> <p>5）顺便介绍一下怎么察看里面的函数：</p> <pre><code class="bash">nm   -g   --defined-only --demangle  libnet.a
+            </code></pre> <h3>测试例程</h3> <p>这个例程修改自arp.c和libpcap的例子basic_dump.c</p> <pre><code class="cpp">#include &lt;stdio.h&gt;
+            #include &lt;stdlib.h&gt;
+            #include &quot;../sample/libnet_test.h&quot;
+            int
+            main(int argc, char *argv[])
+            {
+                int c;
+                u_int32_t i;
+                libnet_t *l;
+                libnet_ptag_t t;
+                char *device = NULL;
+                u_int8_t *packet;
+                u_int32_t packet_s;
+                char errbuf[LIBNET_ERRBUF_SIZE];
+                printf(&quot;libnet 1.1 packet shaping: ARP[link -- autobuilding ethernet]/n&quot;);
+                if (argc &gt; 1)
+                {
+                     device = argv[1];
+                }
+                else
+                {
+                        pcap_if_t *alldevs;
+                        pcap_if_t *d;
+                        int inum;
+                        int i=0;
+                        char errbuf[PCAP_ERRBUF_SIZE];
+                        /* Retrieve the device list */
+                        if(pcap_findalldevs(&amp;alldevs, errbuf) == -1)
+                        {
+                            fprintf(stderr,&quot;Error in pcap_findalldevs: %s/n&quot;, errbuf);
+                            exit(1);
+                        }
+                        /* Print the list */
+                        for(d=alldevs; d; d=d-&gt;next)
+                        {
+                            printf(&quot;%d. %s&quot;, ++i, d-&gt;name);
+                            if (d-&gt;description)
+                                printf(&quot; (%s)/n&quot;, d-&gt;description);
+                            else
+                                printf(&quot; (No description available)/n&quot;);
+                        }
+                        if(i==0)
+                        {
+                            printf(&quot;/nNo interfaces found! Make sure WinPcap is installed./n&quot;);
+                            return -1;
+                        }
+                        printf(&quot;Enter the interface number (1-%d):&quot;,i);
+                        scanf(&quot;%d&quot;, &amp;inum);
+                        if(inum &lt; 1 || inum &gt; i)
+                        {
+                            printf(&quot;/nInterface number out of range./n&quot;);
+                            /* Free the device list */
+                            pcap_freealldevs(alldevs);
+                            return -1;
+                        }
+                        /* Jump to the selected adapter */
+                        for(d=alldevs, i=0; i&lt; inum-1 ;d=d-&gt;next, i++);
+                        device = d-&gt;name;
+                }
+                l = libnet_init(
+                        LIBNET_LINK_ADV,                        /* injection type */
+                        device,                                 /* network interface */
+                        errbuf);                                /* errbuf */
+                if (l == NULL)
+                {
+                    fprintf(stderr, &quot;%s&quot;, errbuf);
+                    exit(EXIT_FAILURE);
+                }
+                else
+                i = libnet_get_ipaddr4(l);
+                t = libnet_build_arp(
+                        ARPHRD_ETHER,                           /* hardware addr */
+                        ETHERTYPE_IP,                           /* protocol addr */
+                        6,                                      /* hardware addr size */
+                        4,                                      /* protocol addr size */
+                        ARPOP_REPLY,                            /* operation type */
+                        enet_src,                               /* sender hardware addr */
+                        (u_int8_t *)&amp;i,                         /* sender protocol addr */
+                        enet_dst,                               /* target hardware addr */
+                        (u_int8_t *)&amp;i,                         /* target protocol addr */
+                        NULL,                                   /* payload */
+                        0,                                      /* payload size */
+                        l,                                      /* libnet context */
+                        0);                                     /* libnet id */
+                if (t == -1)
+                {
+                    fprintf(stderr, &quot;Can&#39;t build ARP header: %s/n&quot;, libnet_geterror(l));
+                    goto bad;
+                }
+                t = libnet_autobuild_ethernet(
+                        enet_dst,                               /* ethernet destination */
+                        ETHERTYPE_ARP,                          /* protocol type */
+                        l);                                     /* libnet handle */
+                if (t == -1)
+                {
+                    fprintf(stderr, &quot;Can&#39;t build ethernet header: %s/n&quot;,
+                            libnet_geterror(l));
+                    goto bad;
+                }
+                if (libnet_adv_cull_packet(l, &amp;packet, &amp;packet_s) == -1)
+                {
+                    fprintf(stderr, &quot;%s&quot;, libnet_geterror(l));
+                }
+                else
+                {
+                    fprintf(stderr, &quot;packet size: %d/n&quot;, packet_s);
+                    libnet_adv_free_packet(l, packet);
+                }
+                c = libnet_write(l);
+                if (c == -1)
+                {
+                    fprintf(stderr, &quot;Write error: %s/n&quot;, libnet_geterror(l));
+                    goto bad;
+                }
+                else
+                {
+                    fprintf(stderr, &quot;Wrote %d byte ARP packet from context /&quot;%s/&quot;; &quot;
+                            &quot;check the wire./n&quot;, c, libnet_cq_getlabel(l));
+                }
+                libnet_destroy(l);
+                return (EXIT_SUCCESS);
+            bad:
+                libnet_destroy(l);
+                return (EXIT_FAILURE);
+            }
+            /* EOF */
+            </code></pre> <p>设置注意事项：</p> <ol> <li>环境变量：对编译器，要添加：D:\libnet\include；对连接器，要添加D:\libnet\lib和D:\libnet\src.libs</li> <li><p>链接的库：（按顺序）<code>libnet.a libpacket.a libwpcap.a libiphlpapi.a libws2_32.a libwsock32.a</code></p></li> <li><p>运行此程序，运行所有WinPcap的程序一样，要下载并安装WinPcap（ <a href="http://www.winpcap.org/install/default.htm">http://www.winpcap.org/install/default.htm</a> ）。</p></li> </ol> <section class=meta> <p> <span class=author> <a href='/'>宋皿</a> </span> <span class=time> <time datetime='2008-08-03 00:00:00 +0800'> 2008-08-03 </time> </span> </p> <p> <span class=license> Published under <a href='http://creativecommons.org/licenses/by-nc-nd/3.0/' rel=license>(CC) BY-NC-ND</a> </span> <span class=tags> tagged with <a href='/tech/tags.html#tag-cpp'> cpp </a> <a href='/tech/tags.html#tag-库'> 库 </a> <a href='/tech/tags.html#tag-网络'> 网络 </a> </span> </p> </section> <div id=disqus_thread></div> <script>
+              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+              var disqus_shortname = 'utensil-at-github'; // required: replace example with your forum shortname
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+            </script> <a class=dsq-brlink href='http://disqus.com'> comments powered by <span class=logo-disqus>Disqus</span> </a> </article> </div> </div> </div> <script src="/javascripts/jquery-1.7.1.js?1459608292"></script> <script src="/javascripts/highlight.pack.js?1459608291"></script> <script>
+      hljs.initHighlightingOnLoad();
+      // $(document).ready(function() {
+      //   $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+      // });
+    </script> <script>
+      (function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!== typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]); b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]); mixpanel.init("eda89891866a7e90b6699df21e79ea61");
+      mixpanel.track("visit");
+    </script> </body> </html>

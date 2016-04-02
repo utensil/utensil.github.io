@@ -1,0 +1,1 @@
+$(".content article").swipe({swipeRight:function(e,t,r,a,n){var i=$(".article_nav .later a");return 0!=i.length?(window.location=i.attr("href"),!1):!0},swipeLeft:function(e,t,r,a,n){var i=$(".article_nav .earlier a");return 0!=i.length?(window.location=i.attr("href"),!1):!0},maxTimeThreshold:1e3});
