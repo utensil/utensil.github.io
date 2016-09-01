@@ -12,7 +12,7 @@ echo "[STEP] prepare git status before generating the site"
 mkdir build
 mv .git build/
 cd build
-git checkout -b master origin/master
+git checkout -b master origin/master@{-1}
 git checkout master
 git branch -a
 cd ../
@@ -39,4 +39,3 @@ git add --all -f .
 git rm $(git ls-files --deleted|grep -v README.md)
 git commit -m "$lastCommit"
 git push origin HEAD:master
-
