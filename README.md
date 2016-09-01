@@ -12,15 +12,14 @@ How To Build Manually
 
 ```
 #for editing the source
-git clone git@github.com:utensil/utensil.github.io.git utensil-middleman
+git clone --depth 1 -b middleman https://github.com/utensil/utensil.github.io.git utensil-middleman
 cd utensil-middleman/
-git checkout -b middleman origin/middleman
-gem install bundler
+sudo gem install bundler
 bundle
 
 #for publishing
 cd ..
-git clone git@github.com:utensil/utensil.github.io.git utensil.github.io
+git clone --depth 1 -b master https://github.com/utensil/utensil.github.io.git utensil.github.io
 ```
 ### Run
 
