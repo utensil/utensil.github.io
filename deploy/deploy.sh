@@ -15,6 +15,7 @@ cd build
 git checkout -b master origin/master@{-1}
 git checkout master
 git branch -a
+git pull
 cd ../
 
 echo "[STEP] generate the site"
