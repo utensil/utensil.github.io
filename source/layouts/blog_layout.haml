@@ -91,9 +91,7 @@
     = javascript_include_tag 'jquery-1.7.1.js'
     - code_mode = (current_page.data.code_mode || '').split(/\|/)
     - if code_mode.include?('math')
-      - # = javascript_include_tag 'mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
-      = javascript_include_tag 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
-      - # = javascript_include_tag 'http://mathjax.connectmv.com/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+      = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/config/TeX-AMS-MML_HTMLorMML-full.js'
       - if code_mode.include?('xypic')
         :javascript
           window.mathUseXypic = true;
