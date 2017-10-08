@@ -11,4 +11,6 @@ script:
 env:
   global:
   - GH_REPO="utensil/utensil.github.io"
-  - secure: "g1tiQ+2pYF0CImxAUIrbg9QMY0Pk9PLxrrnwW54FoH6N5/lSI6SsRFhSh/PjPsRPBsscLbtdvHqqtmI9jvz0HDcjpgUHWvUgpDl+wzMUqCwVVXydEErkRpAHDQCf4I0vLLj2S4zfuq4CBu/69POdrl+qEuuSgLkj+JLa39ECQGI="
+  - secure: ZoAn2+wG4RD5/Q/2+4Sqoc3BYezl8f2uNktaPlqZhZv3NMrds3zxMytmVf9eIuJ+le6QbvpGHuu5a4Ut9K3pi3LaID2+PuAE1LThw1NUgqyw3wiAf6JK/z/azHpkcU97YxGeNIs19Rpx/vJFQQqucy1Aby69w0Te7DQ/1yNIL+8=
+  - secure: grsK3djWrpvB6tl5l/nHXIxW7G8t2MV0MM8Hs/QpZxu4RBFN/8BzHhYWKFPAEuanhCbZSU0zXd1cSnnwfQV5Fpr5znDkSIbN3ChnUrr5txtq8XWetMk+tN1O8CshAb5pxTuRwJhaoK1Plc0MCFDzYvxOtH1rbtt2p4HHFaB/pkw=
+  - secure: Tx59n2odhNPKBAm94dhq7yV8istVg8PQ560PnD01nOlksMT0bENN7UR7p3Yq3gZK9gJAA9OsYl4XSXb1d+gOc+fdNYm/bt09HqOqwuAgaBO/98mdGYCf5mESYhjhUM7MEqWBOHR1Jmi9Fm/S/6HXKjOQmCtHZuLV/FzWGBLmaRw=
