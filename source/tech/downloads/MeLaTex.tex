@@ -1,12 +1,38 @@
 
 \documentclass[a4paper]{report}
 \usepackage{indentfirst}
-\usepackage{CJK}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathrsfs}
-\usepackage{eufrak}
-\begin{CJK}{GBK}{kai}
+% Package eufrak Warning: The eufrak package is redundant if the amsfonts package is used on input line 36.
+% \usepackage{eufrak}
+
+% http://blog.jqian.net/post/xelatex.html
+\usepackage{xltxtra,fontspec,xunicode}
+\usepackage[slantfont,boldfont]{xeCJK} % 允许斜体和粗体
+% http://mirror.lzu.edu.cn/CTAN/macros/xetex/latex/xecjk/xeCJK.pdf
+% Arial Unicode MS
+% FangSong,仿宋
+% KaiTi,楷体
+% Microsoft YaHei,微软雅黑
+% MingLiU,細明體
+% NSimSun,新宋体
+% PMingLiU,新細明體
+% SimHei,黑体
+% SimSun,宋体  
+\setCJKmainfont{FangSong}          % 设置缺省中文字体
+\setCJKmonofont{Microsoft YaHei}   % 设置等宽字体
+\setCJKsansfont{Microsoft YaHei}   % 设置无衬线字体
+% \setmainfont{Arial}   % 英文衬线字体
+% \setmonofont{Consolas}   % 英文等宽字体
+% \setsansfont{Calibri} % 英文无衬线字体
+\setmainfont{Arial}   % 英文衬线字体
+\setmonofont{Microsoft YaHei}   % 英文等宽字体
+\setsansfont{Calibri} % 英文无衬线字体
+
+% https://en.wikibooks.org/wiki/LaTeX/Hyperlinks
+\usepackage{hyperref}
+
 \newtheorem{Theorem}{定理}[section]
 \newtheorem{FirstTheorem}{定理}
 \newtheorem{NextTheorem}[FirstTheorem]{定理}
@@ -15,8 +41,7 @@
 \date{\today}
 \begin{document}
 \maketitle
-\chapter*{Preface}
-This chapter will not be enumerated. \\
+\chapter*{Preface\footnote{This chapter will not be enumerated.}}
 
 终于将这个我的第一个\TeX{}文档写完了。这份文档简单地介绍了\TeX{}的基本知识、常用环境，以及数学环境。\\
 
@@ -25,15 +50,13 @@ This chapter will not be enumerated. \\
 例如，在一开始的许多地方，我没有在文档中同时展示源代码和其效果，我只在文档中给出其效果，而让读者自行查找是
 什么源代码实现了这个效果$\cdots\cdots$\\
 
-读者可能会对这份文档全部由英文写成表示愤慨，可是这里头很多陌生单词是和命令名一样的，其余则是生词不超过20个
-的浅易英文，毕竟，我英文程度很一般。\\
+这份文档虽然全部由英文写成，不过这里头很多陌生单词是和命令名一样的，其余则是生词不超过20个
+的浅易英文。\\
 
-我估计其实没什么人会看这份文档的，所以说明就只作这么多了。\\
+这份文档现在是在Visual Studio Code下编辑，并直接使用Tex Live 2017自带的xelatex编译的。（这份文档曾经是在C\TeX{}下完成和进行编译的，感谢为C\TeX{}付出的所有人！）\\
 
-大家有什么问题可以在我的博客 http://utensil.github.io/ 留言，或者发邮件到 Utensil Candel At Gmail 。最后数学符
-号列表那里不知为什么总是处理不好，希望哪位高手指点一下。\\
+大家有什么问题可以在我的博客 http://utensil.github.io/ 留言，或者发邮件到 Utensil Candel At Gmail 。\\
 
-P.S.这份文档是在C\TeX{}下完成和进行编译的，感谢为C\TeX{}付出的所有人！
 \tableofcontents
 \chapter{Basics}
 \section{Spaces and Reserved Symbols}
@@ -117,7 +140,7 @@ Sch\"onbrunner Schlo\ss{} Stra\ss e
 
 \oe{} \OE{} \ae{} \AE{} \aa{} \AA{}
 
- \o{} \O{} \l{} \L{} \i{} \j{}
+\o{} \O{} \l{} \L{} \i{} \j{}
 !`{} ?`
 
 
@@ -380,14 +403,14 @@ Use the pair of
 \verb|                  \end{verbatim}|
 \begin{verbatim}
                 Or
-                             \verb| Contents that you want them to be
-                             shown in the way it's typed |
+                          \verb| Contents that you want them to be
+                          shown in the way it's typed |
 
       Actually,| pair can be replaced by any symbol pair
                                   like + # @ &
-                     expect * and space,
+                  expect * and space,
 
-     I guess it's prepared for CODES.
+      I guess it's prepared for CODES.
 \end{verbatim}
 
 \section{Tabular}
@@ -1231,9 +1254,6 @@ superscript ``A'' on its left side,then it's only provided by
 \end{aligned}
 \end{displaymath}
 
-As you can see,I have some problems here that I can't deal with. So I
-have decided to skip the rest of symbols.
+To be continued...
 
-
-\end{CJK}
 \end{document}
