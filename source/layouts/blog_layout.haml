@@ -91,7 +91,7 @@
     = javascript_include_tag 'jquery-1.7.1.js'
     - code_mode = (current_page.data.code_mode || '').split(/\|/)
     - if code_mode.include?('math')
-      = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/config/TeX-AMS-MML_HTMLorMML-full.js'
+      = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
       - if code_mode.include?('xypic')
         :javascript
           window.mathUseXypic = true;
