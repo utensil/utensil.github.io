@@ -1,142 +1,142 @@
-<!DOCTYPE html> <html> <head> <meta charset=utf-8> <meta content='IE=edge,chrome=1' http-equiv=X-UA-Compatible> <!--[if (lt IE 9)&(!IEMobile)]><script src="/javascripts/html5.js?1479529362"></script><![endif]--> <meta content='width=device-width, initial-scale=1.0' name=viewport> <title>一个生成SVN Graph的ruby脚本</title> <link href="/stylesheets/site.css?1479529362" rel=stylesheet /> <link href="/stylesheets/blog.css?1479529362" rel=stylesheet /> <link href="/stylesheets/highlight/railscasts.css?1479529362" rel=stylesheet /> <!--[if lt IE 9]><script src="/javascripts/respond.js?1479529362"></script><![endif]--> </head> <body class=''> <div id=container> <div id=main role=main> <aside class=sidebar> <nav> <span> <a href='/tech/'>home</a> </span> <span> <a href='/tech/calendar.html'>calendar</a> </span> <span> <a href='/tech/tags.html'>tags</a> </span> </nav> </aside> <div class=content> <header> <div class=article_nav> <span class=later> <a href='/tech/2011/10/26/chinses-segment.html'> < 更新 </a> </span> <span class=earlier> <a href='/tech/2011/06/11/how-to-play-with-certificates-and-keys.html'> 更早 > </a> </span> </div> <h1> 一个生成SVN Graph的ruby脚本 </h1> </header> <article class=markdown-body> <pre><code class="ruby">
-            #README
-            # In order to run this script, the following command line tools must be installed:
-            # 1) a subversion client, under Windows, Slik SVN is recommended: http://www.sliksvn.com/en/download
-            # 2) a Graphviz toolset, which can be downloaded from http://www.graphviz.org/
-            # Also the following ruby gems must be installed:
-            require &#39;rubygems&#39;
-            
-            #&#39;xmlsimple&#39;
-            # gem: http://rubyforge.org/frs/?group_id=638
-            # doc: http://xml-simple.rubyforge.org/
-            # gem install -l xml-simple-1.0.13.gem
-            require &#39;xmlsimple&#39;
-            
-            #gem: http://rubygems.org/downloads/ruby-graphviz-1.0.0.gem
-            #git:  https://github.com/glejeune/Ruby-Graphviz
-            #doc: http://rdoc.info/github/glejeune/Ruby-Graphviz
-            #article: http://www.omninerd.com/articles/Automating_Data_Visualization_with_Ruby_and_Graphviz
-            require &#39;graphviz&#39;
-            
-            #USAGE:
-            repo_path = ARGV[0] 
-            file_name = ARGV[1]
-            
-            #fetch svn log info in the format of xml
-            repo_log_xml = `svn log #{repo_path} -v --xml` #TODO username etc.
-            
-            unless $?.success?
-              puts &quot;Can&#39;t fetch log info from #{repo_path}, because #{repo_log_xml}&quot;
-              exit
-            end
-            
-            #store the xml in a file for futher query
-            xml_file = File.open(&quot;#{file_name}.xml&quot;, &quot;w+&quot;)
-            xml_file.puts repo_log_xml
-            xml_file.close
-            
-            #simple xml parser
-            svn_log = XmlSimple.xml_in(repo_log_xml,  { &quot;forcearray&quot; =&gt; false })
-            #puts svn_log.inspect
-            
-            f = File.open(&quot;#{file_name}.dot&quot;, &quot;w+&quot;)
-            
-            #start constructing dot file
-            f.puts %Q|
-            digraph &quot;#{repo_path}&quot; {
-            
-                //size = &quot;3000, 4000&quot;
-                fontsize = 24
-                //ranksep=equally
-                //ratio = fill
-                //ratio = compress
-                ratio = 1.6
-                //ratio = auto
-                //rotate=90
-                //orientation=landscape
-                //page=&quot;8.5,11&quot;
-                //page=&quot;11,17&quot;
-                // { rank = same; node1; node2; }
-                // subgraph &quot;cluster_**&quot; { label = }
-                // &quot;&lt;anchor&gt;&quot; node:anchor
-                //compound=true
-                //lhead/ltail -&gt; subgraph
-            
-                ranksep=.75//equally
-                //nodesep=equally
-                //center=true
-                //concentrate=true
-            
-                node [
-                    fontsize = 24
-                    shape = &quot;record&quot;
-                ]
-            
-                edge [
-                    fontsize = 24
-                    arrowsize = 2
-                ]
-            
-            |
-            
-              svn_log[&quot;logentry&quot;].each do |log|
-            
-                paths = log[&quot;paths&quot;]  
-                if paths.class == Hash
-                  path = paths[&quot;path&quot;]
-                  if path.respond_to?(:has_key?) &amp;&amp; path.has_key?(&quot;copyfrom-path&quot;)
-            
-                    from_path = path[&quot;copyfrom-path&quot;]
-                    from_rev = path[&quot;copyfrom-rev&quot;]
-                    to_path = path[&quot;content&quot;]
-                    to_rev = log[&quot;revision&quot;]
-            
-                    #shortening the brach/tag name
-                    #FIXME our svn projects are postfixed by _proj, see if how can we do it without such name convention
-                    from_path.gsub! /^\/.*_proj/, &quot;&quot;
-                    to_path.gsub! /^\/.*_proj/, &quot;&quot;
-            
-                    #rule to filter out illegal charaters in commit log for dot language
-                    safe_msg = log[&quot;msg&quot;].to_s          
-                    safe_msg.gsub! /\n/, &quot;\\n&quot;
-            
-                    correct_copy = (from_path =~ /tags/ &amp;&amp; to_path =~ /branches/) || (from_path =~ /branches/ &amp;&amp; to_path =~ /tags/)                
-            
-                    f.puts %Q%&quot;#{to_path}&quot;[label=&quot;{#{to_path}|#{to_rev}|#{log[&quot;date&quot;]}|#{log[&quot;author&quot;]}|#{safe_msg}}&quot; #{ &quot;shape = \&quot;Mrecord\&quot;&quot; if to_path =~ /tags/}]%
-                    f.puts %Q%&quot;#{from_path}&quot; -&gt; &quot;#{to_path}&quot;[label = &quot;#{from_rev}&quot; #{&quot;style = \&quot;dashed\&quot;&quot; unless correct_copy}]%
-            
-                  end
-                end
-              end
-            
-            f.puts %Q|
-            }
-            |
-            
-            f.close
-            
-            cmd = %Q|dot -Nfontname=simsun -T svg -o #{file_name}.svg #{file_name}.dot|
-            
-            puts cmd
-            
-            system cmd
-            
-            puts &quot;Nice job!&quot; if $?.success?
-            </code></pre> <section class=meta> <p> <span class=author> <a href='/'>宋皿</a> </span> <span class=time> <time datetime='2011-08-26 00:00:00 +0800'> 2011-08-26 </time> </span> </p> <p> <span class=license> Published under <a href='http://creativecommons.org/licenses/by-nc-nd/3.0/' rel=license>(CC) BY-NC-ND</a> </span> <span class=tags> tagged with <a href='/tech/tags.html#tag-ruby'> ruby </a> </span> </p> </section> <div id=disqus_thread></div> <script>
-              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-              var disqus_shortname = 'utensil-at-github'; // required: replace example with your forum shortname
-              /* * * DON'T EDIT BELOW THIS LINE * * */
-              (function() {
-                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-              })();
-            </script> <a class=dsq-brlink href='http://disqus.com'> comments powered by <span class=logo-disqus>Disqus</span> </a> </article> </div> </div> </div> <script src="/javascripts/jquery-1.7.1.js?1479529362"></script> <script src="/javascripts/highlight.pack.js?1479529362"></script> <script>
-      hljs.initHighlightingOnLoad();
-      // $(document).ready(function() {
-      //   $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
-      // });
-    </script> <script>
-      (function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!== typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]); b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]); mixpanel.init("eda89891866a7e90b6699df21e79ea61");
-      mixpanel.track("visit");
-    </script> </body> </html>
+<!DOCTYPE html> <html> <head> <meta charset=utf-8> <meta content='IE=edge,chrome=1' http-equiv=X-UA-Compatible> <!--[if (lt IE 9)&(!IEMobile)]><script src="/javascripts/html5.js?1507445964"></script><![endif]--> <meta content='width=device-width, initial-scale=1.0' name=viewport> <title>一个生成SVN Graph的ruby脚本</title> <link href="/stylesheets/site.css?1507445964" rel=stylesheet /> <link href="/stylesheets/blog.css?1507445964" rel=stylesheet /> <link href="/stylesheets/highlight/railscasts.css?1507445964" rel=stylesheet /> <!--[if lt IE 9]><script src="/javascripts/respond.js?1507445964"></script><![endif]--> </head> <body class=''> <div id=container> <div id=main role=main> <aside class=sidebar> <nav> <span> <a href='/tech/'>home</a> </span> <span> <a href='/tech/calendar.html'>calendar</a> </span> <span> <a href='/tech/tags.html'>tags</a> </span> </nav> </aside> <div class=content> <header> <div class=article_nav> <span class=later> <a href='/tech/2011/10/26/chinses-segment.html'> < 更新 </a> </span> <span class=earlier> <a href='/tech/2011/06/11/how-to-play-with-certificates-and-keys.html'> 更早 > </a> </span> </div> <h1> 一个生成SVN Graph的ruby脚本 </h1> </header> <article class=markdown-body> <pre><code class="ruby">
+#README
+# In order to run this script, the following command line tools must be installed:
+# 1) a subversion client, under Windows, Slik SVN is recommended: http://www.sliksvn.com/en/download
+# 2) a Graphviz toolset, which can be downloaded from http://www.graphviz.org/
+# Also the following ruby gems must be installed:
+require &#39;rubygems&#39;
+
+#&#39;xmlsimple&#39;
+# gem: http://rubyforge.org/frs/?group_id=638
+# doc: http://xml-simple.rubyforge.org/
+# gem install -l xml-simple-1.0.13.gem
+require &#39;xmlsimple&#39;
+
+#gem: http://rubygems.org/downloads/ruby-graphviz-1.0.0.gem
+#git:  https://github.com/glejeune/Ruby-Graphviz
+#doc: http://rdoc.info/github/glejeune/Ruby-Graphviz
+#article: http://www.omninerd.com/articles/Automating_Data_Visualization_with_Ruby_and_Graphviz
+require &#39;graphviz&#39;
+
+#USAGE:
+repo_path = ARGV[0] 
+file_name = ARGV[1]
+
+#fetch svn log info in the format of xml
+repo_log_xml = `svn log #{repo_path} -v --xml` #TODO username etc.
+
+unless $?.success?
+  puts &quot;Can&#39;t fetch log info from #{repo_path}, because #{repo_log_xml}&quot;
+  exit
+end
+
+#store the xml in a file for futher query
+xml_file = File.open(&quot;#{file_name}.xml&quot;, &quot;w+&quot;)
+xml_file.puts repo_log_xml
+xml_file.close
+
+#simple xml parser
+svn_log = XmlSimple.xml_in(repo_log_xml,  { &quot;forcearray&quot; =&gt; false })
+#puts svn_log.inspect
+
+f = File.open(&quot;#{file_name}.dot&quot;, &quot;w+&quot;)
+
+#start constructing dot file
+f.puts %Q|
+digraph &quot;#{repo_path}&quot; {
+
+    //size = &quot;3000, 4000&quot;
+    fontsize = 24
+    //ranksep=equally
+    //ratio = fill
+    //ratio = compress
+    ratio = 1.6
+    //ratio = auto
+    //rotate=90
+    //orientation=landscape
+    //page=&quot;8.5,11&quot;
+    //page=&quot;11,17&quot;
+    // { rank = same; node1; node2; }
+    // subgraph &quot;cluster_**&quot; { label = }
+    // &quot;&lt;anchor&gt;&quot; node:anchor
+    //compound=true
+    //lhead/ltail -&gt; subgraph
+
+    ranksep=.75//equally
+    //nodesep=equally
+    //center=true
+    //concentrate=true
+
+    node [
+        fontsize = 24
+        shape = &quot;record&quot;
+    ]
+
+    edge [
+        fontsize = 24
+        arrowsize = 2
+    ]
+
+|
+
+  svn_log[&quot;logentry&quot;].each do |log|
+
+    paths = log[&quot;paths&quot;]  
+    if paths.class == Hash
+      path = paths[&quot;path&quot;]
+      if path.respond_to?(:has_key?) &amp;&amp; path.has_key?(&quot;copyfrom-path&quot;)
+
+        from_path = path[&quot;copyfrom-path&quot;]
+        from_rev = path[&quot;copyfrom-rev&quot;]
+        to_path = path[&quot;content&quot;]
+        to_rev = log[&quot;revision&quot;]
+
+        #shortening the brach/tag name
+        #FIXME our svn projects are postfixed by _proj, see if how can we do it without such name convention
+        from_path.gsub! /^\/.*_proj/, &quot;&quot;
+        to_path.gsub! /^\/.*_proj/, &quot;&quot;
+
+        #rule to filter out illegal charaters in commit log for dot language
+        safe_msg = log[&quot;msg&quot;].to_s          
+        safe_msg.gsub! /\n/, &quot;\\n&quot;
+
+        correct_copy = (from_path =~ /tags/ &amp;&amp; to_path =~ /branches/) || (from_path =~ /branches/ &amp;&amp; to_path =~ /tags/)                
+
+        f.puts %Q%&quot;#{to_path}&quot;[label=&quot;{#{to_path}|#{to_rev}|#{log[&quot;date&quot;]}|#{log[&quot;author&quot;]}|#{safe_msg}}&quot; #{ &quot;shape = \&quot;Mrecord\&quot;&quot; if to_path =~ /tags/}]%
+        f.puts %Q%&quot;#{from_path}&quot; -&gt; &quot;#{to_path}&quot;[label = &quot;#{from_rev}&quot; #{&quot;style = \&quot;dashed\&quot;&quot; unless correct_copy}]%
+
+      end
+    end
+  end
+
+f.puts %Q|
+}
+|
+
+f.close
+
+cmd = %Q|dot -Nfontname=simsun -T svg -o #{file_name}.svg #{file_name}.dot|
+
+puts cmd
+
+system cmd
+
+puts &quot;Nice job!&quot; if $?.success?
+</code></pre> <section class=meta> <p> <span class=author> <a href='/'>宋皿</a> </span> <span class=time> <time datetime='2011-08-26 00:00:00 +0800'> 2011-08-26 </time> </span> </p> <p> <span class=license> Published under <a href='http://creativecommons.org/licenses/by-nc-nd/3.0/' rel=license>(CC) BY-NC-ND</a> </span> <span class=tags> tagged with <a href='/tech/tags.html#tag-ruby'> ruby </a> </span> </p> </section> <div id=disqus_thread></div> <script>
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'utensil-at-github'; // required: replace example with your forum shortname
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script> <a class=dsq-brlink href='http://disqus.com'> comments powered by <span class=logo-disqus>Disqus</span> </a> </article> </div> </div> </div> <script src="/javascripts/jquery-1.7.1.js?1507445964"></script> <script src="/javascripts/highlight.pack.js?1507445964"></script> <script>
+  hljs.initHighlightingOnLoad();
+  // $(document).ready(function() {
+  //   $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+  // });
+</script> <script>
+  (function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!== typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]); b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]); mixpanel.init("eda89891866a7e90b6699df21e79ea61");
+  mixpanel.track("visit");
+</script> </body> </html>

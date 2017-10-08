@@ -1,0 +1,1259 @@
+
+\documentclass[a4paper]{report}
+\usepackage{indentfirst}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+% Package eufrak Warning: The eufrak package is redundant if the amsfonts package is used on input line 36.
+% \usepackage{eufrak}
+
+% http://blog.jqian.net/post/xelatex.html
+\usepackage{xltxtra,fontspec,xunicode}
+\usepackage[slantfont,boldfont]{xeCJK} % 允许斜体和粗体
+% http://mirror.lzu.edu.cn/CTAN/macros/xetex/latex/xecjk/xeCJK.pdf
+% Arial Unicode MS
+% FangSong,仿宋
+% KaiTi,楷体
+% Microsoft YaHei,微软雅黑
+% MingLiU,細明體
+% NSimSun,新宋体
+% PMingLiU,新細明體
+% SimHei,黑体
+% SimSun,宋体  
+\setCJKmainfont{FangSong}          % 设置缺省中文字体
+\setCJKmonofont{Microsoft YaHei}   % 设置等宽字体
+\setCJKsansfont{Microsoft YaHei}   % 设置无衬线字体
+% \setmainfont{Arial}   % 英文衬线字体
+% \setmonofont{Consolas}   % 英文等宽字体
+% \setsansfont{Calibri} % 英文无衬线字体
+\setmainfont{Arial}   % 英文衬线字体
+\setmonofont{Microsoft YaHei}   % 英文等宽字体
+\setsansfont{Calibri} % 英文无衬线字体
+
+% https://en.wikibooks.org/wiki/LaTeX/Hyperlinks
+\usepackage{hyperref}
+
+\newtheorem{Theorem}{定理}[section]
+\newtheorem{FirstTheorem}{定理}
+\newtheorem{NextTheorem}[FirstTheorem]{定理}
+\title{Me Into \LaTeX}
+\author{Utensil\thanks{Thanks to the reader.}}
+\date{\today}
+\begin{document}
+\maketitle
+\chapter*{Preface\footnote{This chapter will not be enumerated.}}
+
+终于将这个我的第一个\TeX{}文档写完了。这份文档简单地介绍了\TeX{}的基本知识、常用环境，以及数学环境。\\
+
+写这个文档的初衷其实是练习，这使得这个文档的源代码是和它讲述的\TeX{}知识共同成长的，我学到了什么程度，就用
+什么程度的\TeX{}命令来进行排版。甚至在许多地方，文档和其源代码是密不可分的整体，共同完成对\TeX{}知识的介绍。
+例如，在一开始的许多地方，我没有在文档中同时展示源代码和其效果，我只在文档中给出其效果，而让读者自行查找是
+什么源代码实现了这个效果$\cdots\cdots$\\
+
+这份文档虽然全部由英文写成，不过这里头很多陌生单词是和命令名一样的，其余则是生词不超过20个
+的浅易英文。\\
+
+这份文档现在是在Visual Studio Code下编辑，并直接使用Tex Live 2017自带的xelatex编译的。（这份文档曾经是在C\TeX{}下完成和进行编译的，感谢为C\TeX{}付出的所有人！）\\
+
+大家有什么问题可以在我的博客 http://utensil.github.io/ 留言，或者发邮件到 Utensil Candel At Gmail 。\\
+
+\tableofcontents
+\chapter{Basics}
+\section{Spaces and Reserved Symbols}
+
+It does not matter whether you enter one or several spaces after a
+word.
+
+An empty line starts a new paragraph.
+
+These symbols have to be slashed: \# \$ \% \^{} \& \_ \{ \} \~{}
+
+But if we slash $\backslash$ will get an \\ line break,it's the same
+as the
+\newline $\backslash$newline.
+
+\LaTeX{} will ignore the spaces after an order.
+
+\ldots
+
+\section{Hyphenation}
+
+We can tell \LaTeX\ how to hyphenate,for example,this long long word: su\-per\-cal\-%
+i\-frag\-i\-lis\-tic\-ex\-pi\-%
+al\-i\-do\-cious.
+
+We can tell \LaTeX\ not to hyphenate,for example,this long long
+word: \mbox{supercalifragilisticexpialidocious}.
+
+This will cause an ``underfull hbox''.
+
+If we lower the quality demand,\LaTeX\ will do it like this:\sloppy
+\mbox{supercalifragilisticexpialidocious}.
+
+That's horrible,isn't it?So we have to resume it.\fussy
+
+We can draw a quad around the
+texts:\fbox{supercalifragilisticexpialidocious}
+
+\section{Special Symbols}
+
+``sth''
+
+`another sth'
+
+-
+
+--
+
+---
+
+$-1$
+
+sth\~ sth
+
+sth\~{}sth
+
+$\sim$
+
+$-30\,^{\circ}\mathrm{C}$
+
+ff
+
+f\mbox{}f
+
+H\^otel,
+
+na\"\i ve
+
+\'el\`eve
+
+sm\o rrebr\o d
+
+!`Se\~norita!
+
+Sch\"onbrunner Schlo\ss{} Stra\ss e
+
+\`o{} \'o{} \^o{} \~o{}  \=o{}  \.o{} \"o{}
+
+
+\c c \u o \v o \H o \c o  \d o \b o \t oo
+
+\oe{} \OE{} \ae{} \AE{} \aa{} \AA{}
+
+\o{} \O{} \l{} \L{} \i{} \j{}
+!`{} ?`
+
+
+
+Mr.~Smith was happy to see her.
+
+I like BASIC\@. What about you?
+
+\section{Structrue}
+
+$\backslash$documentclass[options]\{class\}
+
+\subsection{Classes}
+
+article
+
+report
+
+book
+
+slides
+
+\subsection{Options}
+
+10pt[ 11pt,12pt\ldots]
+
+letterpaper [
+a4paper,a5paper,b5paper,executivepaper,legalpaper\ldots]
+
+fleqn: Left align the math formulas.
+
+leqno: Put the serial number of math formulas on its left.
+
+titlepage, notitlepage
+
+onecolumn, twocolumn
+
+twoside, oneside
+
+openright, openany: Where the new chapter starts.
+
+\subsection{Layers}
+
+
+$\backslash$part\{\ldots\}
+
+$\backslash$chapter\{\ldots\}
+
+$\backslash$section\{\ldots\}
+
+$\backslash$subsection\{\ldots\}
+
+$\backslash$subsubsection\{\ldots\}
+
+$\backslash$paragragh\{\ldots\}
+
+$\backslash$subparagragh\{\ldots\}
+
+\section{Cross Reference}
+\label{Cross Reference} See section \ref{Cross Reference} on page
+\pageref{Cross Reference}.
+
+\section{FootNote}
+See the footnote\footnote{We don't need to say anything here.}.
+
+\section{Emphasizing}
+You can use \underline{$\backslash$underline},but
+\emph{$\backslash$emph} is recommended.
+
+\textit{You can also \emph{emphasize} text if it is set in italics,}
+\textsf{in a \emph{sans-serif} font,} \texttt{or in
+\emph{typewriter} style.}
+
+\section{Text Fonts}
+\textrm{Roman}
+
+\textsf{Sans Serif}
+
+\texttt{Typewriter}
+
+\textmd{medium}
+
+\textbf{Bold Face}
+
+\textup{Upright}
+
+\textit{italic}
+
+\textsl{slanted}
+
+\textsc{Small Caps}
+
+\section{Text Size}
+
+\tiny{Tiny}
+
+\scriptsize{Scriptsize}
+
+\footnotesize{Footnotesize}
+
+\small{Small}
+
+\normalsize{Normalsize}
+
+\large{large}
+
+\Large{Large}
+
+\LARGE{LARGE}
+
+\huge{huge}
+
+\Huge{Huge}
+
+\normalsize{} %To Recover.
+
+\section{New Command}
+
+It's not recommended to set a font or a size for some texts
+directly,you should pack it in a style and apply the style to all
+the texts for which you want to set the font and the size.
+
+Use
+$\backslash$newcommand\{\emph{name}\}[\emph{num}]\{\emph{definition}\}\
+to pack styles or other commands.\\
+
+Use
+$\backslash$renewcommand\{\emph{name}\}[\emph{num}]\{\emph{definition}\}\
+to repack it.\\
+
+For example:\\
+
+\newcommand{\Ltt}[1]{\Large{\texttt{#1}}}
+
+\Ltt{Large Typewriter}
+
+\renewcommand{\Ltt}[1]{\Huge{\textsf{#1}}}
+
+\Ltt{Huge Sans Serif}
+
+\normalsize{}
+\chapter{Useful Environments}
+\section{Lists}
+\subsection{Itemize}
+Default Style:
+\begin{itemize}
+\item Apple
+\item Pear
+\item Banana
+\end{itemize}
+Customized Style\footnote{But it looks stupid.}:
+\begin{itemize}
+\item[*] Eye
+\item[*] Nose
+\item[*] Ear
+\end{itemize}
+
+\subsection{Enumerate}
+\begin{enumerate}
+\item Point
+\item Line
+\item Polygon
+\end{enumerate}
+
+\subsection{Description}
+I prefer calling it definitions.
+\begin{description}
+\item[erkl\" aren]German word,meaning ``explain''.
+\item[kl\" aren]German word,meaning ``clear''.
+\end{description}
+
+\section{Aligning}
+
+\subsection{Flushleft}
+\begin{flushleft}
+This text is\\ left-aligned. \LaTeX{} is not trying to\\ make each
+line the same length.
+\end{flushleft}
+
+\subsection{Flushright}
+\begin{flushright}
+This text is\\ left-aligned. \LaTeX{} is not trying to\\ make each
+line the same length.
+\end{flushright}
+
+\subsection{Center}
+\begin{center}
+In the tremendous sea of faces.\\
+We met,gathered then seperated.\\
+I hope our friendship will go beyond time and space.\\
+Wish you
+happiness and merriment.
+\end{center}
+
+\section{Quoting}
+\subsection{Quote}
+In \emph{The Winter's Tale},Shakespear said:
+\begin{quote}
+I should leave grazing,were I of your flock,and only live by gazing.
+\end{quote}
+\subsection{Quotation}
+Quoting paragraphs:
+\begin{quotation}
+This fertile and sheltered tract of country, in which the fields are
+never brown and the springs never dry, is bounded on the south by
+the bold chalk ridge\ldots
+
+The district is of historic, no less than of topographical interest.
+The Vale was known in former times as the Forest of White Hart, from
+a curious legend of King Henry III's reign\ldots
+
+The forests have departed, but some old customs of their shades
+remain. Many, however, linger only in a metamorphosed or disguised
+form. \ldots
+\end{quotation}
+
+\subsection{Verse}
+It's used for quoting poems.
+
+\begin{verse}
+\begin{center}
+I've Got A Pain In My Sawdust
+
+w. Henry Edward Warner m. Herman Avery Wade
+\end{center}
+
+\ldots
+
+I've got a pain in my sawdust, \\
+That's what's the matter with me;\\
+Something is wrong with my little inside,\\
+I'm just as sick as can be.
+
+Don't let me faint, \\
+someone get me a fan,\\
+Someone else run for the medicine man,\\
+Ev'ryone hurry as fast as you can,\\
+I've got a pain in my sawdust.
+
+\ldots
+
+Oh, sad was the day for the little bisque doll,\\
+For they cut all her stitches away,\\
+And looked for the seat of the terrible ache;\\
+``T'was a delicate task", they all say,
+
+For none of the surgeons had ever before\\
+Performed on a dolly's inside,\\
+They tried to restuff her but didn't know how,\\
+And this was her wail as she died;\\
+I've got a pain\ldots
+\end{verse}
+
+\section{Just Show It In The Way That It's Typed}
+\begin{verbatim}
+Use the pair of
+                                  \begin{verbatim}
+                And
+\end{verbatim}
+\verb|                  \end{verbatim}|
+\begin{verbatim}
+                Or
+                          \verb| Contents that you want them to be
+                          shown in the way it's typed |
+
+      Actually,| pair can be replaced by any symbol pair
+                                  like + # @ &
+                  expect * and space,
+
+      I guess it's prepared for CODES.
+\end{verbatim}
+
+\section{Tabular}
+
+Now it's time to create tables.
+
+\verb|\begin{Tabular}{|\emph{Table Style}\verb|}|
+
+\emph{Table Contents}
+
+\verb|\end{Tabular}|
+
+\subsection{Table Style}
+\emph{Table Style}\ is not responsible for the creation of horizonal
+lines in the table,that's the responsibility of \emph{Table
+Contents}'s.
+\begin{description}
+\item[l,r,c] creates a row that is left-aligned,right-aligned or
+centered.
+
+\item[p\{\emph{width}\}] creates a row by the given width.
+
+\item[$|$] creates a vertical line to separate rows.
+
+\item[@\{\emph{symbol}\}]separate rows with the symbol
+\emph{symbol}.
+\end{description}
+
+\subsection{Table Contents}
+\begin{description}
+\item[\&] jump to the next row.
+
+\item[$\backslash\backslash$] jump to the next line.
+
+\item[$\backslash$hline] creates a horizonal line through all rows.
+
+\item[$\backslash$cline\{\emph{i}-\emph{j}\}] creates a horizonal line from row \emph{i} to row \emph{j}.
+\end{description}
+
+\subsection{Examples}
+An ordinary table:\\
+
+\begin{tabular}{|r|l|}
+\hline
+7C0 & hexadecimal \\
+3700 & octal \\ \cline{2-2}
+11111000000 & binary \\
+\hline \hline
+1984 & decimal \\
+\hline
+\end{tabular}
+\\\\
+
+Using \verb|@{}|\ to coordinate the radix point:\\
+
+\begin{tabular}{c r @{.} l}
+Pi expression &
+\multicolumn{2}{c}{Value} \\
+\hline
+$\pi$ & 3&1416 \\
+$\pi^{\pi}$ & 36&46 \\
+$(\pi^{\pi})^{\pi}$ & 80662&7 \\
+\end{tabular}
+
+\section{Where To Put It?Float It!}
+\verb|begin{figure}[|\emph{placement specifier}]
+
+or
+
+\verb|begin{table}[|\emph{placement specifier}]
+\\\\\\
+\begin{tabular}{c @{} c}
+
+placement specifier & where to put it\\
+
+\hline
+
+h & put it on the current page. \\
+
+t & put it on the top of a page.\\
+
+b & put it on the bottom of a page.\\
+
+p & put it on an individual page.\\
+
+! & place it rigidly as placement specifier requested.\\
+
+\hline
+
+
+\end{tabular}
+\\\\
+
+Figure~\ref{Empty} is an example of Pop-Art.
+\begin{figure}[!hbp]
+\makebox[\textwidth]{\framebox[5cm]{\rule{0pt}{5cm}}} \caption{Five
+by Five in Centimetres.} \label{Empty}
+\end{figure}
+
+\section{Protect Fragile Commands\protect\footnote{For example,protecting my footnote.}}
+Without \verb|\protect|,I can't even put a footnote for the title of
+a section.
+
+\chapter{Math Formulas}
+Yeah!Eventually we've reached the most powerful function and also
+the most exciting part of \LaTeX---Math formulas!We might use the
+AMS-\LaTeX\ or other macros.
+\section{Math Modes}
+\subsection{Math Formulas In Paragraphs}
+
+There are three choice:
+
+\verb|\begin{math}|\emph{Formula}\verb|\end{math}|
+
+\verb|$|\emph{Formula}\verb|$|
+
+\verb|\(| \emph{Formula} \verb|\)|
+
+\subsection{Math Formulas In Display Mode}
+The formula will stand alone,and will not be enumerated.
+
+\verb|\begin{displaymath}|\emph{Formula}\verb|\end{displaymath}|
+
+\verb|\[| \emph{Formula} \verb|\]|
+
+\subsection{Math Formulas In Equation Mode}
+The formula will stand alone,and will be enumerated.If we use
+\verb|\begin{equation*}|,the equations will not be enumerated.
+
+\verb|\begin{equation}|\emph{Formula}\verb|\end{equation}|
+
+\subsection{Examples}
+Formulas in paragraph,$\lim_{n \to \infty} \sum_{k=1}^n
+\frac{1}{k^2} = \frac{\pi^2}{6}$.
+
+Formulas in display mode:
+
+\begin{displaymath}
+\lim_{n \to \infty} \sum_{k=1}^n \frac{1}{k^2} = \frac{\pi^2}{6}
+\end{displaymath}
+
+Formulas in equation mode\footnote{With Package \emph{amsfonts}\ or
+\emph{amssymb},we can have the blackboard bold font for sets.}:
+
+\begin{equation}
+\forall x \in \mathbb{R}: \qquad x^{2} \geq 0
+\end{equation}
+
+Every letter in math mode will be treated as a variable,except when
+it's in \verb|\textrm{}|\ or \verb|\mathrm{}|:
+
+\begin{equation}
+x^{2} \geq 0\qquad \textrm{for all }x\in\mathbb{R}
+\end{equation}
+
+The difference between \verb|\mathrm{}|\ and \verb|\textrm{}|\ as
+follows\footnote{If Package \emph{amsmath} is used,there will be no
+difference.}:
+
+\begin{equation}
+2^{\textrm{nd}} \quad 2^{\mathrm{nd}}
+\end{equation}
+
+See Section \ref{Align}\ on Page \pageref{Align} to learn to deal
+with equations.
+
+\section{Math Spacing}
+\subsection{Units}
+\begin{tabular}{c @{\quad} l}
+
+pt & point,$\frac{1}{72.27}$\ inch.\\\\
+
+bp & Adobe big point,$\frac{1}{72}$\ inch.\\\\
+
+pc & pica,12pt\\\\
+
+mm & millimeter\\\\
+
+cm & centimeter\\\\
+
+in & inch,25.4mm\\\\
+
+em & similar to the width of M.\\\\
+
+ex & similar to the height of x.
+
+\end{tabular}
+
+
+\subsection{Spaces}
+
+\begin{tabular}{c @{\quad} l}
+
+\verb|\,| & $\frac{3}{18}$\ quads.\\\\
+
+\verb|\:| & $\frac{4}{18}$\ quads.\\\\
+
+\verb|\;| & $\frac{5}{18}$\ quads.\\\\
+
+\verb|\!| & $-\frac{3}{18}$\ quads.\\\\
+
+\verb|\quad|\ & 1 quad,similar to the width of M.\\\\
+
+\verb|\qquad|\ & 2 quads.
+
+\end{tabular}
+\subsection{Phantom}
+
+\verb|\phantom|\ reserves room for something that exists but not to
+be displayed.
+
+See examples:\\
+
+\begin{tabular}{c @{\quad} l}
+
+${}^{12}_{6}\textrm{C}$ & \verb|{}^{12}_{6}\textrm{C}|\\\\
+
+${}^{12}_{\phantom{0}6}\textrm{C}$ & \verb|{}^{12}_{\phantom{0}6}\textrm{C}|\\\\
+
+$\Gamma_{ij}^{k}$ & \verb|\Gamma_{ij}^{k}|\\\\
+
+$\Gamma_{ij}^{\phantom{ij}k}$ & \verb|\Gamma_{ij}^{\phantom{ij}k}|
+
+\end{tabular}\\\\
+
+See Section \ref{Sup and Sub} on Page \pageref{Sup and Sub} to learn
+\emph{Superscript and Subscript}.
+
+\section{Math Sizing}
+\subsection{Setting Size}
+
+\[\displaystyle{\backslash\mathrm{displaystyle\{\}}}\]
+\[\textstyle{\backslash\mathrm{textstyle\{\}}}\]
+\[\scriptstyle{\backslash\mathrm{scriptstyle\{\}}}\]
+\[\scriptscriptstyle{\backslash\mathrm{scriptscriptstyle\{\}}}\]
+\subsection{Pairing size}
+
+\begin{tabular}{|l|}
+
+\hline \verb|\Bigg(\bigg(\Big(\big(\big)\Big)\bigg)\Bigg)|\\
+\hline
+\end{tabular}
+
+\[\Bigg(\bigg(\Big(\big(\big)\Big)\bigg)\Bigg)\]
+
+
+\begin{tabular}{|l|}
+
+\hline\verb@\Bigg\{\bigg\{\Big\{\big\{\big\}\Big\}\bigg\}\Bigg\}@\\
+\hline
+
+\end{tabular}
+
+\[\Bigg\{\bigg\{\Big\{\big\{\big\}\Big\}\bigg\}\Bigg\}\]
+
+\begin{tabular}{|l|}
+
+\hline\verb@\Bigg\|\bigg\|\Big\|\big\|\big\|\Big\|\bigg\|\Bigg\|@\\
+\hline
+
+\end{tabular}
+
+\[\Bigg\|\bigg\|\Big\|\big\|\big\|\Big\|\bigg\|\Bigg\|\]
+
+\begin{tabular}{|l|}
+
+\hline\verb|1 + ( \frac{1}{ 1-x^{2} } ) ^3|\\
+\hline
+
+\end{tabular}
+
+\[1 + ( \frac{1}{ 1-x^{2} } ) ^3\]
+
+Use the \verb|\left| and \verb|\right| pairs to determine the
+correct sizes of symbols.
+\\
+
+\begin{tabular}{|l|}
+
+\hline\verb|1 + \left( \frac{1}{ 1-x^{2} } \right) ^3|\\
+\hline
+
+\end{tabular}
+
+\[1 + \left( \frac{1}{ 1-x^{2} } \right) ^3\]
+
+If there is nothing on the right side,use ``\verb|\right.|''.
+\\
+
+\begin{tabular}{|l|}
+\hline
+
+\verb|y = \left\{| \\
+\verb|           \begin{array}{ l l }|\\
+\verb|                a   &  x \leq -5\\\\|\\
+\verb|                b+x &  -5 < x < 7\\\\|\\
+\verb|                l   &  x \geq 7|\\
+\verb|           \end{array}|\\
+\verb|    \right.|\\
+\hline
+\end{tabular}\\
+
+\[y = \left\{ \begin{array}{ll}
+a & x \leq -5\\\\
+b+x & -5 < x < 7\\\\\
+l & x \geq 7
+\end{array} \right.\]\\
+
+See Section \ref{Array} on Page \pageref{Array} to learn Environment
+\emph{Array}.
+
+
+\subsection{Bold Fonts}
+\begin{tabular}{c @{\quad} c}
+
+\verb|$\mu, M$| & $\mu, M$\\\\
+
+\verb|$\mathbf{\mu},\mathbf{M}$| & $\mathbf{\mu},\mathbf{M}$\\\\
+
+\verb|\mbox{\boldmath $\mu, M$}| & \mbox{\boldmath $\mu, M$}
+
+\end{tabular}\\\\
+
+\verb|\boldmath| must be used outside the math mode,or in the
+\verb|\mbox{}| in the math mode.
+\section{Math Fonts}
+\begin{tabular}{l @{\quad} c }
+
+\verb|\mathrm{ABCdef}| & $\mathrm{ABCdef}$\\\\
+
+\verb|\mathit{ABCdef}| & $\mathit{ABCdef}$\\\\
+
+\verb|\mathnormal{ABCdef}| & $\mathnormal{ABCdef}$\\\\
+
+\verb|\mathcal{ABC}| & $\mathcal{ABC}$\\\\
+
+\verb|\mathfrak{ABCdef}| & $\mathfrak{ABCdef}$\\\\
+
+\verb|\mathbb{ABC}| & $\mathbb{ABC}$\\\\
+
+\verb|\mathtt{ABCdef}| & $\mathtt{ABCdef}$\\\\
+
+\verb|\mathsf{ABCdef}| & $\mathsf{ABCdef}$\\\\
+
+\verb|\mathbf{ABCdef}| & $\mathbf{ABCdef}$
+\end{tabular}
+\\\\
+
+The command \verb|\mathfrak{ABCdef}|\ requires Package
+\emph{eufrak}.
+\section{Frequently Used Symbols}
+\subsection{Dots}
+Observe carefully,then you will see that \verb|\ldots| generates lower dots than \verb|\cdots|.\\
+
+\begin{tabular}{l @{\quad} c}
+
+\verb|\ldots| & $\ldots$\\\\
+
+\verb|\cdot| & $\cdot$\\\\
+
+\verb|\cdots| & $\cdots$\\\\
+
+\verb|\vdots| & $\vdots$\\\\
+
+\verb|\ddots| & $\ddots$
+
+\end{tabular}\\\\
+
+See a practical example in Section \ref{Array} on Page
+\pageref{Array}.
+
+\subsection{Superscript and Subscript}\label{Sup and Sub}
+\begin{tabular}{l @{\quad} c}
+
+\verb|a_1| & $a_1$\\\\
+
+\verb|x^2| & $x^2$\\\\
+
+\verb|a_{ij}| & $a_{ij}$\\\\
+
+\verb|x^{y^z}| & $x^{y^z}$\\\\
+
+\verb|e^{x^2} \neq {e^x}^2| & $e^{x^2} \neq {e^x}^2$\\\\
+
+\verb|{}^{12}_{\phantom{0}6}\mathrm{C}| &
+${}^{12}_{\phantom{0}6}\mathrm{C}$
+
+\end{tabular}
+\\
+
+\^\ or \_\ might tinily changes its position and meaning,for
+example,see Section \ref{+*} on Page \pageref{+*},they turn out to
+be upper and lower limits.
+
+\subsection{Square Root}
+\begin{tabular}{l @{\quad} c}
+
+\verb|\sqrt{a}| & $\sqrt{a}$\\\\
+
+\verb|\sqrt[n]{a}| & $\sqrt[n]{a}$\\\\
+
+\verb|\surd| & $\surd$\\\\
+
+\verb|\sqrt{ x^{2}+\sqrt{y} }| & $\sqrt{ x^{2}+\sqrt{y} }$
+
+\end{tabular}
+
+\subsection{Line and Brace}
+
+\begin{tabular}{l @{\quad} c}
+
+\verb|\overline{m+n}| & $\overline{m+n}$\\\\
+
+\verb|\underline{m+n}| & $\underline{m+n}$\\\\
+
+\verb|\underbrace{ a+b+\cdots+z }_{26}| & $\underbrace{ a+b+\cdots+z
+}_{26}$\\\\
+
+\verb|\overbrace{ a+b+\cdots+z }^{26}| & $\overbrace{ a+b+\cdots+z }^{26}$\\\\
+
+\end{tabular}
+
+\subsection{Vector}
+
+\begin{tabular}{l @{\quad} c}
+
+\verb|\vec a| & $\vec a$\\\\
+
+\verb|\overrightarrow{AB}| & $\overrightarrow{AB}$\\\\
+
+\verb|\overleftarrow{AB}| & $\overleftarrow{AB}$
+
+\end{tabular}
+
+\subsection{Fraction}
+\begin{displaymath}
+\begin{array}{l c}
+\verb|1/2| & 1/2\\\\
+\verb|3\frac{1}{2}| & 3\frac{1}{2}\\\\
+\end{array}
+\end{displaymath}\\
+
+\begin{tabular}{|l|}
+\hline
+
+\verb|y^{}_{\mathrm{A}}= \displaystyle\frac| \\
+\verb|{|\\
+\verb|    p^*_{\mathrm{A}} x^{}_{\mathrm{A}}| \\
+\verb|}| \\
+\verb|{| \\
+\verb|    p^*_{\mathrm{A}} x^{}_{\mathrm{A}}| \\
+\verb|+| \\
+\verb|    p^*_{\mathrm{B}}(1-x^{}_{\mathrm{A}})| \\
+\verb|}| \\
+\hline
+\end{tabular}\\
+
+\begin{displaymath}
+y^{}_{\mathrm{A}}= \displaystyle\frac
+{
+    p^*_{\mathrm{A}} x^{}_{\mathrm{A}}
+}
+{
+    p^*_{\mathrm{A}} x^{}_{\mathrm{A}}
++
+    p^*_{\mathrm{B}}(1-x^{}_{\mathrm{A}})
+}
+\end{displaymath}\\
+
+\begin{tabular}{|l| }
+\cline{1-1}
+\verb|N_{\mathrm{OG}}= \frac| \\
+\verb|{| \\
+\verb|    y^{}_1 - y^{}_2| \\
+\verb|}| \\
+\verb|{| \\
+\verb|    \displaystyle\frac| \\
+\verb|    {| \\
+\verb|        (y^{}_1 - y^*_1) - (y^{}_2 - y^*_2)| \\
+\verb|    }| \\
+\verb|    {| \\
+\verb|        \ln\frac{y^{}_1 - y^*_1}{y^{}_2 - y^*_2}| \\
+\verb|    }| \\
+\verb|}| \\
+\cline{1-1}
+\end{tabular}
+\\
+
+\begin{displaymath}
+N_{\mathrm{OG}}= \frac
+{
+    y^{}_1 - y^{}_2
+}
+{
+    \displaystyle\frac
+    {
+        (y^{}_1 - y^*_1) - (y^{}_2 - y^*_2)
+    }
+    {
+        \ln\frac{y^{}_1 - y^*_1}{y^{}_2 - y^*_2}
+    }
+}
+\end{displaymath}
+\subsection{Binomial Coefficients And Customized Fraction}
+Without Package \emph{amsmath},we can only use
+
+\verb|{n \choose m}|\ or\ \verb|{x \atop y+2}| to generate the
+binomial coefficients or similar structures:
+\begin{displaymath}
+{n \choose m} \qquad {x \atop y+2}
+\end{displaymath}
+
+With Package \emph{amsmath},we can use \verb|\binom{n}{m}|\ to
+generate binomial coefficients:
+
+\begin{displaymath}
+\binom{n}{m}
+\end{displaymath}
+
+But the most powerful part is the command
+\verb|\genfrac{}{}{}{}{}{}|,it has six
+arguments:\\
+
+Argument 5 and 6 are the numerator and the denominator.
+
+Argument 1 and 2 are the left delimiter and the right delimiter.`.'\
+means there are no delimiter.
+
+Argument 3 is the thickness of the line between the numerator and
+the denominator,set it to 0pt to make it invisible.
+
+Argument 4 is the size of the numerator and the
+denominator.displaystyle = 0, textstyle = 1, scriptstyle = 2,
+scriptscriptstyle = 3.\\
+
+The Command \verb|\genfrac{(}{)}{0pt}{}{n}{m}|\ works exactly the
+same as \verb|\binom{n}{m}|.
+\begin{displaymath}
+\genfrac{(}{)}{0pt}{}{n}{m}
+\end{displaymath}
+
+\subsection{Sum,Product And Calculus}\label{+*}
+
+
+\verb|\sum_{i=1}^{n}|:
+
+\[\sum_{i=1}^{n}\]
+
+\verb|\int_{0}^{\frac{\pi}{2}}|:
+
+\[\int_{0}^{\frac{\pi}{2}}\]
+
+\verb|\prod_\epsilon|:
+
+\[\prod_\epsilon\]
+
+
+\verb|\iint_D|:
+
+\[\iint_D\]
+
+\verb|\iiint_V|:
+
+\[\iiint_V\]
+
+\verb|\idotsint_{\mathbb{R^{\mathrm n}}}|:
+
+\[\idotsint_{\mathbb{R^{\mathrm n}}}\]
+
+\section{Math Array}
+\subsection{Array}\label{Array}
+\begin{tabular}{|l|}
+\hline
+\verb|\mathbf{X} = \left( \begin{array}{ccc}|\\
+\verb|x_{11} & x_{12} & \ldots \\|\\
+\verb|x_{21} & x_{22} & \ldots \\|\\
+\verb|\vdots & \vdots & \ddots|\\
+\hline
+\end{tabular}\\\\
+
+\begin{displaymath}
+\mathbf{X} = \left( \begin{array}{ccc}
+x_{11} & x_{12} & \ldots \\
+x_{21} & x_{22} & \ldots \\
+\vdots & \vdots & \ddots
+\end{array} \right)
+\end{displaymath}\\
+
+
+\begin{tabular}{|l|}
+\hline
+\verb@\left(\begin{array}{c|c}@\\
+\verb|1 & 2 \\|\\
+\verb|\hline|\\
+\verb|3 & 4|\\
+\verb|\end{array}\right)|\\
+\hline
+\end{tabular}\\
+
+\begin{displaymath}
+\left(\begin{array}{c|c}
+1 & 2 \\
+\hline 3 & 4
+\end{array}\right)
+\end{displaymath}
+
+\subsection{Eqnarray}
+
+Environment \emph{Eqnarray} must be used outside the math
+mode,because it's an environment similar to Environment
+\emph{Equation}.\\
+
+\begin{tabular}{|l|}
+\hline
+\verb|\begin{eqnarray}|\\
+\verb|f(x) & = & \cos x \\|\\
+\verb|f'(x) & = & -\sin x \\|\\
+\verb|\int_{0}^{x} f(y)\mathrm dy & = & \sin x|\\
+\verb|\end{eqnarray}|\\
+\hline
+\end{tabular}\\
+
+
+\begin{eqnarray}
+f(x) & = & \cos x \\
+f'(x) & = & -\sin x \\
+\int_{0}^{x} f(y)\mathrm dy & = & \sin x
+\end{eqnarray}
+
+Put the whole environment in \verb|{\setlength\arraycolsep{2pt}  }|,
+then the space around ``='' will be smaller:\\
+
+{\setlength\arraycolsep{2pt}
+\begin{eqnarray}
+f(x) & = & \cos x \\
+f'(x) & = & -\sin x \\
+\int_{0}^{x} f(y)\mathrm dy & = & \sin x
+\end{eqnarray}
+}
+
+Use Environment \emph{Eqnarray} to split a long equation:\\
+
+\begin{tabular}{|l|}
+\hline
+\verb|\begin{eqnarray}|\\
+\verb|\lefteqn{ \cos x = 1 -\frac{x^{2}}{2!} +{} }|\\
+\verb|\nonumber\\|\\
+\verb|& & {}+\frac{x^{4}}{4!} -\frac{x^{6}}{6!}+{}\cdots|\\
+\verb|\end{eqnarray}|\\
+\hline
+\end{tabular}\\
+
+\begin{eqnarray}
+\lefteqn{ \cos x = 1 -\frac{x^{2}}{2!} +{} }
+\nonumber\\
+& & {}+\frac{x^{4}}{4!} -\frac{x^{6}}{6!}+{}\cdots
+\end{eqnarray}
+
+\subsection{Align}\label{Align}
+With Package \emph{amsmath},we can use Environment \emph{Align}\ to
+deal with equations.Use \& to tell \LaTeX\ how to align.Observe the
+usage of Environment \emph{Subequations}.
+
+\begin{tabular}{|l|}
+\hline
+\verb|\begin{subequations}|\\
+\verb|\begin{align}|\\
+\verb|x & \equiv 2 \pmod 3 \\|\\
+\verb|x & \equiv 3 \pmod 5 \\|\\
+\verb|\end{align}|\\
+\verb|\end{subequations}|\\
+\hline
+\end{tabular}\\
+
+\begin{subequations}
+\begin{align}
+x & \equiv 2 \pmod 3 \\
+x & \equiv 3 \pmod 5 \\
+x & \equiv 2 \pmod 7
+\end{align}
+\end{subequations}
+
+\section{Math Theorem}
+To initialize a Theorem System,we should put the following
+declaration in the preamble area(The area between
+\verb|\documentclass| and \verb|\begin{document}| is called the
+\emph{preamble}).\\
+
+\begin{tabular}{|l|}
+\hline
+\verb|\newtheorem{|\emph{name}\verb|}[|\emph{counter}\verb|]{|\emph{text}\verb|}[|\emph{section}\verb|]|\\
+\hline
+\end{tabular}\\
+
+\emph{name}\ is the identifier of the theorem for \LaTeX,and
+\emph{text}\ will be displayed as the name of the theorem.
+
+\emph{counter}\ and \emph{section}\ shall not be given at the same
+time.\emph{counter}\ is the identifier of the counter for \LaTeX,it
+shall be the name of another theorem.If we replace \emph{section}\
+by ``section'',``chapter'' or ``subsection'',the theorem will be
+enumerated by section,chapter or subsection.\\
+
+For example,declare like this in the preamble,\\
+
+\begin{tabular}{|l|}
+\hline \verb|\newtheorem{Theorem}{定理}[section]|\\
+\hline
+\end{tabular}\\
+
+and then,\\
+
+\begin{tabular}{|l|}
+\hline
+\verb|\begin{Theorem}|\\
+\verb|sth.|\\
+\verb|\end{Theorem}|\\
+\hline
+\end{tabular}\\
+
+will generate:\\
+
+\begin{Theorem}
+sth.
+\end{Theorem}
+
+And declare like this in the preamble,\\
+
+\begin{tabular}{|l|}
+\hline \verb|\newtheorem{FirstTheorem}{定理}|\\
+\hline \verb|\newtheorem{NextTheorem}[Theorem]{定理}|\\
+\hline
+\end{tabular}\\
+
+and then,\\
+
+\begin{tabular}{|l|}
+\hline
+\verb|\begin{FirstTheorem}|\\
+\verb|Something.|\\
+\verb|\end{FirstTheorem}|\\
+\verb|\begin{NextTheorem}|\\
+\verb|Some other thing.|\\
+\verb|\end{NextTheorem}|\\
+\hline
+\end{tabular}\\
+
+\begin{FirstTheorem}
+Something.
+\end{FirstTheorem}
+
+\begin{NextTheorem}
+Some other thing.
+\end{NextTheorem}
+
+\section{Symbol Lists}
+\newcommand{\qqq}{\qquad&}
+See its source to know how to type it.If a symbol is with a
+superscript ``A'' on its left side,then it's only provided by
+\emph{amsmath}.
+
+\begin{displaymath}
+\begin{aligned}
+& 0 \qqq 1 \qqq 2 \qqq 3 \qqq 4 \qqq 5 \qqq 6 \qqq 7 \qqq 8\\
+& 1 \qqq \bar{a} \qqq \acute{a} \qqq \check{a} \qqq \grave{a} \qqq
+\dot{a} \qqq \ddot{a} \qqq \hat{a} \qqq \widehat{A}\\
+& 2 \qqq \vec{a} \qqq \breve{a} \qqq \tilde{a} \qqq \widetilde{A}
+\qqq \\
+& 3 \qqq \alpha \qqq \beta \qqq \gamma \qqq \delta \qqq
+\epsilon \qqq \varepsilon \qqq \zeta \qqq \eta\\
+& 4 \qqq \theta \qqq \vartheta \qqq \iota \qqq \kappa \qqq
+\lambda \qqq \mu \qqq \nu \qqq \xi \\
+& 5  \qqq o \qqq \pi \qqq \varpi \qqq \rho \qqq \varrho \qqq \sigma
+\qqq \varsigma \qqq \tau\\
+& 6 \qqq \upsilon \qqq \phi \qqq \varphi \qqq \chi \qqq \psi \qqq
+\omega \\
+& 7 \qqq \Gamma \qqq \Delta \qqq \Theta \qqq \Lambda \qqq \Xi \qqq
+\Pi \qqq \Sigma \qqq \Upsilon \\
+& 8 \qqq \Phi \qqq \Psi
+\end{aligned}
+\end{displaymath}
+
+\begin{displaymath}
+\begin{aligned}
+& 0 \qqq 1 \qqq 2 \qqq 3 \qqq 4 \qqq 5 \qqq 6 \qqq 7 \qqq 8\\
+& 1 \qqq < \qqq \le \qqq > \qqq \ge \qqq = \qqq \equiv \qqq \ll
+\qqq \gg\\
+& 2 \qqq \prec \qqq \preceq \qqq \succ \qqq \succeq \qqq \sim \qqq
+\simeq \qqq \approx \qqq \cong\\
+& 3 \qqq \subset \qqq \subseteq \qqq \supset \qqq \supseteq \qqq
+{}^A\sqsubset \qqq \sqsubseteq \qqq {}^A\sqsupset \qqq \sqsupseteq\\
+& 4 \qqq \doteq \qqq \propto \qqq {}^A\Join \qqq \bowtie \qqq \vdash
+\qqq \dashv \qqq \perp \qqq \models\\
+& 5 \qqq \mid \qqq \parallel \qqq \smile \qqq \frown \qqq \asymp
+\qqq : \qqq \notin \qqq \neq\\
+& 6 \qqq + \qqq - \qqq \pm \qqq \mp \qqq \cdot \qqq \times \qqq /
+\qqq \div \qqq \\
+& 7 \qqq \oplus \qqq \ominus \qqq \odot \qqq \otimes \qqq \oslash
+\qqq \setminus \qqq \lor \qqq \land\\
+& 8 \qqq \cup \qqq \cap \qqq \sqcup \qqq \sqcap \qqq \bigtriangleup
+\qqq \bigtriangledown \qqq \triangleleft \qqq \triangleright
+\end{aligned}
+\end{displaymath}
+
+\begin{displaymath}
+\begin{aligned}
+& 0 \qqq 1 \qqq 2 \qqq 3 \qqq 4 \qqq 5 \qqq 6 \qqq 7 \qqq 8\\
+& 1 \qqq {}^A\lhd \qqq {}^A\rhd \qqq {}^A\unlhd \qqq {}^A\unrhd \qqq
+\star \qqq \ast \qqq \circ \qqq \bigcirc\\
+& 2 \qqq \bullet \qqq \diamond \qqq \uplus \qqq \amalg \qqq \dagger
+\qqq \ddagger \qqq \wr \qqq {}\\
+& 3 \qqq \sum \qqq \prod \qqq \coprod \qqq \bigsqcup \qqq \bigcup
+\qqq \bigcap \qqq \int \qqq \oint\\
+& 4 \qqq \bigvee \qqq \bigwedge \qqq \bigoplus \qqq \bigotimes \qqq
+\bigodot \qqq \biguplus\\
+& 5 \qqq \gets \qqq \to \qqq \longleftarrow \qqq \longrightarrow
+\qqq \Leftarrow \qqq \Rightarrow \qqq \Longleftarrow \qqq
+\Longrightarrow\\
+& 6 \qqq \uparrow \qqq \downarrow \qqq \Uparrow \qqq \Downarrow \qqq
+\leftrightarrow \qqq \Leftrightarrow \qqq \longleftrightarrow \qqq
+\Longleftrightarrow\\
+& 7 \qqq \updownarrow \qqq \Updownarrow \qqq \nearrow \qqq \searrow
+\qqq \swarrow \qqq \nwarrow \qqq \leadsto \qqq \iff\\
+& 8 \qqq \mapsto \qqq \longmapsto \qqq \hookleftarrow \qqq
+\hookrightarrow \qqq \leftharpoonup \qqq \rightharpoonup \qqq
+\leftharpoondown \qqq \rightharpoondown\\
+& 9 \qqq \rightleftharpoons
+\end{aligned}
+\end{displaymath}
+
+
+\begin{displaymath}
+\begin{aligned}
+& 0 \qqq 1 \qqq 2 \qqq 3 \qqq 4 \qqq 5 \qqq 6 \qqq 7 \qqq 8\\
+& 1 \qqq ( \qqq ) \qqq \lbrack \qqq \rbrack \qqq \lbrace \qqq
+\rbrace \qqq \langle \qqq \rangle\\
+& 2 \qqq \lfloor \qqq \rfloor \qqq \lceil \qqq \rceil \qqq \vert
+\qqq | \qqq \Vert \qqq \|\\
+& 3 \qqq \lgroup \qqq \rgroup \qqq \lmoustache \qqq \rmoustache \qqq
+\arrowvert \qqq \Arrowvert \qqq \bracevert
+\end{aligned}
+\end{displaymath}
+
+To be continued...
+
+\end{document}
