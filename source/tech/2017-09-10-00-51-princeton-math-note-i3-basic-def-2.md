@@ -3,6 +3,7 @@ title: 《普林斯顿数学指引》读书笔记——I.3 一些基本的数学
 tags: 数学
 code_mode: math
 ---
+
 > 按：这篇笔记是系列笔记的第四篇，第一部分有4节，每节对应1-2篇笔记。
 
 > 笔记的方式，是引用一段个人觉得比较有亮点的英文原文，再给一段简化的中文说明，不采用中文版的翻译，不自行做直接翻译，只说明要点。因为不可能大段大段地去引用，必然会有语境的丢失，会做一些补充说明，以“按：”开始。对中文版翻译进行更正或调整的说明，以“注：”开始。偶尔也会插入自己的议论，以“评：”开始。
@@ -21,25 +22,25 @@ code_mode: math
 
 这个序列的确一个比一个靠近2，因此某种意义上也是在趋近2。然而我们真正用“趋近”来表示的意思应该不仅仅是我们能越靠越近，而是我们能靠得任意地近。在这个更强的意义下，唯一在被趋近的数值，显然就是极限1。
 
-> The notion of limit applies much more generally than just to real numbers. If you have any collection of mathematical objects and can say what you mean by the distance between any two of those objects, then you can talk of a sequence of those objects having a limit. Two objects are now called δ-close if the distance between them is less than $$ \delta $$ , rather than the difference. (The idea of distance is discussed further in metric spaces [III.58].) For example, a sequence of points in space can have a limit, as can a sequence of functions. (In the second case it is less obvious how to define distance—there are many natural ways to do it.) A further example comes in the theory of fractals (see dynamics [IV.15]): the very complicated shapes that appear there are best defined as limits of simpler ones.
+> The notion of limit applies much more generally than just to real numbers. If you have any collection of mathematical objects and can say what you mean by the distance between any two of those objects, then you can talk of a sequence of those objects having a limit. Two objects are now called $\delta$-close if the distance between them is less than $ \delta $ , rather than the difference. (The idea of distance is discussed further in metric spaces [III.58].) For example, a sequence of points in space can have a limit, as can a sequence of functions. (In the second case it is less obvious how to define distance—there are many natural ways to do it.) A further example comes in the theory of fractals (see dynamics [IV.15]): the very complicated shapes that appear there are best defined as limits of simpler ones.
 
-极限的概念可应用在远比实数广泛的领域。如果我们有任何一族数学对象，而且能定义任意两个对象间的距离，那么我们就可以谈论这些对象的一个序列有没有极限。如果两个对象的距离（而不是差）小于$$ \delta $$，那么它们可被称为“$$ \delta $$-逼近的”。（距离的概念将在[度量空间](https://en.wikipedia.org/wiki/Metric_space)[III.58]里进一步讨论）。
+极限的概念可应用在远比实数广泛的领域。如果我们有任何一族数学对象，而且能定义任意两个对象间的距离，那么我们就可以谈论这些对象的一个序列有没有极限。如果两个对象的距离（而不是差）小于 $ \delta $ ，那么它们可被称为“$\delta$-逼近的”。（距离的概念将在[度量空间](https://en.wikipedia.org/wiki/Metric_space)[III.58]里进一步讨论）。
 
 例如，空间中的点的序列可以拥有一个极限，函数的序列也可以。（函数间的距离的定义方式没有那么显然，不过存在很多自然的方式来对其进行定义。）一个更进一步的例子来自分形的理论（见动力学[IV.15]）：在里面出现的复杂图形，最好是定义为较简单的图形的极限。
 
-> We say that $$ f $$ is continuous at $$ a $$ if 
+> We say that $ f $ is continuous at $ a $ if 
 
 
-> $$ \forall \epsilon \textgreater 0,\exists \delta  \textgreater 0, |x-a| \textless \delta \Rightarrow |f(x)-f(a)|\textless \epsilon $$ 
+>  $$  \forall \epsilon \greater 0, \exists \delta \greater 0, |x-a| \less \delta \Rightarrow |f(x)-f(a)| \less \epsilon  $$  
 
 
-> This says that however accurate you wish $$ f(x) $$  to be as an estimate for $$  f(a) $$ , you can achieve this accuracy if you are prepared to make $$ x $$ a sufficiently good approximation to $$ a $$ . The function $$ f $$  is said to be continuous if it is continuous at every $$ a $$ . Roughly speaking, what this means is that $$ f $$  has no “sudden jumps.” (It also rules out certain kinds of very rapid oscillations that would also make accurate estimates difficult.)
+> This says that however accurate you wish $ f(x) $  to be as an estimate for $  f(a) $ , you can achieve this accuracy if you are prepared to make $ x $ a sufficiently good approximation to $ a $ . The function $ f $  is said to be continuous if it is continuous at every $ a $ . Roughly speaking, what this means is that $ f $  has no “sudden jumps.” (It also rules out certain kinds of very rapid oscillations that would also make accurate estimates difficult.)
 
-我们说函数$$ f $$在$$ a $$处连续，如果
+我们说函数 $ f $ 在 $ a $ 处连续，如果
 
-> $$ \forall \epsilon \textgreater 0,\exists \delta  \textgreater 0, |x-a| \textless \delta \Rightarrow |f(x)-f(a)|\textless \epsilon $$
+>  $$  \forall \epsilon \greater 0, \exists \delta \greater 0, |x-a| \less \delta \Rightarrow |f(x)-f(a)| \less \epsilon  $$ 
 
-上面的公式其实就是说，$$ f(x) $$作为对$$ f(a) $$的估算，无论我们希望这个估算多么精确，对应的精度都是可以达到的，只要我们准备好让$$ x $$是$$ a $$的一个足够好的近似。如果一个函数在每个点$$ a $$处都连续，它就是连续函数。粗略地说，就是它没有突然的跳跃（这也就排除了会使得精确的估计变得困难的某一类急速震荡）。
+上面的公式其实就是说， $ f(x) $ 作为对 $ f(a) $ 的估算，无论我们希望这个估算多么精确，对应的精度都是可以达到的，只要我们准备好让 $  x  $ 是 $  a  $ 的一个足够好的近似。如果一个函数在每个点 $  a  $ 处都连续，它就是连续函数。粗略地说，就是它没有突然的跳跃（这也就排除了会使得精确的估计变得困难的某一类急速震荡）。
 
 > Continuous functions are functions that preserve the structure provided by convergent sequences and their limits.
 
@@ -49,33 +50,33 @@ code_mode: math
 
 热需要时间来在介质中传导，所以虽然在很远处的点 (x',y', z') 的温度最终会影响到点(x,y, z)，此刻（在时间t）温度改变的方式却仅被紧挨着点(x,y, z)的点的温度所影响：如果在(x,y, z)的极近邻域的点平均比点(x,y, z)自己更热，那么我们就会预期点(x,y, z)的温度会上升，如果平均更冷，那我们预期就会下降。
 
-> The symbol $$ \Delta $$, defined by 
+> The symbol  $  \Delta  $ , defined by 
 
-> $$ \Delta f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2}+\frac{\partial^2 f}{\partial z^2} $$
+>  $$  \Delta f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2}+\frac{\partial^2 f}{\partial z^2}  $$
 
- > , is known as the Laplacian. What information does $$ \Delta f $$ give us about a function f ? The answer is that it captures the idea in the last paragraph: it tells us how the value of f at (x,y, z) compares with the average value of f in a small neighborhood of (x,y, z).
+ > , is known as the Laplacian. What information does  $  \Delta f  $  give us about a function f ? The answer is that it captures the idea in the last paragraph: it tells us how the value of f at (x,y, z) compares with the average value of f in a small neighborhood of (x,y, z).
 
 定义为
 
-$$ \Delta f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2}+\frac{\partial^2 f}{\partial z^2} $$
+$$  \Delta f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2}+\frac{\partial^2 f}{\partial z^2}  $$
 
-的符号$$ \Delta $$，称为拉普拉斯算子。$$ \Delta f $$向我们提供了关于函数f的哪些信息？它抓住了上一段所描述的思想：f在点(x,y, z)的值与点(x,y, z)的极小领域的平均值相比如何。
+的符号 $  \Delta  $ ，称为拉普拉斯算子。 $  \Delta f  $ 向我们提供了关于函数f的哪些信息？它抓住了上一段所描述的思想：f在点(x,y, z)的值与点(x,y, z)的极小领域的平均值相比如何。
 
-> A second equation of great importance is the Laplace equation, $$ \Delta f = 0 $$. Intuitively speaking, this says of a function f that its value at a point (x,y, z) is always equal to the average value at the immediately surrounding points.
+> A second equation of great importance is the Laplace equation,  $  \Delta f = 0  $ . Intuitively speaking, this says of a function f that its value at a point (x,y, z) is always equal to the average value at the immediately surrounding points.
 
-第二个特别重要的方程式拉普拉斯方程，即$$ \Delta f = 0 $$。直观地看，这是在说，一个函数f在点(x,y,z)的值，总是等于紧挨着该点的点的平均值。
+第二个特别重要的方程式拉普拉斯方程，即 $  \Delta f = 0  $ 。直观地看，这是在说，一个函数f在点(x,y,z)的值，总是等于紧挨着该点的点的平均值。
 
 > For two or more variables, a function has more flexibility—it can lie above the tangent lines in some directions and below it in others. As a result, one can impose a variety of boundary conditions on f (that is, specifications of the values f takes on the boundaries of certain regions), and there is a much wider and more interesting class of solutions.
 
 在二元或多元的情况下，一个函数可以有更大的灵活性：它可以在某些方向上高于切线，而在其他方向上低于切线。结果是，我们可以对f赋予多种边值条件（即在特定区域的边界上指定f的值），从而也就有了更广泛和更有趣的各类解。
 
-> $$ \square^2 h $$ is shorthand for $$ \Delta h - \frac{1}{v^2} \frac{\partial^2 h}{\partial t^2} $$
+>  $  \square^2 h  $  is shorthand for  $  \Delta h - \frac{1}{v^2} \frac{\partial^2 h}{\partial t^2}  $ 
 
-> The operation $$ \square^2 $$ is called the d'Alembertian, after [d'Alembert](https://en.wikipedia.org/wiki/Jean_le_Rond_d%27Alembert) [VI.19], who was the first to formulate the wave equation.
+> The operation  $  \square^2  $  is called the d'Alembertian, after [d'Alembert](https://en.wikipedia.org/wiki/Jean_le_Rond_d%27Alembert) [VI.19], who was the first to formulate the wave equation.
 
-$$ \square^2 h $$ 是$$ \Delta h - \frac{1}{v^2} \frac{\partial^2 h}{\partial t^2} $$ 的简写。
+ $  \square^2 h  $  是 $  \Delta h - \frac{1}{v^2} \frac{\partial^2 h}{\partial t^2}  $  的简写。
 
-算子$$ \square^2 $$又被称为 d'Alembertian 算子，以法国数学家[d'Alembert](https://en.wikipedia.org/wiki/Jean_le_Rond_d%27Alembert) [VI.19] 命名，他是首个用公式表示波方程的人。
+算子 $  \square^2  $ 又被称为 d'Alembertian 算子，以法国数学家[d'Alembert](https://en.wikipedia.org/wiki/Jean_le_Rond_d%27Alembert) [VI.19] 命名，他是首个用公式表示波方程的人。
 
 评：包含这两个符号，不是因为这是新知识，只是在我少年时代初次接触这个三角形、正方形还有另外一个倒三角形时，对数学符号升起了某种神秘崇高的感觉，至今看到这几个符号依然能唤起那时的感觉。我如此喜欢这种用幼儿时代就接触的符号来浓缩中学时代才能理解的知识的方式。
 
@@ -83,8 +84,7 @@ $$ \square^2 h $$ 是$$ \Delta h - \frac{1}{v^2} \frac{\partial^2 h}{\partial t^
 > ![](http://latex.codecogs.com/png.latex?\int^x_a f(t)dt) 
 > for some a, then F can be differentiated and F'(x) = f(x). That is, if you integrate a continuous function and differentiate it again, you get back to where you started.
 
-我们花了不少功夫来把积分和逆微分区分开来，但是有一个称为__微积分基本定理__的著名定理断言这两个程序事实上会给出相同的答案，至少当所考察的函数具有所有“合理”的函数一定会具有的某些连续性时是这样的。因此，通常都认为把积分看成微分的逆运算是合法的。确切些说，如果f是连续的，而F(x)可以对于某个常数a定义为$$ \int^x_a f(t)dt $$
-，则$$ F(x) $$可以微分，且 $$ F'(x) = f(x) $$。就是说，如果先把一个连续函数积分了，再去做微分，就会回到原来的函数。
+我们花了不少功夫来把积分和逆微分区分开来，但是有一个称为__微积分基本定理__的著名定理断言这两个程序事实上会给出相同的答案，至少当所考察的函数具有所有“合理”的函数一定会具有的某些连续性时是这样的。因此，通常都认为把积分看成微分的逆运算是合法的。确切些说，如果f是连续的，而F(x)可以对于某个常数a定义为 $  \int^x_a f(t)dt  $ ，则 $  F(x)  $ 可以微分，且  $  F'(x) = f(x)  $ 。就是说，如果先把一个连续函数积分了，再去做微分，就会回到原来的函数。
 
 评：这段话对于学过高等数学的同学可能感觉平淡无奇，不过双语对照阅读起来，还是有一些新的感觉，所以摘录出来。
 
@@ -100,7 +100,7 @@ $$ \square^2 h $$ 是$$ \Delta h - \frac{1}{v^2} \frac{\partial^2 h}{\partial t^
 
 对于复函数，可微性蕴含着无穷可微性。
 
-在第五节的最后，中文版讨论了[Liouville's theorem](https://en.wikipedia.org/wiki/Liouville%27s_theorem_(complex_analysis))，而英文电子版缺失。这个定理是说：如果函数f是定义在整个复平面上的全纯函数，而且函数f是有界的（即存在一个常数C，使得对于每一个复数z都有$$ |f(z)| \le C $$），则函数必为常数。
+在第五节的最后，中文版讨论了[Liouville's theorem](https://en.wikipedia.org/wiki/Liouville%27s_theorem_(complex_analysis))，而英文电子版缺失。这个定理是说：如果函数f是定义在整个复平面上的全纯函数，而且函数f是有界的（即存在一个常数C，使得对于每一个复数z都有 $  |f(z)| \le C  $ ），则函数必为常数。
 
 ### 6 What Is Geometry? （什么是几何学）
 
@@ -162,9 +162,9 @@ $$ \square^2 h $$ 是$$ \Delta h - \frac{1}{v^2} \frac{\partial^2 h}{\partial t^
 
 对射影平面的第二种观点，是把它看作R^3中过原点的直线的集合。因为一条这样的直线可由它与单位球面的两个交点决定，所以也可以把这个集合看成就是单位球面，但是与普通的球面有一个值得注意的区别，就是（单位球面上）相对的点可以视作同一点，因为它们对应于同一条直线。这一点很难想象，但并非不可能。假设有这样一个世界，在它的一边发生的任何事，该事件一个完全一致的副本，都会在另外一边完全对应的地方发生。（按：接下来作者举了真实的“你”去副本的“巴黎”的例子）在这种情况下，说只有一个“巴黎”，只有一个“你”，那就更加自然了，不过这时世界已经不再是球面，而是一个射影平面了。
 
-> A Lorentz transformation is a linear map from $$ R^4 $$ to $$ R^4 $$ that preserves these “generalized distances.”
+> A Lorentz transformation is a linear map from $ R^4 $ to $ R^4 $ that preserves these “generalized distances.”
 
-洛伦兹变换就是一个保持其上“广义距离”不变的从 $$ R^4 $$ 到 $$ R^4 $$ 的线性映射。
+洛伦兹变换就是一个保持其上“广义距离”不变的从 $ R^4 $ 到 $ R^4 $ 的线性映射。
 
 > Let us therefore imagine a planet covered with calm water. If you drop a large rock into the water at the North Pole, a wave will propagate out in a circle of everincreasing radius. (At any one moment, it will be a circle of constant latitude.) In due course, however, this circle will reach the equator, after which it will start to shrink, until eventually the whole wave reaches the South Pole at once, in a sudden burst of energy.
 
