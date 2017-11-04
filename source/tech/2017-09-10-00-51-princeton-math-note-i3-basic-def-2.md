@@ -31,14 +31,14 @@ code_mode: math
 > We say that $ f $ is continuous at $ a $ if 
 
 
->  $$  \forall \epsilon \greater 0, \exists \delta \greater 0, |x-a| \less \delta \Rightarrow |f(x)-f(a)| \less \epsilon  $$  
+>  $$  \forall \epsilon \gt 0, \exists \delta \gt 0, |x-a| \lt \delta \Rightarrow |f(x)-f(a)| \lt \epsilon $$ 
 
 
 > This says that however accurate you wish $ f(x) $  to be as an estimate for $  f(a) $ , you can achieve this accuracy if you are prepared to make $ x $ a sufficiently good approximation to $ a $ . The function $ f $  is said to be continuous if it is continuous at every $ a $ . Roughly speaking, what this means is that $ f $  has no “sudden jumps.” (It also rules out certain kinds of very rapid oscillations that would also make accurate estimates difficult.)
 
 我们说函数 $ f $ 在 $ a $ 处连续，如果
 
->  $$  \forall \epsilon \greater 0, \exists \delta \greater 0, |x-a| \less \delta \Rightarrow |f(x)-f(a)| \less \epsilon  $$ 
+>  $$  \forall \epsilon \gt 0, \exists \delta \gt 0, |x-a| \lt \delta \Rightarrow |f(x)-f(a)| \lt \epsilon $$ 
 
 上面的公式其实就是说， $ f(x) $ 作为对 $ f(a) $ 的估算，无论我们希望这个估算多么精确，对应的精度都是可以达到的，只要我们准备好让 $  x  $ 是 $  a  $ 的一个足够好的近似。如果一个函数在每个点 $  a  $ 处都连续，它就是连续函数。粗略地说，就是它没有突然的跳跃（这也就排除了会使得精确的估计变得困难的某一类急速震荡）。
 
@@ -46,29 +46,29 @@ code_mode: math
 
 连续函数就是可以保持由收敛序列及其极限所提供的结构的函数。
 
-> Heat takes time to travel through a medium, so although the temperature at some distant point (x',y', z') will eventually affect the temperature at (x,y, z), the way the temperature is changing right now (that is, at time t) will be affected only by the temperatures of points very close to (x,y, z): if points in the immediate neighborhood of (x,y, z) are hotter, on average, than (x,y, z) itself, then we expect the temperature at (x,y, z) to be increasing, and if they are colder then we expect it to be decreasing.
+> Heat takes time to travel through a medium, so although the temperature at some distant point $ (x',y',z') $ will eventually affect the temperature at $ (x,y,z) $ , the way the temperature is changing right now (that is, at time t) will be affected only by the temperatures of points very close to $ (x,y,z) $ : if points in the immediate neighborhood of $ (x,y,z) $ are hotter, on average, than $  (x,y,z) $ itself, then we expect the temperature at $ (x,y,z) $ to be increasing, and if they are colder then we expect it to be decreasing.
 
-热需要时间来在介质中传导，所以虽然在很远处的点 (x',y', z') 的温度最终会影响到点(x,y, z)，此刻（在时间t）温度改变的方式却仅被紧挨着点(x,y, z)的点的温度所影响：如果在(x,y, z)的极近邻域的点平均比点(x,y, z)自己更热，那么我们就会预期点(x,y, z)的温度会上升，如果平均更冷，那我们预期就会下降。
+热需要时间来在介质中传导，所以虽然在很远处的点 $ (x',y',z') $ 的温度最终会影响到点 $ (x,y,z) $ ，此刻（在时间t）温度改变的方式却仅被紧挨着点 $ (x,y,z) $ 的点的温度所影响：如果在 $ (x,y,z) $ 的极近邻域的点平均比点 $ (x,y,z) $ 自己更热，那么我们就会预期点 $ (x,y,z) $ 的温度会上升，如果平均更冷，那我们预期就会下降。
 
 > The symbol  $  \Delta  $ , defined by 
 
 >  $$  \Delta f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2}+\frac{\partial^2 f}{\partial z^2}  $$
 
- > , is known as the Laplacian. What information does  $  \Delta f  $  give us about a function f ? The answer is that it captures the idea in the last paragraph: it tells us how the value of f at (x,y, z) compares with the average value of f in a small neighborhood of (x,y, z).
+ > , is known as the Laplacian. What information does  $  \Delta f  $  give us about a function $ f $ ? The answer is that it captures the idea in the last paragraph: it tells us how the value of $ f $ at $ (x,y,z) $ compares with the average value of $ f $ in a small neighborhood of $ (x,y,z) $ .
 
 定义为
 
 $$  \Delta f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2}+\frac{\partial^2 f}{\partial z^2}  $$
 
-的符号 $  \Delta  $ ，称为拉普拉斯算子。 $  \Delta f  $ 向我们提供了关于函数f的哪些信息？它抓住了上一段所描述的思想：f在点(x,y, z)的值与点(x,y, z)的极小领域的平均值相比如何。
+的符号 $  \Delta  $ ，称为拉普拉斯算子。 $  \Delta f  $ 向我们提供了关于函数 $ f $ 的哪些信息？它抓住了上一段所描述的思想：f在点 $ (x,y,z) $ 的值与点 $ (x,y,z) $ 的极小领域的平均值相比如何。
 
-> A second equation of great importance is the Laplace equation,  $  \Delta f = 0  $ . Intuitively speaking, this says of a function f that its value at a point (x,y, z) is always equal to the average value at the immediately surrounding points.
+> A second equation of great importance is the Laplace equation,  $  \Delta f = 0  $ . Intuitively speaking, this says of a function $ f $ that its value at a point $ (x,y,z) $ is always equal to the average value at the immediately surrounding points.
 
-第二个特别重要的方程式拉普拉斯方程，即 $  \Delta f = 0  $ 。直观地看，这是在说，一个函数f在点(x,y,z)的值，总是等于紧挨着该点的点的平均值。
+第二个特别重要的方程式拉普拉斯方程，即 $  \Delta f = 0  $ 。直观地看，这是在说，一个函数 $ f $ 在点 $ (x,y,z) $ 的值，总是等于紧挨着该点的点的平均值。
 
-> For two or more variables, a function has more flexibility—it can lie above the tangent lines in some directions and below it in others. As a result, one can impose a variety of boundary conditions on f (that is, specifications of the values f takes on the boundaries of certain regions), and there is a much wider and more interesting class of solutions.
+> For two or more variables, a function has more flexibility—it can lie above the tangent lines in some directions and below it in others. As a result, one can impose a variety of boundary conditions on $ f $ (that is, specifications of the values $ f $ takes on the boundaries of certain regions), and there is a much wider and more interesting class of solutions.
 
-在二元或多元的情况下，一个函数可以有更大的灵活性：它可以在某些方向上高于切线，而在其他方向上低于切线。结果是，我们可以对f赋予多种边值条件（即在特定区域的边界上指定f的值），从而也就有了更广泛和更有趣的各类解。
+在二元或多元的情况下，一个函数可以有更大的灵活性：它可以在某些方向上高于切线，而在其他方向上低于切线。结果是，我们可以对 $ f $ 赋予多种边值条件（即在特定区域的边界上指定 $ f $ 的值），从而也就有了更广泛和更有趣的各类解。
 
 >  $  \square^2 h  $  is shorthand for  $  \Delta h - \frac{1}{v^2} \frac{\partial^2 h}{\partial t^2}  $ 
 
@@ -80,11 +80,9 @@ $$  \Delta f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2
 
 评：包含这两个符号，不是因为这是新知识，只是在我少年时代初次接触这个三角形、正方形还有另外一个倒三角形时，对数学符号升起了某种神秘崇高的感觉，至今看到这几个符号依然能唤起那时的感觉。我如此喜欢这种用幼儿时代就接触的符号来浓缩中学时代才能理解的知识的方式。
 
-> We have been at pains to distinguish integration from antidifferentiation, but a famous theorem, known as _the fundamental theorem of calculus_, asserts that the two procedures do, in fact, give the same answer, at least when the function in question has certain continuity properties that all “sensible” functions have. So it is usually legitimate to regard integration as the opposite of differentiation. More precisely, if f is continuous and F(x) is defined to be 
-> ![](http://latex.codecogs.com/png.latex?\int^x_a f(t)dt) 
-> for some a, then F can be differentiated and F'(x) = f(x). That is, if you integrate a continuous function and differentiate it again, you get back to where you started.
+> We have been at pains to distinguish integration from antidifferentiation, but a famous theorem, known as _the fundamental theorem of calculus_, asserts that the two procedures do, in fact, give the same answer, at least when the function in question has certain continuity properties that all “sensible” functions have. So it is usually legitimate to regard integration as the opposite of differentiation. More precisely, if $ f $ is continuous and $ F(x) $ is defined to be $ \int^x_a f(t)dt $ for some $ a $, then $ F $ can be differentiated and $ F'(x) = f(x) $ . That is, if you integrate a continuous function and differentiate it again, you get back to where you started.
 
-我们花了不少功夫来把积分和逆微分区分开来，但是有一个称为__微积分基本定理__的著名定理断言这两个程序事实上会给出相同的答案，至少当所考察的函数具有所有“合理”的函数一定会具有的某些连续性时是这样的。因此，通常都认为把积分看成微分的逆运算是合法的。确切些说，如果f是连续的，而F(x)可以对于某个常数a定义为 $  \int^x_a f(t)dt  $ ，则 $  F(x)  $ 可以微分，且  $  F'(x) = f(x)  $ 。就是说，如果先把一个连续函数积分了，再去做微分，就会回到原来的函数。
+我们花了不少功夫来把积分和逆微分区分开来，但是有一个称为__微积分基本定理__的著名定理断言这两个程序事实上会给出相同的答案，至少当所考察的函数具有所有“合理”的函数一定会具有的某些连续性时是这样的。因此，通常都认为把积分看成微分的逆运算是合法的。确切些说，如果 $ f $ 是连续的，而 $ F(x) $ 可以对于某个常数 $ a $ 定义为 $  \int^x_a f(t)dt  $ ，则 $  F(x)  $ 可以微分，且  $  F'(x) = f(x)  $ 。就是说，如果先把一个连续函数积分了，再去做微分，就会回到原来的函数。
 
 评：这段话对于学过高等数学的同学可能感觉平淡无奇，不过双语对照阅读起来，还是有一些新的感觉，所以摘录出来。
 
@@ -92,15 +90,15 @@ $$  \Delta f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2
 
 这些事实（按：上面讨论了柯西-黎曼方程）开始揭示，复可微是一个远比实可微要强得多的条件，我们也可以期待全纯函数会具备许多有趣的属性。
 
-> It is not necessary for the function f to be defined on the whole of C for [Cauchy’s theorem](https://en.wikipedia.org/wiki/Cauchy%27s_integral_theorem) to be valid: everything remains true if we restrict attention to a simply connected domain, which means an open set with no holes in it. If there are holes, then two path integrals may differ if the paths go around the holes in different ways. Thus, path integrals have a close connection with the topology of subsets of the plane, an observation that has many ramifications throughout modern geometry. For more on topology, see section 6.4 of this article and [Algebraic Topology](https://en.wikipedia.org/wiki/Algebraic_topology) [IV.10].
+> It is not necessary for the function f to be defined on the whole of $ C $ for [Cauchy's theorem](https://en.wikipedia.org/wiki/Cauchy%27s_integral_theorem) to be valid: everything remains true if we restrict attention to a simply connected domain, which means an open set with no holes in it. If there are holes, then two path integrals may differ if the paths go around the holes in different ways. Thus, path integrals have a close connection with the topology of subsets of the plane, an observation that has many ramifications throughout modern geometry. For more on topology, see section 6.4 of this article and [Algebraic Topology](https://en.wikipedia.org/wiki/Algebraic_topology) [IV.10].
 
-为了使[柯西定理](https://en.wikipedia.org/wiki/Cauchy%27s_integral_theorem)成立，并不需要函数定义在整个复数平面C上，如果限制函数定义在整个复数平面的一个单连通区域，即没有洞的开集合上，则一切依然成立。如果区域里有洞，则两条有相同起点和终点的路径积分可能不一样，如果这两条路径以不同的方式环绕洞。因此，路径积分与平面的子集合的拓扑学有密切的关系，这一点观察，在整个现代几何学里非常多的引申与影响。关于拓扑学，可以进一步参看[代数拓扑](https://en.wikipedia.org/wiki/Algebraic_topology) 这一条目。
+为了使[柯西定理](https://en.wikipedia.org/wiki/Cauchy%27s_integral_theorem)成立，并不需要函数定义在整个复数平面 $ C $ 上，如果限制函数定义在整个复数平面的一个单连通区域，即没有洞的开集合上，则一切依然成立。如果区域里有洞，则两条有相同起点和终点的路径积分可能不一样，如果这两条路径以不同的方式环绕洞。因此，路径积分与平面的子集合的拓扑学有密切的关系，这一点观察，在整个现代几何学里非常多的引申与影响。关于拓扑学，可以进一步参看[代数拓扑](https://en.wikipedia.org/wiki/Algebraic_topology) 这一条目。
 
 > For complex functions differentiability implies infinite differentiability.
 
 对于复函数，可微性蕴含着无穷可微性。
 
-在第五节的最后，中文版讨论了[Liouville's theorem](https://en.wikipedia.org/wiki/Liouville%27s_theorem_(complex_analysis))，而英文电子版缺失。这个定理是说：如果函数f是定义在整个复平面上的全纯函数，而且函数f是有界的（即存在一个常数C，使得对于每一个复数z都有 $  |f(z)| \le C  $ ），则函数必为常数。
+在第五节的最后，中文版讨论了[Liouville's theorem](https://en.wikipedia.org/wiki/Liouville%27s_theorem_(complex_analysis))，而英文电子版缺失。这个定理是说：如果函数 $ f $ 是定义在整个复平面上的全纯函数，而且函数 $ f $ 是有界的（即存在一个常数 $ C $ ，使得对于每一个复数 $ z $ 都有 $  |f(z)| \le C  $ ），则函数必为常数。
 
 ### 6 What Is Geometry? （什么是几何学）
 
@@ -114,9 +112,9 @@ $$  \Delta f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2
 
 一般来说，几何学就是数学里涉及我们通常会按照惯例视为几何语言的部分，如“点”、“直线”、“平面”、“空间”、“曲线”、“球”、“立方体”、“距离”，还有“角度”这样的词汇扮演了突出的角色。然而，还存在一种更为深刻的观点，最初为克莱因所主张，认为变换才是这门科学的真正的主题。所以除了上面列举的这些词以外，还要加上“反射”、“旋转”、“平移”、“拉伸”、“剪切”、“投影”，以及还有稍微有些朦胧的概念，例如“保角映射”或者“连续变形”。
 
-> These can be thought of in two different ways. One is that they are the transformations of the plane, or of space, or more generally of R^n for some n, that preserve distance.
+> These can be thought of in two different ways. One is that they are the transformations of the plane, or of space, or more generally of $ R^n $ for some n, that preserve distance.
 
-可以有两种方式来看待刚性变换，其一是将它们看作对平面或三维空间或者更一般的R^n空间，所做的保持距离不变的变换。
+可以有两种方式来看待刚性变换，其一是将它们看作对平面或三维空间或者更一般的 $ R^n $ 空间，所做的保持距离不变的变换。
 
 > Every such transformation can be realized as a combination of rotations, reflections, and translations, and this gives us a more concrete way to think about the group.
 
@@ -156,11 +154,11 @@ $$  \Delta f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2
 
 > Here are two ways of regarding the projective plane. The first is that the set of points is the ordinary plane, together with a “point at infinity.” The group of transformations consists of functions known as projections.
 
-> A second view of the projective plane is that it is the set of all lines in R^3 that go through the origin. Since a line is determined by the two points where it intersects the unit sphere, one can regard this set as a sphere, but with the significant difference that opposite points are regarded as the same—because they correspond to the same line. (This is quite hard to imagine, but not impossible. Suppose that, whatever happened on one side of the world, an identical copy of that event happened at the exactly corresponding place on the opposite side. ...... It might under such circumstances be more natural to say that there was only one Paris and only one you and that the world was not a sphere but a projective plane.)
+> A second view of the projective plane is that it is the set of all lines in $ R^3 $ that go through the origin. Since a line is determined by the two points where it intersects the unit sphere, one can regard this set as a sphere, but with the significant difference that opposite points are regarded as the same—because they correspond to the same line. (This is quite hard to imagine, but not impossible. Suppose that, whatever happened on one side of the world, an identical copy of that event happened at the exactly corresponding place on the opposite side. ...... It might under such circumstances be more natural to say that there was only one Paris and only one you and that the world was not a sphere but a projective plane.)
 
 对射影平面有两种观点：第一种观点认为，这个点集合其实就是普通的平面加上无穷远点。组成射影变换群的函数我们称为投影。
 
-对射影平面的第二种观点，是把它看作R^3中过原点的直线的集合。因为一条这样的直线可由它与单位球面的两个交点决定，所以也可以把这个集合看成就是单位球面，但是与普通的球面有一个值得注意的区别，就是（单位球面上）相对的点可以视作同一点，因为它们对应于同一条直线。这一点很难想象，但并非不可能。假设有这样一个世界，在它的一边发生的任何事，该事件一个完全一致的副本，都会在另外一边完全对应的地方发生。（按：接下来作者举了真实的“你”去副本的“巴黎”的例子）在这种情况下，说只有一个“巴黎”，只有一个“你”，那就更加自然了，不过这时世界已经不再是球面，而是一个射影平面了。
+对射影平面的第二种观点，是把它看作 $ R^3 $ 中过原点的直线的集合。因为一条这样的直线可由它与单位球面的两个交点决定，所以也可以把这个集合看成就是单位球面，但是与普通的球面有一个值得注意的区别，就是（单位球面上）相对的点可以视作同一点，因为它们对应于同一条直线。这一点很难想象，但并非不可能。假设有这样一个世界，在它的一边发生的任何事，该事件一个完全一致的副本，都会在另外一边完全对应的地方发生。（按：接下来作者举了真实的“你”去副本的“巴黎”的例子）在这种情况下，说只有一个“巴黎”，只有一个“你”，那就更加自然了，不过这时世界已经不再是球面，而是一个射影平面了。
 
 > A Lorentz transformation is a linear map from $ R^4 $ to $ R^4 $ that preserves these “generalized distances.”
 
