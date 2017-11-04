@@ -34,7 +34,7 @@ code_mode: math
 
 > The set of all integers—positive, negative, and zero— is usually denoted  $ \mathbb{Z} $  (for the German word “Zahlen,” meaning “numbers”). Within this system, subtraction is always possible: that is, if $ m $ and $ n $ are integers, then so is $ m - n $.
 
-所有整数——正负整数与零——的集合，常记作 $ \mathbb{Z} $ （德文表示数的单词“Zahlen,”的第一个字母），在这个属性里，减法总是可能的：即如果 $ m $ 和 $ n $ 都是整数，那么 $ m - n $ 也是。
+所有整数——正负整数与零——的集合，常记作 $ \mathbb{Z} $ （德文表示数的单词“Zahlen”的第一个字母），在这个属性里，减法总是可能的：即如果 $ m $ 和 $ n $ 都是整数，那么 $ m - n $ 也是。
 
 > A more theoretical justification for the rational numbers is that they form a number system in which division is always possible——except by zero. This fact, together with some basic properties of the arithmetical operations, means that Q is a field.
 
@@ -72,15 +72,15 @@ code_mode: math
 
 在定义数学结构的时候，有一个很一般的原理：如果一个数学定义，可以分成几个部分，则除非这些部分可以相互作用，否则这个定义就没有什么意思（仅仅相当于分成的几个部分对应的原来就定义过的数学结构而已）。域的加法和乘法，就是这样的两个部分，而迄今为止提到的所有性质，并未把它们以某种方式联系起来。然而，最后的一个性质，即分配律，做到了这一点，从而给了域独有的特性。
 
-> In addition to $ \mathbb{Q} $ ,  $ \mathbb{R} $ , and $ \mathbb{C} $ , one other field stands out as fundamental, namely Fp, which is the set of integers modulo a prime p, with addition and multiplication also defined modulo p (see Modular Arithmetic [III.60]).
+> In addition to $ \mathbb{Q} $ ,  $ \mathbb{R} $ , and $ \mathbb{C} $ , one other field stands out as fundamental, namely $ F_p $ , which is the set of integers modulo a prime p, with addition and multiplication also defined modulo p (see Modular Arithmetic [III.60]).
 
-除了 $ \mathbb{Q} $ 、 $ \mathbb{R} $ 、 $ \mathbb{C} $ 之外，还有一个引人注目的基础域，即Fp。它是整数对素数p取模组成的集合，其中的加法、减法，也被定义为对p取模，详见[模算术](https://en.wikipedia.org/wiki/Modular_arithmetic)。
+除了 $ \mathbb{Q} $ 、 $ \mathbb{R} $ 、 $ \mathbb{C} $ 之外，还有一个引人注目的基础域，即 $ F_p $ 。它是整数对素数p取模组成的集合，其中的加法、减法，也被定义为对p取模，详见[模算术](https://en.wikipedia.org/wiki/Modular_arithmetic)。
 
 > There is an important process of extension that allows one to build new fields out of old ones. The idea is to start with a field F, find a polynomial P that has no roots in F, and “adjoin” a new element to F with the stipulation that it is a root of P. This produces an extended field F, which consists of everything that one can produce from this root and from elements of F using addition and multiplication.
 
 有一个重要的过程与域有关，这个过程称之为域的扩张，它使我们能够从原来的域构造出新的域来。其基本的思想就是从一个域F开始，找一个在F中没有根的多项式P，然后把一个新的元素附加到F上，约定这个元素就是P的根。这样的过程，会产生一个扩张的域，它会包含，所有可以用这个根与F中的元素通过加法和乘法产生出来所有“数”。
 
-评：这段话从抽象的角度，描述了带来整个复数域的i（定义为 $ x^2+1 $ 这个多项式的根）的诞生过程。
+评：这段话从抽象的角度，描述了带来整个复数域的 $ \mathit{i} $ （定义为 $ x^2+1 $ 这个多项式的根）的诞生过程。
 
 > A second very significant justification for introducing fields is that they can be used to form vector spaces.
 
@@ -104,7 +104,7 @@ code_mode: math
 
 有了例子，回答一些基本的问题变得容易不少。如果我们有了一个关于某个给定类型的结构的一般命题，而又想知道它是否正确，这时，如果能够用诸多个案来检验这个命题，会很有帮助。如果这个命题通过了所有的检验，就有了有利于这个命题的证据。如果运气好，我们也许还能看出这个命题为什么是正确的。另外，也可能发现这个命题对于你进行检验的每一个例子都是对的，但是都仅仅是因为所用例子本身的特别之处，这个时候我们就会知道，在寻找反例时需要怎样避免这些特别之处。如果确实找到了一个反例，那么这个一般的命题当然不成立了，然而有可能这个命题在经过某些修改以后，依然成立并且有用。在这种情况下，反例就会帮助我们找到适当的修改。
 
-> Even though $ \mathbb{Q}(i) $ is contained in $ \mathbb{C} , it is a more interesting field in some important ways. But how can this be? Surely, one might think, an object cannot become more interesting when most of it is taken away. But a moment’s further thought shows that it certainly can: for example, the set of all prime numbers contains fascinating mysteries of a kind that one does not expect to encounter in the set of all positive integers.
+> Even though $ \mathbb{Q}(i) $ is contained in $ \mathbb{C} $ , it is a more interesting field in some important ways. But how can this be? Surely, one might think, an object cannot become more interesting when most of it is taken away. But a moment’s further thought shows that it certainly can: for example, the set of all prime numbers contains fascinating mysteries of a kind that one does not expect to encounter in the set of all positive integers.
 
 > ......and in many other fields of a similar kind, we can ask which polynomial equations have solutions. This turns out to be a deep and important question that simply does not arise in the larger field C.
 
@@ -218,6 +218,6 @@ f把每一个有理数都变成自身，那f(√ 2)会是多少呢？从 f(√ 2
 
 在许多情况下，线性映射的本征向量与本征值，包含了关于这个线性映射我们所有需要了解的信息，而且是以非常方便的形式。线性映射出现在很多情境中，这些情境中出现的问题往往正是关于本征向量和本征值的问题。
 
-> function [III.25] $ e^x $ : that its derivative is the same function. In other words, if $ f(x) = e^x $ , then $ f'(x) = f(x) $ . Now differentiation, as we saw earlier, can be thought of as a linear map, and if $ f'(x) = f(x) $ then this map leaves the function f unchanged, which says that f is an eigenvector with eigenvalue 1. More generally, if $ g(x) = e^(\lambda x) $, then $ g'(x) = \lambda e^(\lambda x) = \lambda g(x) $ , so g is an eigenvector of the differentiation map, with eigenvalue $ \lambda $ . Many linear differential equations can be thought of as asking for eigenvectors of linear maps defined using differentiation.
+> function [III.25] $ e^x $ : that its derivative is the same function. In other words, if $ f(x) = e^x $ , then $ f'(x) = f(x) $ . Now differentiation, as we saw earlier, can be thought of as a linear map, and if $ f'(x) = f(x) $ then this map leaves the function f unchanged, which says that f is an eigenvector with eigenvalue 1. More generally, if $ g(x) = e^{(\lambda x)} $ , then $ g'(x) = \lambda e^{(\lambda x)} = \lambda g(x) $ , so g is an eigenvector of the differentiation map, with eigenvalue $ \lambda $ . Many linear differential equations can be thought of as asking for eigenvectors of linear maps defined using differentiation.
 
-指数函数$ e^x $的导数是其自身。换句话说，如果 $ f(x) = e^x $ ，那么 $ f'(x) = f(x) $ 。这样微分运算就可以被看作一种线性映射。如果 $ f'(x) = f(x) $ ，那么这个映射使函数f保持不变，这说明f是一个具备本征值1的本征向量。更一般的，如果 $ g(x) = e^(\lambda x) $ ，那么 $ g'(x) = \lambda e^(\lambda x) = \lambda g(x) $ ，这样g就是微分映射的一个本征向量，其本征值为λ。许多线性微分方程可以被视为在求用微分运算定义的线性映射的本征向量。
+指数函数$ e^x $的导数是其自身。换句话说，如果 $ f(x) = e^x $ ，那么 $ f'(x) = f(x) $ 。这样微分运算就可以被看作一种线性映射。如果 $ f'(x) = f(x) $ ，那么这个映射使函数f保持不变，这说明f是一个具备本征值1的本征向量。更一般的，如果 $ g(x) = e^{(\lambda x)} $ ，那么 $ g'(x) = \lambda e^{(\lambda x)} = \lambda g(x) $ ，这样g就是微分映射的一个本征向量，其本征值为λ。许多线性微分方程可以被视为在求用微分运算定义的线性映射的本征向量。
