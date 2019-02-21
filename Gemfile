@@ -5,7 +5,7 @@ gem 'ya2yaml'
 gem 'middleman', '~> 3.4'
 gem 'middleman-blog', '~> 3.5'
 gem 'middleman-minify-html', '~> 3.4'
-gem 'bourbon', '~> 4.2'
+gem 'bourbon', '~> 5.1'
 gem 'neat', '~> 1.7'
 gem 'redcarpet', '~> 3.2'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw] # http://stackoverflow.com/questions/23022258/tzinfodatasourcenotfound-error-starting-rails-v4-1-0-server-on-windows
