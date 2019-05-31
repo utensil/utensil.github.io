@@ -29,14 +29,5 @@ blog: tech
     %span and in pursuit of
     = succeed "." do
       %span.main-idea words behind the world
-#github-widget-holder
-- content_for :scripts do
-  = javascript_include_tag "jquery.tipTip.js"
-  :javascript
-    $('h2.subtitle').tipTip({defaultPosition: "left"});
-  = javascript_include_tag "jquery-github-widget.js"
-  :javascript
-    $('#github-widget-holder').github_widget({
-      user : 'utensil'
-    });
+
 
