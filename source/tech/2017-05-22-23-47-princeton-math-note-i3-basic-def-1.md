@@ -5,9 +5,9 @@ code_mode: math
 ---
 
 > 按：这篇笔记是系列笔记的第三篇，第一部分有4节，每节对应1-2篇笔记。
-
+>
 > 笔记的方式，是引用一段个人觉得比较有亮点的英文原文，再给一段简化的中文说明，不采用中文版的翻译，不自行做直接翻译，只说明要点。因为不可能大段大段地去引用，必然会有语境的丢失，会做一些补充说明，以“按：”开始。对中文版翻译进行更正或调整的说明，以“注：”开始。偶尔也会插入自己的议论，以“评：”开始。
-
+>
 > 全系列笔记目录：
 > 
 > * [《普林斯顿数学指引》读书笔记——I.1 数学是关于什么的](http://utensil.github.io/tech/2017/02/07/23-12-princeton-math-note-i1-about.html) 
@@ -109,7 +109,7 @@ code_mode: math
 有了例子，回答一些基本的问题变得容易不少。如果我们有了一个关于某个给定类型的结构的一般命题，而又想知道它是否正确，这时，如果能够用诸多个案来检验这个命题，会很有帮助。如果这个命题通过了所有的检验，就有了有利于这个命题的证据。如果运气好，我们也许还能看出这个命题为什么是正确的。另外，也可能发现这个命题对于你进行检验的每一个例子都是对的，但是都仅仅是因为所用例子本身的特别之处，这个时候我们就会知道，在寻找反例时需要怎样避免这些特别之处。如果确实找到了一个反例，那么这个一般的命题当然不成立了，然而有可能这个命题在经过某些修改以后，依然成立并且有用。在这种情况下，反例就会帮助我们找到适当的修改。
 
 > Even though $ \mathbb{Q}(i) $ is contained in $ \mathbb{C} $ , it is a more interesting field in some important ways. But how can this be? Surely, one might think, an object cannot become more interesting when most of it is taken away. But a moment’s further thought shows that it certainly can: for example, the set of all prime numbers contains fascinating mysteries of a kind that one does not expect to encounter in the set of all positive integers.
-
+>
 > ......and in many other fields of a similar kind, we can ask which polynomial equations have solutions. This turns out to be a deep and important question that simply does not arise in the larger field C.
 
 虽然 $ \mathbb{Q}(i) $ 包含在 $ \mathbb{C} $ 中，但它在某些很重要的角度上是一个更有意思的域。为什么会这样子呢？人们肯定以为如果把一个对象的绝大部分都拿走了，它不可能变得更有意思。然而进一步想象一下，就会发现这确实是可能的：例如所有素数的集合会拥有某种特别迷人的、而不可能为所有正整数的集合所具备的特性。
@@ -117,9 +117,9 @@ code_mode: math
 ……而且在，许多类似于 $ \mathbb{Q}(i) $ 的域中，我们可以问哪些多项式方程有解。这在后来被证明是一个非常深刻而且重要的问题，但在更大的域 $ \mathbb{C} $ 中，这样的问题根本就不会出现（因为[代数的基本定理](https://en.wikipedia.org/wiki/Fundamental_theorem_of_algebra)告诉我们，每一个多项式方程在 $ \mathbb{C} $ 内都有解）。
 
 > We will now convert $ \mathbb{Q}[x] $ into a field in what may at first seem a rather strange way: by regarding the polynomial $ x^3-x-1 $ as “equivalent” to the zero polynomial. To put this another way, whenever a polynomial involves $ x^3 $ we will allow ourselves to replace $ x^3 $ by $ x+1 $, and we will regard the new polynomial that results as equivalent to the old one.
-
+>
 > All polynomials that are not equivalent to zero (that is, are not multiples of $ x^3-x-1 $) have multiplicative inverses in this generalized sense.
-
+>
 > We simply decide that when two polynomials are equivalent, we will regard them as equal, and we denote the resulting mathematical structure by $ \mathbb{Q}[x]/(x^3 - x - 1) $ . This structure turns out to be a field, and it turns out to be important as the smallest field that contains $ \mathbb{Q} $ and also has a root of the polynomial $ x^3 - x - 1 $ .
 
 我们现在要用一种乍一看非常奇怪的方法，来把$ \mathbb{Q}[x] $（具有有理数系数的多项式的集合）变成一个域，方法就是，认为 $ x^3-x-1 $ 等价于零多项式。换句话说，一旦一个多项式里面有 $ x^3 $ 的话，我们就可以把它换成 $ x+1 $ ，并且认为这样得出的新多项式等价于原来的多项式。
@@ -129,7 +129,7 @@ code_mode: math
 我们只是简单地规定将两个等价的多项式视为相等，并把得到的数学结构记为 $ \mathbb{Q}[x]/(x^3 - x - 1) $ ，这个结构结果被证明是一个域，而且还是个重要的域，因为它是包含 $ \mathbb{Q} $ 且拥有多项式 $ x^3-x-1 $ 的根的最小的域。
 
 > We define two expressions `ab` and `cd` to be equivalent if `ad = bc` and we regard equivalent expressions as denoting the same number. Notice that the expressions can be genuinely different, but we think of them as denoting the same object. If we do this, then we must be careful whenever we define functions and binary operations.
-
+>
 > ……In general, it is essential to check that if you put equivalent objects in then you get equivalent objects out.
 
 按：上面这里其实就是对有理数的约分的含义做了推广。
@@ -205,11 +205,11 @@ f把每一个有理数都变成自身，那f(√ 2)会是多少呢？从 f(√ 2
 注：中文版有一段英文电子版中没有的、关于同态关系中的核（kernel）的讨论：核是X中所有使得f(x)为Y中的恒等元的那些x的集合，是X的有趣的子结构；环同态的核必然是一个理想[III.81]。
 
 > Let V be another vector space of functions, and let u be a function of two variables. (The functions involved have to have certain properties for the definition to work, but let us ignore the technicalities.) Then we can define a linear map T on the space V by the formula $ (Tf)(x) = \int u(x,y)f(y) dy $ . 
-
+>
 > Definitions like this one can be hard to take in, because they involve holding in one’s mind three different levels of complexity. At the bottom we have real numbers, denoted by x and y. In the middle are functions like f , u, and Tf, which turn real numbers (or pairs of them) into real numbers. At the top is another function, T, but the “objects” that it transforms are themselves functions: it turns a function like f into a different function Tf. This is just one example where it is important to think of a function as a single, elementary “thing” rather than as a process of transformation. (See the discussion of functions in the language and grammar of mathematics [I.2 §2.2].) 
-
+>
 > Another remark that may help to clarify the definition is that there is a very close analogy between the role of the two-variable function u(x,y) and the role of a matrix  $ a_ij $ (which can itself be thought of as a function of the two integer variables i and j). Functions like u are sometimes called kernels. 
-
+>
 > For more about linear maps between infinite-dimensional spaces, see Operator Algebras [IV.19] and Linear Operators [III.52].
 
 令V为函数的向量空间，u为一个二元函数。（这里涉及到函数必须具备某些特定特征，上述定义才有意义，但我们现在可以把这些技术细节忽略掉。）然后我们可以在空间V上定义一个线性映射T，满足 $ (Tf)(x) = \int u(x,y)f(y) dy $ 。

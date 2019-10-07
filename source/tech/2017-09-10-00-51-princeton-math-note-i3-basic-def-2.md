@@ -5,9 +5,9 @@ code_mode: math
 ---
 
 > 按：这篇笔记是系列笔记的第四篇，第一部分有4节，每节对应1-2篇笔记。
-
+>
 > 笔记的方式，是引用一段个人觉得比较有亮点的英文原文，再给一段简化的中文说明，不采用中文版的翻译，不自行做直接翻译，只说明要点。因为不可能大段大段地去引用，必然会有语境的丢失，会做一些补充说明，以“按：”开始。对中文版翻译进行更正或调整的说明，以“注：”开始。偶尔也会插入自己的议论，以“评：”开始。
-
+>
 > 全系列笔记目录：
 > 
 > * [《普林斯顿数学指引》读书笔记——I.1 数学是关于什么的](http://utensil.github.io/tech/2017/02/07/23-12-princeton-math-note-i1-about.html) 
@@ -32,16 +32,14 @@ code_mode: math
 例如，空间中的点的序列可以拥有一个极限，函数的序列也可以。（函数间的距离的定义方式没有那么显然，不过存在很多自然的方式来对其进行定义。）一个更进一步的例子来自分形的理论（见动力学[IV.15]）：在里面出现的复杂图形，最好是定义为较简单的图形的极限。
 
 > We say that $ f $ is continuous at $ a $ if 
-
-
+>
 >  $$  \forall \epsilon \gt 0, \exists \delta \gt 0, |x-a| \lt \delta \Rightarrow |f(x)-f(a)| \lt \epsilon $$ 
-
-
+>
 > This says that however accurate you wish $ f(x) $  to be as an estimate for $  f(a) $ , you can achieve this accuracy if you are prepared to make $ x $ a sufficiently good approximation to $ a $ . The function $ f $  is said to be continuous if it is continuous at every $ a $ . Roughly speaking, what this means is that $ f $  has no “sudden jumps.” (It also rules out certain kinds of very rapid oscillations that would also make accurate estimates difficult.)
 
 我们说函数 $ f $ 在 $ a $ 处连续，如果
 
->  $$  \forall \epsilon \gt 0, \exists \delta \gt 0, |x-a| \lt \delta \Rightarrow |f(x)-f(a)| \lt \epsilon $$ 
+$$  \forall \epsilon \gt 0, \exists \delta \gt 0, |x-a| \lt \delta \Rightarrow |f(x)-f(a)| \lt \epsilon $$ 
 
 上面的公式其实就是说， $ f(x) $ 作为对 $ f(a) $ 的估算，无论我们希望这个估算多么精确，对应的精度都是可以达到的，只要我们准备好让 $  x  $ 是 $  a  $ 的一个足够好的近似。如果一个函数在每个点 $  a  $ 处都连续，它就是连续函数。粗略地说，就是它没有突然的跳跃（这也就排除了会使得精确的估计变得困难的某一类急速震荡）。
 
@@ -54,10 +52,10 @@ code_mode: math
 热需要时间来在介质中传导，所以虽然在很远处的点 $ (x',y',z') $ 的温度最终会影响到点 $ (x,y,z) $ ，此刻（在时间t）温度改变的方式却仅被紧挨着点 $ (x,y,z) $ 的点的温度所影响：如果在 $ (x,y,z) $ 的极近邻域的点平均比点 $ (x,y,z) $ 自己更热，那么我们就会预期点 $ (x,y,z) $ 的温度会上升，如果平均更冷，那我们预期就会下降。
 
 > The symbol  $  \Delta  $ , defined by 
-
+>
 >  $$  \Delta f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2}+\frac{\partial^2 f}{\partial z^2}  $$
-
- > , is known as the Laplacian. What information does  $  \Delta f  $  give us about a function $ f $ ? The answer is that it captures the idea in the last paragraph: it tells us how the value of $ f $ at $ (x,y,z) $ compares with the average value of $ f $ in a small neighborhood of $ (x,y,z) $ .
+>
+> , is known as the Laplacian. What information does  $  \Delta f  $  give us about a function $ f $ ? The answer is that it captures the idea in the last paragraph: it tells us how the value of $ f $ at $ (x,y,z) $ compares with the average value of $ f $ in a small neighborhood of $ (x,y,z) $ .
 
 定义为
 
@@ -74,7 +72,7 @@ $$  \Delta f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2
 在二元或多元的情况下，一个函数可以有更大的灵活性：它可以在某些方向上高于切线，而在其他方向上低于切线。结果是，我们可以对 $ f $ 赋予多种边值条件（即在特定区域的边界上指定 $ f $ 的值），从而也就有了更广泛和更有趣的各类解。
 
 >  $  \square^2 h  $  is shorthand for  $  \Delta h - \frac{1}{v^2} \frac{\partial^2 h}{\partial t^2}  $ 
-
+>
 > The operation  $  \square^2  $  is called the d'Alembertian, after [d'Alembert](https://en.wikipedia.org/wiki/Jean_le_Rond_d%27Alembert) [VI.19], who was the first to formulate the wave equation.
 
  $  \square^2 h  $  是 $  \Delta h - \frac{1}{v^2} \frac{\partial^2 h}{\partial t^2}  $  的简写。
@@ -101,7 +99,7 @@ $$  \Delta f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2
 
 对于复函数，可微性蕴含着无穷可微性。
 
-在第五节的最后，中文版讨论了[Liouville's theorem](https://en.wikipedia.org/wiki/Liouville%27s_theorem_(complex_analysis))，而英文电子版缺失。这个定理是说：如果函数 $ f $ 是定义在整个复平面上的全纯函数，而且函数 $ f $ 是有界的（即存在一个常数 $ C $ ，使得对于每一个复数 $ z $ 都有 $  |f(z)| \le C  $ ），则函数必为常数。
+在第五节的最后，中文版讨论了[Liouville's theorem](https://en.wikipedia.org/wiki/Liouville%27s_theorem_(complex_analysis))，而英文电子版缺失。这个定理是说：如果函数 $ f $ 是定义在整个复平面上的全纯函数，而且函数 $ f $ 是有界的（即存在一个常数 $ C $ ，使得对于每一个复数 $ z $ 都有 $ |f(z)| \le C $ ），则函数必为常数。
 
 ### 6 What Is Geometry? （什么是几何学）
 
@@ -156,7 +154,7 @@ $$  \Delta f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2
 双曲几何学的三个最常用的模型是半平面模型、圆盘模型和双曲面模型。
 
 > Here are two ways of regarding the projective plane. The first is that the set of points is the ordinary plane, together with a “point at infinity.” The group of transformations consists of functions known as projections.
-
+>
 > A second view of the projective plane is that it is the set of all lines in $ R^3 $ that go through the origin. Since a line is determined by the two points where it intersects the unit sphere, one can regard this set as a sphere, but with the significant difference that opposite points are regarded as the same—because they correspond to the same line. (This is quite hard to imagine, but not impossible. Suppose that, whatever happened on one side of the world, an identical copy of that event happened at the exactly corresponding place on the opposite side. ...... It might under such circumstances be more natural to say that there was only one Paris and only one you and that the world was not a sphere but a projective plane.)
 
 对射影平面有两种观点：第一种观点认为，这个点集合其实就是普通的平面加上无穷远点。组成射影变换群的函数我们称为投影。

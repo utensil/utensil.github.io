@@ -5,13 +5,13 @@ code_mode: math
 ---
 
 > 按：我是在同事的朋友圈发现[《普林斯顿数学指引》](https://book.douban.com/subject/25817381/)的，看了介绍感觉会很有启发，随即就下了英文电子版，然后又向同事借来了中文版的第一卷。恰逢几个整段时间，看到100多页，然后又中断了1个月，又用了几个夜晚从头再读并同时在英文电子版上标注笔记，终于咀嚼完了提纲挈领的第一部分（此时也已经粗读完了第二部分），所以在此做个笔记，记录感想。
-
+>
 > 中文版的译者虽然是我自《重温微积分》就接触过的齐民友教授，也能看得出翻译的态度是认真的，但依然存在很多不流畅、不准确的翻译，甚至有多处因理解不到位对原文做的“更正”，笔记中会部分指出。中文版对于阅读的加速作用还是很明显的，但常常需要对照英文版确认，这点依然还是很不理想。网上的英文版除了没有目录之外，也比中文版少了部分段落，但不多。我在网上没能找到译作的官方勘误表，只有原编者[在他的博客上发布了一些勘误](https://gowers.wordpress.com/category/princeton-companion-to-mathematics/)。
-
+>
 > 笔记的方式，是引用一段个人觉得比较有亮点的英文原文，再给一段简化的中文说明，不采用中文版的翻译，不自行做直接翻译，只说明要点。因为不可能大段大段地去引用，必然会有语境的丢失，会做一些补充说明，以“按：”开始。对中文版翻译进行更正或调整的说明，以“注：”开始。偶尔也会插入自己的议论，以“评：”开始。
-
+>
 > 这篇笔记是系列笔记的第一篇，第一部分有4节，对应4则笔记。
-
+>
 > 全系列笔记目录：
 > 
 > * [《普林斯顿数学指引》读书笔记——I.1 数学是关于什么的](http://utensil.github.io/tech/2017/02/07/23-12-princeton-math-note-i1-about.html) 
@@ -46,7 +46,7 @@ code_mode: math
 评：符号操作和图形化，是代数和几何各自的突出特点，但它们的研究领域和方法你中有我、我中有你，没有清晰的界限。
 
 > Mathematicians vary widely in their ability and willingness to follow an argument like that one. If you cannot quite visualize it well enough to see that it is definitely correct, then you may prefer an algebraic approach.
-
+>
 > It is often possible to translate a piece of mathematics from algebra into geometry or vice versa. Nevertheless, there is a definite difference between algebraic and geometric methods of thinking——one more symbolic and one more pictorial——and this can have a profound influence on the subjects that mathematicians choose to pursue.
 
 按：上文对一个代数和几何都可以解决的问题给出了一个非常典型的几何式的解法。
