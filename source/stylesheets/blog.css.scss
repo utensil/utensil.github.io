@@ -125,6 +125,24 @@ $code_font: "Fantasque Sans Mono Regular", Helvetica,arial,nimbussansl,liberatio
         word-wrap: break-word; /* Internet Explorer 5.5+ */
     }
   }
+
+  summary {
+    outline:none;
+    cursor: pointer;
+    
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::-moz-list-bullet {
+      list-style-type: none;
+      display: block;
+    }
+
+    &:hover {
+      background-color: #f9f9f9;
+    }
+  }
 }
 
 /*
