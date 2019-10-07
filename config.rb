@@ -74,22 +74,22 @@
 Time.zone = 'Hongkong'
 set :encoding,    "utf-8"
 
-require "redcarpet"
+# require "redcarpet"
 
-module Haml::Filters::Redcarpet
-  include Haml::Filters::Base  
+# module Haml::Filters::Redcarpet
+#   include Haml::Filters::Base  
 
-  def render(text)
-    Redcarpet::Markdown.new(Redcarpet::Render::HTML, 
-                  :tables => true,
-                  :autolink => true, 
-                  :no_intra_emphasis => true,
-                  :fenced_code_blocks => true,
-                  #:smartypants => true,
-                  #:superscript => true ,
-                  :space_after_headers => true).render(text)
-  end
-end
+#   def render(text)
+#     Redcarpet::Markdown.new(Redcarpet::Render::HTML, 
+#                   :tables => true,
+#                   :autolink => true, 
+#                   :no_intra_emphasis => true,
+#                   :fenced_code_blocks => true,
+#                   #:smartypants => true,
+#                   #:superscript => true ,
+#                   :space_after_headers => true).render(text)
+#   end
+# end
 
 helpers do
   def safe_yield_content(symbol)
@@ -105,14 +105,30 @@ helpers do
 end
 
 # Markdown
-set :markdown_engine, :redcarpet
-set :markdown, :tables => true,
-               :autolink => true, 
-               :no_intra_emphasis => true,
-               :fenced_code_blocks => true,
-               #:smartypants => true,
-               #:superscript => true,
-               :space_after_headers => true
+# set :markdown_engine, :redcarpet
+# set :markdown, :tables => true,
+#                :autolink => true, 
+#                :no_intra_emphasis => true,
+#                :fenced_code_blocks => true,
+#                #:smartypants => true,
+#                #:superscript => true,
+#                :space_after_headers => true,
+#                :input => "GFM",
+#                :parse_block_html => true
+
+# set :markdown_engine, :kramdown
+# set :markdown,
+#     layout_engine: :haml,
+#     tables: true,
+#     autolink: true,
+#     no_intra_emphasis: true,
+#     fenced_code_blocks: true,
+#     space_after_headers: true,
+#     input: 'GFM',
+#     parse_block_html: true
+
+require 'lib/mytemplate'
+set :markdown_engine, :MarkdownHtmlFilter
 
 set :md, :layout_engine => :haml
 set :haml, :layout_engine => :haml #, :encoding => 'utf-8'
