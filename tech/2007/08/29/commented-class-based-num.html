@@ -1,4 +1,4 @@
-<!DOCTYPE html> <html> <head> <meta charset=utf-8> <meta content='IE=edge,chrome=1' http-equiv=X-UA-Compatible> <!--[if (lt IE 9)&(!IEMobile)]><script src="/javascripts/html5.js?1570418332"></script><![endif]--> <meta content='width=device-width, initial-scale=1.0' name=viewport> <title>我写的第一个类：BasedNum</title> <link href="/stylesheets/site.css?1570418332" rel=stylesheet /> <link href="/stylesheets/blog.css?1570418332" rel=stylesheet /> <link href="/stylesheets/highlight/railscasts.css?1570418332" rel=stylesheet /> <!--[if lt IE 9]><script src="/javascripts/respond.js?1570418332"></script><![endif]--> </head> <body class=''> <div id=container> <div id=main role=main> <aside class=sidebar> <nav> <span> <a href='/tech/'>home</a> </span> <span> <a href='/tech/calendar.html'>calendar</a> </span> <span> <a href='/tech/tags.html'>tags</a> </span> </nav> </aside> <div class=content> <header> <div class=article_nav> <span class=later> <a href='/tech/2007/08/29/notes-on-programming-languages-principles-and-practice.html'> < 更新 </a> </span> <span class=earlier> <a href='/tech/2007/08/28/plan.html'> 更早 > </a> </span> </div> <h1> 我写的第一个类：BasedNum </h1> </header> <article class=markdown-body> <blockquote> <p>2012年9月按：作为早年一份写得整齐干净、注释详尽的代码，放在这里作为一份纪念，纪念最初用心的时候。</p> </blockquote> <h2>BasedNum.h</h2> <pre><code class="cpp">#include &lt;iostream&gt;
+<!DOCTYPE html> <html> <head> <meta charset=utf-8> <meta content='IE=edge,chrome=1' http-equiv=X-UA-Compatible> <!--[if (lt IE 9)&(!IEMobile)]><script src="/javascripts/html5.js?1570435392"></script><![endif]--> <meta content='width=device-width, initial-scale=1.0' name=viewport> <title>我写的第一个类：BasedNum</title> <link href="/stylesheets/site.css?1570435392" rel=stylesheet /> <link href="/stylesheets/blog.css?1570435400" rel=stylesheet /> <link href="/stylesheets/highlight/railscasts.css?1570435392" rel=stylesheet /> <!--[if lt IE 9]><script src="/javascripts/respond.js?1570435392"></script><![endif]--> </head> <body class=''> <div id=container> <div id=main role=main> <aside class=sidebar> <nav> <span> <a href='/tech/'>home</a> </span> <span> <a href='/tech/calendar.html'>calendar</a> </span> <span> <a href='/tech/tags.html'>tags</a> </span> </nav> </aside> <div class=content> <header> <div class=article_nav> <span class=later> <a href='/tech/2007/08/29/notes-on-programming-languages-principles-and-practice.html'> < 更新 </a> </span> <span class=earlier> <a href='/tech/2007/08/28/plan.html'> 更早 > </a> </span> </div> <h1> 我写的第一个类：BasedNum </h1> </header> <article class=markdown-body> <blockquote> <p>2012年9月按：作为早年一份写得整齐干净、注释详尽的代码，放在这里作为一份纪念，纪念最初用心的时候。</p> </blockquote> <h2>BasedNum.h</h2> <pre lang=cpp><code>#include &lt;iostream&gt;
 #include &lt;cmath&gt;
 #include &lt;string&gt;
 #include &lt;sstream&gt;
@@ -37,7 +37,7 @@
 请勿在未征得同意的情况下将本源码用于商业用途，转载时请注明原作者及联系方式，
 无必要请勿删改注释，谢谢！ 
 ******************************************************************************/ 
-
+ 
 
 /*冗余声明保护：是ifndef而非ifdef。*/ 
 #ifndef CLASS_BASED_NUM
@@ -68,7 +68,7 @@ namespace me_Iostream_Ctrl_Symbols_for_the_class_BasedNum
                 const unsigned short prec_changed = 0x0010;
                 const unsigned short prec_remained = ~prec_changed;
         }
-
+        
         /********************************************************************** 
         创建下面这个枚举的意义就在于，枚举像class、struct一样，是一个用户自定
         义类型，因而可以对其重载运算符，因为我的控制符实际上只是unsigned short
@@ -79,7 +79,7 @@ namespace me_Iostream_Ctrl_Symbols_for_the_class_BasedNum
         的数必须小于0xffff
         **********************************************************************/        
         enum bflags {bflags_end = 0xffff};
-
+ 
         //是否显示进制
         const bflags showbase = bflags(base_flags::showbase);        
         const bflags noshowbase = bflags(base_flags::noshowbase);
@@ -89,16 +89,16 @@ namespace me_Iostream_Ctrl_Symbols_for_the_class_BasedNum
         //是否以大写字母显示10以上进制的数。如：显示为5f7e还是5F7E 
         const bflags uppercase = bflags(base_flags::uppercase);
         const bflags nouppercase = bflags(base_flags::nouppercase);
-
-
+        
+ 
         /*以下两个，用于函数me_Ios::setBase返回假换进制是否成功。*/ 
         const bflags base_changed = bflags(base_flags::base_changed);  
         const bflags base_failed = bflags(base_flags::base_failed);
-
+        
         /*以下两个，用于函数me_Ios::setPrecision返回换精度是否成功。*/ 
         const bflags prec_changed = bflags(base_flags::prec_changed);  
         const bflags prec_remained = bflags(base_flags::prec_remained);
-
+ 
         /**********************************************************************
         特别声明：以下几个函数的使用方式如下（以setBase为例）
         BasedNum b1(&quot;37489&quot;,11);
@@ -114,11 +114,11 @@ namespace me_Iostream_Ctrl_Symbols_for_the_class_BasedNum
         当然，如果输入
         cout &lt;&lt; me_Ios::setBase(5) &lt;&lt; me_Ios::setPrecision(5) &lt;&lt; b1;
         是没有问题的，因为两个是不同函数。
-
+         
         所以，强烈建议在一个cout语句中，只使用一次同一函数。此bug正在寻求解决
         方案中...... 
         **********************************************************************/ 
-
+        
         /********************************************************************** 
         改变BasedNum的显示的进制。即假换进制。 
         它将会是类BasedNum的友元函数。
@@ -134,9 +134,9 @@ namespace me_Iostream_Ctrl_Symbols_for_the_class_BasedNum
         如果输入小于0的精度，则原有精度保持不变。 
         **********************************************************************/        
         bflags setPrecision(int prec_wanted); 
-
+        
 }
-
+ 
 namespace me_Ios = me_Iostream_Ctrl_Symbols_for_the_class_BasedNum;  //起别名。
 
 /* Bjarne Stroustrup说不要总是using namespace，否则会污染全局名称空间。*/
@@ -162,23 +162,23 @@ typedef double BN_double;
 class BasedNum
 {
     public:
-
+    
         /**********************************************************************
         构造函数。用string来构造，这是照顾到10以上进制的构造。 
         后两个参数有默认值：默认该数为10进制数，最多保留到小数点后30位。这里写
         了一次默认值，实现时就不要再写了。
         **********************************************************************/ 
         BasedNum(string initNum,int initBase = 10,int precision = 30);
-
+        
         /**********************************************************************
         构造函数。用一个10进制double数来构造，这是为四则运算铺路。 
         **********************************************************************/ 
         BasedNum(BN_double initNum);
-
+        
         //BasedNum(const BasedNum &amp; b);
         //~BasedNum();
-
-
+ 
+        
         /**********************************************************************
         公共接口，给BasedNum换进制。
         除非使用本函数，BasedNum会一直保留着被构造时的进制和形态。用函数me_Ios
@@ -187,7 +187,7 @@ class BasedNum
         现微小的偏差，比如3.6变成3.599999999。这是不希望出现的。
         **********************************************************************/ 
         BasedNum setBase(int base_wanted);
-
+        
         /**********************************************************************
         公共接口，给BasedNum换精度。
         因为BasedNum对象本身只保存构造时的进制、形态和精度，只有当setBase被调
@@ -199,24 +199,24 @@ class BasedNum
                 Precision = prec_wanted;
                 return *this;
         }
-
+        
         /**********************************************************************
         公共接口,返回BasedNum的当前进制。
         **********************************************************************/ 
         int getBase() const {return Base;}
-
+        
         /**********************************************************************
         公共接口,返回BasedNum的当前精度。
         **********************************************************************/ 
         int getPrecision() const {return Precision;}
-
+        
         /**********************************************************************
         公共接口，实现从BasedNum到double的隐式转换。 
         **********************************************************************/
         operator double () const {return it_by10;} 
         //double getVal() const {return it_by10;}     
 
-
+        
         /**********************************************************************
         公共接口，重载四则运算（+、-、*、/、%）及其赋值简写。 
         并不作上溢、下溢以及被0除检查。 
@@ -228,7 +228,7 @@ class BasedNum
             else
                 return plain(*this,num2,true);
         }
-
+        
         BasedNum operator - (BasedNum num2)
         {
             if(Base != num2.Base)
@@ -236,52 +236,52 @@ class BasedNum
             else
                 return plain(*this,num2,false);
         }
-
+        
         BasedNum operator * (BasedNum num2)
         {
             return BasedNum(double(*this) * double(num2));
         }
-
+        
         BasedNum operator / (BasedNum num2)
         {
             return BasedNum(double(*this) / double(num2));
         }
-
+        
         BasedNum operator % (BasedNum num2)
         {
             return BasedNum(fmod(double(*this),double(num2)));
         }
-
+        
         BasedNum operator += (BasedNum num2)
         {
             *this = *this + num2;
             return *this;
         }
-
+        
         BasedNum operator -= (BasedNum num2)
         {
             *this = *this - num2;
             return *this;
         }
-
+        
         BasedNum operator *= (BasedNum num2)
         {
             *this = *this * num2;
             return *this;
         }
-
+        
         BasedNum operator /= (BasedNum num2)
         {
             *this = *this / num2;
             return *this;
         }
-
+        
         BasedNum operator %= (BasedNum num2)
         {
             *this = *this % num2;
             return *this;
         }
-
+        
         /**********************************************************************
         公共接口，重载各种比较。 
         **********************************************************************/
@@ -289,32 +289,32 @@ class BasedNum
         {
             return double(*this) &gt; double(num2);
         }
-
+        
         bool operator &lt; (BasedNum num2)
         {
             return double(*this) &lt; double(num2);
         }
-
+        
         bool operator &gt;= (BasedNum num2)
         {
             return double(*this) &gt;= double(num2);
         }
-
+        
         bool operator &lt;= (BasedNum num2)
         {
             return double(*this) &lt;= double(num2);
         }
-
+        
         bool operator == (BasedNum num2)
         {
             return double(*this) == double(num2);
         }
-
+        
         bool operator != (BasedNum num2)
         {
             return double(*this) != double(num2);
         }
-
+        
         /**********************************************************************
         这里有几个友元。分别用于改变BasedNum的显示的进制、用于改变BasedNum的显
         示的精度、用于BasedNum对象的输出、用于控制BasedNum对象的输出格式（参见
@@ -324,10 +324,10 @@ class BasedNum
         friend bflags me_Ios::setPrecision(int prec_wanted);
         friend ostream &amp; operator &lt;&lt; (ostream &amp; out,BasedNum num);
         friend ostream &amp; operator &lt;&lt; (ostream &amp; out,const bflags &amp; flag); 
-
-
+        
+        
     private:
-
+    
         /**********************************************************************
         以下几个是静态成员，属于整个类而不属于任何一个单独的对象。那些控制Based
         Num对象显示格式的控制符，它们最终就作用在这几个成员身上。分别是显不显示
@@ -339,13 +339,13 @@ class BasedNum
         static bool upper_case;
         static int base_to_be_displayed;
         static int prec_to_be_displayed;
-
+    
         /**********************************************************************
         it_by10存有BasedNum的十进制数值，有正负。它是转成一切进制的基础。构造的
         时候如果是非10进制的，就要先转成它
         **********************************************************************/
         BN_double it_by10;
-
+        
         /**********************************************************************
         以下4个是对it_by10的一种拆分。正负、整数部份、是否整数、小数部分。用于
         显示和换进制。
@@ -354,7 +354,7 @@ class BasedNum
         BN_int Int_part;//只保存整数部份的绝对值。第一个字母是大写
         bool aint;
         BN_double Fract_part;//只保存小数部份的绝对值。第一个字母是大写
-
+        
         /**********************************************************************
         以下3个又是一组。是BasedNum的进制、相应进制下的样子，以及是否被强加了一
         个小于2的基（从而出错）。先是保持构造时的进制，直到被BasedNum::setBase
@@ -363,32 +363,32 @@ class BasedNum
         int Base;//第一个字母是大写
         string BasedForm;//这个是绝对值。正负号已经被去除。
         bool Base_Error;
-
+        
         /**********************************************************************
         在处理小数的时候，可能会出现无限小数的情况，这个时候，就只显示Precision
         位。
         **********************************************************************/
         int Precision; //第一个字母是大写。
-
+        
         /**********************************************************************
         初始化和更改形态时被调用的实干派函数们:（具体说明参见定义处的注释） 
         **********************************************************************/ 
-
+        
         /*将string拆分，并生成10进制数。*/ 
         void num_to10(string &amp; input,int &amp; base); 
-
+        
         /*换进制时处理整数部份。必须不用 &amp;，否则会改变Int_part，而且用了终究还
         是要另设一个中间变量。*/ 
         string int_10to(BN_int int_part,const int &amp; base);
-
+        
         /*换进制时处理整数部份。必须不用 &amp;，否则会改变Fract_part，而且用了终究
         还是要另设一个中间变量。*/ 
         string fract_10to(BN_double fract_part,const int &amp; base); 
-
+        
         /*根据upper_or_not的真假，对10以上进制的数，在大小写形态之间转换。作用
         于BasedForm。*/
         void up_or_down(bool upper_or_not);
-
+        
         /**********************************************************************
         四则运算时被调用的实干派函数们:（具体说明参见定义处的注释）  
         **********************************************************************/ 
@@ -408,7 +408,7 @@ class BasedNum
 ostream &amp; operator &lt;&lt; (ostream &amp; out,BasedNum num);
 
 #endif
-</code></pre> <h2>BasedNum.cpp</h2> <pre><code class="cpp">#include &quot;BasedNum.h&quot;
+</code></pre> <h2>BasedNum.cpp</h2> <pre lang=cpp><code>#include &quot;BasedNum.h&quot;
 
 /*****************************************************************************
 几个静态成员的初始化，千万不能放头文件里面。默认显示进制、不显示正号、以小写字
@@ -431,7 +431,7 @@ int BasedNum::prec_to_be_displayed(30);
 BasedNum::BasedNum(string initNumStr,int initBase,int precision)
 : Precision(precision)
 {
-
+    
     if(initBase &lt; 2 || 36 &lt; initBase)
     {
         cerr
@@ -444,17 +444,17 @@ BasedNum::BasedNum(string initNumStr,int initBase,int precision)
         Base_Error = false;
         Base = initBase;
         BasedForm = initNumStr;
-
+        
         it_by10 = 0;
-
+        
         positive = true;
         Int_part = 0;
         aint = false;
         Fract_part = 0;
-
+        
         num_to10(initNumStr,initBase); //将string拆分，并生成10进制数。
     }
-
+    
 }
 
 /**********************************************************************
@@ -464,19 +464,19 @@ BasedNum::BasedNum(double initNum)
 : Precision(30),Base(10),it_by10(initNum),Base_Error(false)
 {
     positive = (it_by10 &gt;= 0); 
-
+    
     Int_part = static_cast&lt;BN_int&gt;(fabs(it_by10));
     Fract_part = fabs(it_by10) - Int_part;
-
+        
     aint = (Fract_part == 0);
     stringstream iostr;
     iostr &lt;&lt; initNum;
     iostr &gt;&gt; BasedForm; //将double转成string，如果有负号，并不会丢失
 
-    if(BasedForm.at(0) == &#39;+&#39; || BasedForm.at(0) == &#39;-&#39;)
+    if(BasedForm.at(0) == '+' || BasedForm.at(0) == '-')
         BasedForm.erase(BasedForm.begin());
 }
-
+ 
 /*****************************************************************************
 将string拆分，并生成10进制数。
 这个函数的基本思路是先找小数点，没有小数点就是整数，有的话前后分割成整数部份和
@@ -496,12 +496,12 @@ void BasedNum::num_to10(string &amp; input,int &amp; base)
     {
         Base_Error = false;
     }
-
+    
     //预处理，生成整数部份和小数部份的string。 
     string int_string;
     string fract_string;
-
-    int dotpos = input.find_first_of(&#39;.&#39;);
+    
+    int dotpos = input.find_first_of('.');
     if( dotpos == string::npos || dotpos == input.length() - 1)
     {
         int_string = input;
@@ -515,40 +515,40 @@ void BasedNum::num_to10(string &amp; input,int &amp; base)
         int_string.assign(input,0,dotpos);
         fract_string.assign(input,dotpos+1,input.length()-dotpos-1);
     }
-
+    
     //整数部份处理
     int cur_num;
-
+    
     int cur_seat = 1;
     for(int i = dotpos-1 ; i &gt;= 0 ; i-- )
     {
         cur_num = int_string[i];
-        if(&#39;0&#39; &lt;= cur_num &amp;&amp; cur_num &lt;= &#39;9&#39;)
+        if('0' &lt;= cur_num &amp;&amp; cur_num &lt;= '9')
         {
-                Int_part += (cur_num - &#39;0&#39;)*cur_seat;
+                Int_part += (cur_num - '0')*cur_seat;
                 cur_seat *= base;
                 continue;
         }
-        if(&#39;a&#39; &lt;= cur_num &amp;&amp; cur_num &lt;= &#39;z&#39;)
+        if('a' &lt;= cur_num &amp;&amp; cur_num &lt;= 'z')
         {
-                Int_part += (cur_num - &#39;a&#39; + 10)*cur_seat;
+                Int_part += (cur_num - 'a' + 10)*cur_seat;
                 cur_seat *= base;
                 continue;
         }
-        if(&#39;A&#39; &lt;= cur_num &amp;&amp; cur_num &lt;= &#39;Z&#39;)
+        if('A' &lt;= cur_num &amp;&amp; cur_num &lt;= 'Z')
         {
-                Int_part += (cur_num - &#39;A&#39; + 10)*cur_seat;
+                Int_part += (cur_num - 'A' + 10)*cur_seat;
                 cur_seat *= base;
                 continue;
         }
-        if(cur_num == &#39;+&#39;)
+        if(cur_num == '+')
         {
                 positive = true;
                 BasedForm.erase(0,i+1); //正号之前如果还有东西，删无赦
                 dotpos -= i+1;
                 break;
         }
-        if(cur_num == &#39;-&#39;)
+        if(cur_num == '-')
         {
                 positive = false;
                 BasedForm.erase(0,i+1);//负号之前如果还有东西，删无赦
@@ -556,34 +556,34 @@ void BasedNum::num_to10(string &amp; input,int &amp; base)
                 break;
         }        
     }
-
+    
     //小数部份处理
     double cur_seat_d = 1;    
     for(int j = 0 ; j &lt;= fract_string.length()-1 ; j++ )
     {
         if(aint) break;
-
+        
         cur_num = fract_string[j];
-        if(&#39;0&#39; &lt;= cur_num &amp;&amp; cur_num &lt;= &#39;9&#39;)
+        if('0' &lt;= cur_num &amp;&amp; cur_num &lt;= '9')
         {
                 cur_seat_d /= base;
-                Fract_part += (cur_num - &#39;0&#39;)*cur_seat_d;
+                Fract_part += (cur_num - '0')*cur_seat_d;
                 continue;
         }
-        if(&#39;A&#39; &lt;= cur_num &amp;&amp; cur_num &lt;= &#39;Z&#39;)
+        if('A' &lt;= cur_num &amp;&amp; cur_num &lt;= 'Z')
         {
                 cur_seat_d /= base;
-                Fract_part += (cur_num - &#39;A&#39; + 10)*cur_seat_d;
+                Fract_part += (cur_num - 'A' + 10)*cur_seat_d;
                 continue;
         }     
-        if(&#39;a&#39; &lt;= cur_num &amp;&amp; cur_num &lt;= &#39;z&#39;)
+        if('a' &lt;= cur_num &amp;&amp; cur_num &lt;= 'z')
         {
                 cur_seat_d /= base;
-                Fract_part += (cur_num - &#39;a&#39; + 10)*cur_seat_d;
+                Fract_part += (cur_num - 'a' + 10)*cur_seat_d;
                 continue;
         }
-
-        if(cur_num == &#39;.&#39;)
+        
+        if(cur_num == '.')
         {
                 //形如56.12.34或56..1234都被当作56.1234处理
                 BasedForm.erase(dotpos+1+j,1);                
@@ -591,9 +591,9 @@ void BasedNum::num_to10(string &amp; input,int &amp; base)
 
     }
     it_by10 = (Int_part + Fract_part)*(positive?1:(-1));
-
+    
     //删去多余的0 
-    int Not0pos = BasedForm.find_first_not_of(&#39;0&#39;);
+    int Not0pos = BasedForm.find_first_not_of('0');
     if(Int_part != 0)
         BasedForm.erase(0,Not0pos);
     else
@@ -642,11 +642,11 @@ string BasedNum::int_10to(int int_part,const int &amp; base)
         ostr &lt;&lt; 0;
         return ostr.str();
     }
-
+    
     int seats = static_cast&lt;int&gt;(log(int_part+0.0)/log(base+0.0));
     int base_n;
     int seat_n;
-
+    
     for(int n = seats; n &gt;= 0;n--)
     {
         base_n = static_cast&lt;int&gt;(pow(base+0.0,n+0.0));
@@ -655,7 +655,7 @@ string BasedNum::int_10to(int int_part,const int &amp; base)
         ostr &lt;&lt; seat_n;
         else
         {
-                ostr &lt;&lt; static_cast&lt;char&gt;((upper_case?&#39;A&#39;:&#39;a&#39;)+seat_n-10);
+                ostr &lt;&lt; static_cast&lt;char&gt;((upper_case?'A':'a')+seat_n-10);
         }
         int_part %= base_n;
     }
@@ -668,7 +668,7 @@ string BasedNum::int_10to(int int_part,const int &amp; base)
 string BasedNum::fract_10to(double fract_part,const int &amp; base)
 {
     ostringstream ostr;
-
+        
     int seats = static_cast&lt;int&gt;(log(fract_part+0.0)/log(base+0.0));
     int seat_n;
     int n = -1;
@@ -676,14 +676,14 @@ string BasedNum::fract_10to(double fract_part,const int &amp; base)
     {
         seat_n = static_cast&lt;int&gt;(fract_part*base);
         fract_part = fract_part*base - seat_n;
-
+              
         if(seat_n &lt; 10)
         ostr &lt;&lt; seat_n;
         else
         {
-                ostr &lt;&lt; static_cast&lt;char&gt;((upper_case?&#39;A&#39;:&#39;a&#39;)+seat_n-10);
+                ostr &lt;&lt; static_cast&lt;char&gt;((upper_case?'A':'a')+seat_n-10);
         }
-
+        
         n--;        
     }
     return ostr.str();
@@ -696,28 +696,28 @@ string BasedNum::fract_10to(double fract_part,const int &amp; base)
 void BasedNum::up_or_down(bool upper_or_not)
 {
     int cur_num;
-    const int delta = &#39;a&#39; - &#39;A&#39;;
-
+    const int delta = 'a' - 'A';
+    
     for(int i = 0 ; i &lt; BasedForm.length() ; i++ )
     {
         cur_num = BasedForm[i];
-        if(&#39;0&#39; &lt;= cur_num &amp;&amp; cur_num &lt;= &#39;9&#39;)
+        if('0' &lt;= cur_num &amp;&amp; cur_num &lt;= '9')
         {
                 continue;
         }
-        if(&#39;a&#39; &lt;= cur_num &amp;&amp; cur_num &lt;= &#39;z&#39;)
+        if('a' &lt;= cur_num &amp;&amp; cur_num &lt;= 'z')
         {
                 if(upper_or_not)
                 BasedForm[i] = static_cast&lt;char&gt;(cur_num - delta);
                 continue;
         }
-        if(&#39;A&#39; &lt;= cur_num &amp;&amp; cur_num &lt;= &#39;Z&#39;)
+        if('A' &lt;= cur_num &amp;&amp; cur_num &lt;= 'Z')
         {
                 if(!upper_or_not)
                 BasedForm[i] = static_cast&lt;char&gt;(cur_num + delta); 
                 continue;
         }
-
+      
     }
 }
 
@@ -733,23 +733,23 @@ inline int max(int n1,int n2)
 BasedNum BasedNum::plain(BasedNum &amp; b1,BasedNum &amp; b2,bool plus_or_minus)
 {
     int base = b1.Base;
-
+    
     /*决定最终结果的正负*/ 
     bool positive = 
     b1.it_by10 + b2.it_by10 * (plus_or_minus?1:-1) &gt;= 0 ;
-
+    
     /*下面这个异或运算，两操作数异号时值为true，同号时为false。
     整个语句的意思是如果两操作数异号，就把原来要进行相加的变为相减，原来要相减
     的变为相加*/ 
     if(b1.positive ^ b2.positive) 
         plus_or_minus = (plus_or_minus?false:true); 
-
+        
     /*下面这一段保证了永远是绝对值大的减绝对值小的。*/
-
+    
     string Larger;
     string Smaller;
     string Result; 
-
+    
     if(fabs(b1.it_by10) &gt;= fabs(b2.it_by10))
     {
         Larger = b1.BasedForm;
@@ -760,23 +760,23 @@ BasedNum BasedNum::plain(BasedNum &amp; b1,BasedNum &amp; b2,bool plus_or_minus)
         Larger = b2.BasedForm;
         Smaller = b1.BasedForm;
     }
-
+    
     //cout &lt;&lt; &quot;[&quot; &lt;&lt; Larger &lt;&lt; &quot;]&quot;;
     //cout &lt;&lt; &quot;[&quot; &lt;&lt; Smaller &lt;&lt; &quot;]&quot;;
 
     /*下面一段对齐小数点*/ 
-
-    int Ldotpos = Larger.find_first_of(&#39;.&#39;);
-    int Sdotpos = Smaller.find_first_of(&#39;.&#39;);
-
+    
+    int Ldotpos = Larger.find_first_of('.');
+    int Sdotpos = Smaller.find_first_of('.');
+    
     //cout &lt;&lt; &quot;[&quot; &lt;&lt; Ldotpos &lt;&lt; &quot;]&quot;;
     //cout &lt;&lt; &quot;[&quot; &lt;&lt; Sdotpos &lt;&lt; &quot;]&quot;;
 
-
+    
     int L_int_size,S_int_size;
     int L_frc_size,S_frc_size;
     int final_size;    
-
+    
     if(Ldotpos == string::npos)
     {
         L_int_size = Larger.length();
@@ -797,13 +797,13 @@ BasedNum BasedNum::plain(BasedNum &amp; b1,BasedNum &amp; b2,bool plus_or_minus)
         S_int_size = Sdotpos;
         S_frc_size = Smaller.length()-1 - Sdotpos;
     }
-
+    
     final_size = max(L_int_size,S_int_size) + 1 + max(L_frc_size,S_frc_size);
-    Larger.resize(final_size,&#39;0&#39;);
-    Smaller.resize(final_size,&#39;0&#39;);
-    Result.resize(final_size+1,&#39;0&#39;);
+    Larger.resize(final_size,'0');
+    Smaller.resize(final_size,'0');
+    Result.resize(final_size+1,'0');
     int Rdotpos = max(L_int_size,S_int_size)+1;
-
+    
     /*cout &lt;&lt; &quot;[&quot; &lt;&lt; L_int_size &lt;&lt; &quot;]&quot;;
     cout &lt;&lt; &quot;[&quot; &lt;&lt; L_frc_size &lt;&lt; &quot;]&quot;;
     cout &lt;&lt; &quot;[&quot; &lt;&lt; S_int_size &lt;&lt; &quot;]&quot;;
@@ -815,64 +815,64 @@ BasedNum BasedNum::plain(BasedNum &amp; b1,BasedNum &amp; b2,bool plus_or_minus)
     cout &lt;&lt; &quot;[&quot; &lt;&lt; Rdotpos &lt;&lt; &quot;]&quot;;
     cout &lt;&lt; endl;*/
 
-
+    
     /*下面一段进行按位加减*/ 
     enum {L,S,R};
     int cur_num[3];
     int adv = 0; //进位和借位
-
+    
     for(int i = final_size-1 ; i &gt;= 0 ; i-- )
     {
         //ASCII码阶段 
         cur_num[L] = Larger[i];
         cur_num[S] = Smaller[i];
-
+        
         //cout &lt;&lt; &quot;[&quot; &lt;&lt; static_cast&lt;char&gt;(cur_num[L]) &lt;&lt; &quot;]&quot;;
         //cout &lt;&lt; &quot;[&quot; &lt;&lt; static_cast&lt;char&gt;(cur_num[S]) &lt;&lt; &quot;]&quot;;
-
+        
         //变为数值 
         for(int j = L;j &lt;= S;j++)
         {
-            if(&#39;0&#39; &lt;= cur_num[j] &amp;&amp; cur_num[j] &lt;= &#39;9&#39;)
+            if('0' &lt;= cur_num[j] &amp;&amp; cur_num[j] &lt;= '9')
             {
-                cur_num[j] -= &#39;0&#39;;
+                cur_num[j] -= '0';
                 continue;
             }
-            if(&#39;a&#39; &lt;= cur_num[j] &amp;&amp; cur_num[j] &lt;= &#39;z&#39;)
+            if('a' &lt;= cur_num[j] &amp;&amp; cur_num[j] &lt;= 'z')
             {
-                cur_num[j] -= &#39;a&#39;;
+                cur_num[j] -= 'a';
                 cur_num[j] += 10;
                 continue;
             }
-            if(&#39;A&#39; &lt;= cur_num[j] &amp;&amp; cur_num[j] &lt;= &#39;Z&#39;)
+            if('A' &lt;= cur_num[j] &amp;&amp; cur_num[j] &lt;= 'Z')
             {
-                cur_num[j] -= &#39;A&#39;;
+                cur_num[j] -= 'A';
                 cur_num[j] += 10;
                 continue;
             }
-            if(cur_num[j] == &#39;.&#39;)
+            if(cur_num[j] == '.')
             {
-                cur_num[R] = &#39;.&#39;;
+                cur_num[R] = '.';
                 break;
             }
             cur_num[R] = 0;
         }
-
+        
         //cout &lt;&lt; &quot;[&quot; &lt;&lt; cur_num[L] &lt;&lt; &quot;]&quot;;
         //cout &lt;&lt; &quot;[&quot; &lt;&lt; cur_num[S] &lt;&lt; &quot;]&quot;;
-
+        
         //如果当前位是小数点，忽略此位的计算。 
-        if(cur_num[R] == &#39;.&#39;) 
+        if(cur_num[R] == '.') 
         {
-            Result[i+1] = &#39;.&#39;;
-            cur_num[R] = &#39;0&#39;; 
+            Result[i+1] = '.';
+            cur_num[R] = '0'; 
             cout &lt;&lt; endl;
             continue;
         }
-
+        
         //进行当前位的计算 
         cur_num[R] = cur_num[L] + cur_num[S] * (plus_or_minus?1:-1) + adv;
-
+        
         if(cur_num[R] &gt;= 0)  //进位 
         {
             adv = cur_num[R] / base ;
@@ -883,48 +883,48 @@ BasedNum BasedNum::plain(BasedNum &amp; b1,BasedNum &amp; b2,bool plus_or_minus)
             adv = cur_num[R] / base - 1;
             cur_num[R] = cur_num[R]%base + base;
         }
-
+        
         //cout &lt;&lt; &quot;[&quot; &lt;&lt; adv &lt;&lt; &quot;]&quot;;
-
+        
         //变回ASCII码 
         if(0 &lt;= cur_num[R] &amp;&amp; cur_num[R] &lt;= 9)
         {
-            cur_num[R] += &#39;0&#39;; 
+            cur_num[R] += '0'; 
         }
         else
         {
-            cur_num[R] += (upper_case?&#39;A&#39;:&#39;a&#39;) - 10;
+            cur_num[R] += (upper_case?'A':'a') - 10;
         }
-
+        
         //cout &lt;&lt; &quot;[&quot; &lt;&lt; static_cast&lt;char&gt;(cur_num[R]) &lt;&lt; &quot;]&quot;;
-
+        
         //赋给Result的相应位置 
         Result[i+1] = static_cast&lt;char&gt;(cur_num[R]);
-
+        
         //cout &lt;&lt; endl;
     }
-
-    Result[0] = &#39;0&#39; + adv;
-
-    if(Rdotpos &lt;= Result.size()) Result[Rdotpos] = &#39;.&#39;;
-
+     
+    Result[0] = '0' + adv;
+    
+    if(Rdotpos &lt;= Result.size()) Result[Rdotpos] = '.';
+    
     //处理最终结果的正负 
     if(positive)
     {
-        if(adv == 0) Result[0] = &#39;+&#39;;
+        if(adv == 0) Result[0] = '+';
         return BasedNum(Result,base);
     }
     else
     {
         if(adv == 0)
         {
-            Result[0] = &#39;-&#39;;
+            Result[0] = '-';
             return BasedNum(Result,base);
         }
         else
             return BasedNum(&quot;-&quot; + Result,base);
     }
-
+    
 }
 
 
@@ -940,27 +940,27 @@ ostream &amp; operator &lt;&lt; (ostream &amp; out,BasedNum num)
 {
     if(num.Base_Error)
     {
-        out &lt;&lt; &quot;\n[Error:The base can&#39;t be smaller than 2 !]\n&quot;;
+        out &lt;&lt; &quot;\n[Error:The base can't be smaller than 2 !]\n&quot;;
         return out;
     }
-
+    
     out &lt;&lt; (num.positive?(BasedNum::show_pos?&quot;+&quot;:&quot;&quot;):&quot;-&quot;);
-
+    
     if(BasedNum::prec_to_be_displayed != num.Precision)
         num.setPrecision(BasedNum::prec_to_be_displayed);
-
+        
     if(BasedNum::base_to_be_displayed != num.Base)
     {
         num.setBase(BasedNum::base_to_be_displayed);
     }
-
+    
     num.up_or_down(BasedNum::upper_case);
-
+          
     out &lt;&lt; num.BasedForm; 
-
+    
     if(BasedNum::show_base)
         out &lt;&lt; &quot; @ &quot; &lt;&lt; num.Base;
-
+        
     return out;
 }
 
@@ -985,7 +985,7 @@ bflags me_Ios::setPrecision(int prec_wanted)
     BasedNum::prec_to_be_displayed = prec_wanted;
     return me_Ios::prec_changed;
 }
-
+ 
 /*****************************************************************************
 对名称空间me_Ios的枚举类bflag重载运算符&lt;&lt;，用于BasedNum对象的显示控制。
 
@@ -998,7 +998,7 @@ A.8
 +A.8
 +10.5
 在本类的后继版本中，还将继续扩展这部份功能，使其有更多花样。
-
+ 
 它是类BasedNum的友元，因为它需要访问几个用于控制BasedNum对象显示的静态私有成员。
 因为它的参数里没有类BasedNum的对象。所以必须在当前作用域声明，否则编译器找寻不
 到它。
@@ -1036,12 +1036,12 @@ ostream &amp; operator &lt;&lt; (ostream &amp; out,const bflags &amp; flag)
     if(flag == me_Ios::prec_remained)
     {
         out
-        &lt;&lt; &quot;\n[Error:The precision can&#39;t be smaller than 0 !]&quot;
+        &lt;&lt; &quot;\n[Error:The precision can't be smaller than 0 !]&quot;
         &lt;&lt; &quot;\n[The precision will be remained!]\n&quot;;
         return out;
     }
 }
-</code></pre> <h2>main.cpp</h2> <pre><code class="cpp">#include &quot;BasedNum.h&quot; 
+</code></pre> <h2>main.cpp</h2> <pre lang=cpp><code>#include &quot;BasedNum.h&quot; 
 #include &lt;cstdlib&gt;
 #include &lt;fstream&gt;
 
@@ -1076,20 +1076,20 @@ Btest 或 Btest 0
 Btest 1 PATH
 启动只写模式，并且是写入路径PATH，如果该文件不存在，则会创建。路径可省略，默认
 在Windows下输出到D:/BasedNumData.txt，在Linux下输出到/var/BasedNumData.txt。
-
+ 
 Btest 2 PATH
 启动只读模式，并且是读取路径PATH，如果该文件不存在，则会创建。路径可省略，默认
 在Windows下读取D:/BasedNumData.txt，在Linux下读取/var/BasedNumData.txt。
 *****************************************************************************/  
 int main(int argc,char * argv[])
 {
-    enum {no_file = &#39;0&#39;, O_file = &#39;1&#39;,I_file = &#39;2&#39;};
+    enum {no_file = '0', O_file = '1',I_file = '2'};
     char mode;
     char *win_filename;
     char *nix_filename;
     char def_win_filename[] = &quot;D://BaseNumData.txt&quot;; 
     char def_nix_filename[] = &quot;/var/BaseNumData.txt&quot;;
-
+    
     /*处理命令行参数*/ 
     switch(argc)
     {
@@ -1111,24 +1111,24 @@ int main(int argc,char * argv[])
                 if(system(&quot;pause&quot;)) system(&quot;sleep 3&quot;);
                 exit(-1);
     }
-
-
+   
+    
     string input;
     int base;
-
+    
     ofstream to;
     ifstream from;    
-
+    
     char tmpch;
     BasedNum * ptb;
-
+    
     /*只写模式的预处理：文件的打开*/
     if(mode == O_file)      
     {
         to.open(win_filename,ios::app);
         if(to.is_open())
                 cout &lt;&lt; &quot;Writing to File &quot; &lt;&lt; win_filename &lt;&lt; &quot;...\n&quot;;
-
+        
         else
         {
                 to.open(nix_filename,ios::app);
@@ -1142,14 +1142,14 @@ int main(int argc,char * argv[])
                 }
         }
     }
-
+    
     /*只读模式的预处理：文件的打开*/
     if(mode == I_file)
     {
         from.open(win_filename,ios::in);
         if(from.is_open())
                 cout &lt;&lt; &quot;Reading File &quot; &lt;&lt; win_filename &lt;&lt; &quot;...\n&quot;;
-
+        
         else
         {
                 from.open(nix_filename,ios::in);
@@ -1163,8 +1163,8 @@ int main(int argc,char * argv[])
                 }
         }
     }
-
-
+    
+      
     /*只写模式的实际运行是在一个无穷循环里，输入小于2的基结束循环*/
     while(mode == O_file)  
     {
@@ -1172,13 +1172,13 @@ int main(int argc,char * argv[])
         &lt;&lt; &quot;\nEnter a number:&quot;;  
         cin
         &gt;&gt; input;
-
-
+        
+        
         cout
         &lt;&lt; &quot;\nEnter its base:&quot;;
         cin
         &gt;&gt; base;
-
+        
         if(base &lt; 2) 
         {
                 cout
@@ -1190,9 +1190,9 @@ int main(int argc,char * argv[])
                 exit(0);
         }
         //注意下面这行，这是数据在文件中的存在形态
-        to &lt;&lt; input &lt;&lt; &#39;\t&#39; &lt;&lt; base &lt;&lt; &#39;\n&#39;;
+        to &lt;&lt; input &lt;&lt; '\t' &lt;&lt; base &lt;&lt; '\n';
     }
-
+    
     /*只读模式的实际运行是在一个无穷循环里，读到文件结尾结束循环*/ 
     while(mode == I_file) 
 
@@ -1209,13 +1209,13 @@ int main(int argc,char * argv[])
         from.get(tmpch);//丢弃\t
         from &gt;&gt; base;
         from.get(tmpch);//丢弃\n
-
+        
         ptb = new BasedNum(input,base,30);
         allbases(*ptb);
         delete ptb;
-
+        
     }
-
+    
     /*交互模式的实际运行是在一个无穷循环里，输入小于2的基结束循环*/
     while(mode == no_file)
 
@@ -1224,29 +1224,29 @@ int main(int argc,char * argv[])
         &lt;&lt; &quot;Enter a number:&quot;;  
         cin
         &gt;&gt; input;
-
-
+        
+        
         cout
         &lt;&lt; &quot;\nEnter its base:&quot;;
         cin
         &gt;&gt; base;
-
+        
         if(base &lt; 2) 
         {
                 cout
                 &lt;&lt; endl
                 &lt;&lt; &quot;The base is smaller than 2.\n&quot;
                 &lt;&lt; &quot;We assume that you wanna leave this programme.\n&quot;;
-
+                
                 if(system(&quot;pause&quot;)) system(&quot;sleep 3&quot;);
                 exit(0);
         }
-
+        
         ptb = new BasedNum(input,base,30);
         allbases(*ptb);
         delete ptb;
     }
-
+    
     if(system(&quot;pause&quot;)) system(&quot;sleep 3&quot;);
     return 0;
 }
@@ -1275,60 +1275,60 @@ void alltypes(const BasedNum &amp; num)
     cout
     &lt;&lt; endl
     &lt;&lt; me_Ios::setBase(num.getBase()) &lt;&lt; &quot;setBase:&quot;&lt;&lt; num.getBase() &lt;&lt; endl
-    &lt;&lt; num &lt;&lt; me_Ios::noshowbase &lt;&lt; &#39;\t&#39;&lt;&lt; num
+    &lt;&lt; num &lt;&lt; me_Ios::noshowbase &lt;&lt; '\t'&lt;&lt; num
     &lt;&lt; endl
     &lt;&lt; me_Ios::showbase
     ; 
-
+    
     cout
-    &lt;&lt; num &lt;&lt; me_Ios::showpos &lt;&lt; &#39;\t&#39; &lt;&lt; num
+    &lt;&lt; num &lt;&lt; me_Ios::showpos &lt;&lt; '\t' &lt;&lt; num
     &lt;&lt; endl
     &lt;&lt; me_Ios::noshowpos
     ;
-
+    
     cout
-    &lt;&lt; num &lt;&lt; me_Ios::uppercase &lt;&lt; &#39;\t&#39; &lt;&lt; num
+    &lt;&lt; num &lt;&lt; me_Ios::uppercase &lt;&lt; '\t' &lt;&lt; num
     &lt;&lt; endl
     &lt;&lt; me_Ios::nouppercase
     ;
-
+    
     cout
     &lt;&lt; me_Ios::setBase(2)&lt;&lt; &quot;setBase:2\n&quot;
     &lt;&lt; num &lt;&lt; endl
     ;
-
+    
     cout
     &lt;&lt; me_Ios::setPrecision(50)&lt;&lt; num
     &lt;&lt; endl
     ;
-
-
+    
+    
     cout &lt;&lt; me_Ios::setBase(36)
     &lt;&lt; BasedNum(&quot;exam&quot;,36).setBase(10).setBase(36)&lt;&lt;endl;
-
+    
     cout &lt;&lt; me_Ios::setBase(16) 
     &lt;&lt; BasedNum(&quot;abcdef.1&quot;,16).setBase(10).setBase(16)&lt;&lt;endl;
-
+    
     cout &lt;&lt; me_Ios::setBase(10)
     &lt;&lt; BasedNum(&quot;3.141592653589793238462643383279&quot;,10).setBase(16).setBase(10)&lt;&lt;endl;
-
+    
     cout &lt;&lt; me_Ios::setBase(36)
     &lt;&lt; BasedNum(&quot;exam&quot;,36)+BasedNum(1)&lt;&lt;endl;
-
+    
     cout &lt;&lt; me_Ios::setBase(16)
     &lt;&lt; BasedNum(&quot;4f.a1&quot;,16)-BasedNum(&quot;4e.c7&quot;,16)&lt;&lt;endl;
-
+    
     cout &lt;&lt; me_Ios::setBase(16)
     &lt;&lt; BasedNum(&quot;-3f&quot;,16)+BasedNum(&quot;4e&quot;,16)&lt;&lt;endl;
-
+    
     cout &lt;&lt; me_Ios::setBase(16)
     &lt;&lt; BasedNum(&quot;exam&quot;,36).setBase(36)&lt;&lt;endl;
-
+    
     cout
     &lt;&lt; me_Ios::setPrecision(30) &lt;&lt; me_Ios::setBase(10)
     ;
-
-
+    
+    
 }
 </code></pre> <section class=meta> <p> <span class=author> <a href='/'>宋皿</a> </span> <span class=time> <time datetime='2007-08-29 12:00:00 +0800'> 2007-08-29 </time> </span> </p> <p> <span class=license> Published under <a href='http://creativecommons.org/licenses/by-nc-nd/3.0/' rel=license>(CC) BY-NC-ND</a> </span> <span class=tags> tagged with <a href='/tech/tags.html#tag-cpp'> cpp </a> </span> </p> </section> <div id=disqus_thread></div> <script>
   /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -1339,7 +1339,7 @@ void alltypes(const BasedNum &amp; num)
       dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
-</script> <a class=dsq-brlink href='http://disqus.com'> comments powered by <span class=logo-disqus>Disqus</span> </a> </article> </div> </div> </div> <script src="/javascripts/jquery-1.7.1.js?1570418332"></script> <script src="/javascripts/highlight.pack.js?1570418332"></script> <script>
+</script> <a class=dsq-brlink href='http://disqus.com'> comments powered by <span class=logo-disqus>Disqus</span> </a> </article> </div> </div> </div> <script src="/javascripts/jquery-1.7.1.js?1570435392"></script> <script src="/javascripts/highlight.pack.js?1570435392"></script> <script>
   hljs.initHighlightingOnLoad();
   // $(document).ready(function() {
   //   $('pre code').each(function(i, e) {hljs.highlightBlock(e)});

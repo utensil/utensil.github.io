@@ -1,23 +1,23 @@
-<!DOCTYPE html> <html> <head> <meta charset=utf-8> <meta content='IE=edge,chrome=1' http-equiv=X-UA-Compatible> <!--[if (lt IE 9)&(!IEMobile)]><script src="/javascripts/html5.js?1570418332"></script><![endif]--> <meta content='width=device-width, initial-scale=1.0' name=viewport> <title>一个生成SVN Graph的ruby脚本</title> <link href="/stylesheets/site.css?1570418332" rel=stylesheet /> <link href="/stylesheets/blog.css?1570418332" rel=stylesheet /> <link href="/stylesheets/highlight/railscasts.css?1570418332" rel=stylesheet /> <!--[if lt IE 9]><script src="/javascripts/respond.js?1570418332"></script><![endif]--> </head> <body class=''> <div id=container> <div id=main role=main> <aside class=sidebar> <nav> <span> <a href='/tech/'>home</a> </span> <span> <a href='/tech/calendar.html'>calendar</a> </span> <span> <a href='/tech/tags.html'>tags</a> </span> </nav> </aside> <div class=content> <header> <div class=article_nav> <span class=later> <a href='/tech/2011/10/26/chinses-segment.html'> < 更新 </a> </span> <span class=earlier> <a href='/tech/2011/06/11/how-to-play-with-certificates-and-keys.html'> 更早 > </a> </span> </div> <h1> 一个生成SVN Graph的ruby脚本 </h1> </header> <article class=markdown-body> <pre><code class="ruby">
+<!DOCTYPE html> <html> <head> <meta charset=utf-8> <meta content='IE=edge,chrome=1' http-equiv=X-UA-Compatible> <!--[if (lt IE 9)&(!IEMobile)]><script src="/javascripts/html5.js?1570435392"></script><![endif]--> <meta content='width=device-width, initial-scale=1.0' name=viewport> <title>一个生成SVN Graph的ruby脚本</title> <link href="/stylesheets/site.css?1570435392" rel=stylesheet /> <link href="/stylesheets/blog.css?1570435400" rel=stylesheet /> <link href="/stylesheets/highlight/railscasts.css?1570435392" rel=stylesheet /> <!--[if lt IE 9]><script src="/javascripts/respond.js?1570435392"></script><![endif]--> </head> <body class=''> <div id=container> <div id=main role=main> <aside class=sidebar> <nav> <span> <a href='/tech/'>home</a> </span> <span> <a href='/tech/calendar.html'>calendar</a> </span> <span> <a href='/tech/tags.html'>tags</a> </span> </nav> </aside> <div class=content> <header> <div class=article_nav> <span class=later> <a href='/tech/2011/10/26/chinses-segment.html'> < 更新 </a> </span> <span class=earlier> <a href='/tech/2011/06/11/how-to-play-with-certificates-and-keys.html'> 更早 > </a> </span> </div> <h1> 一个生成SVN Graph的ruby脚本 </h1> </header> <article class=markdown-body> <pre lang=ruby><code>
 #README
 # In order to run this script, the following command line tools must be installed:
 # 1) a subversion client, under Windows, Slik SVN is recommended: http://www.sliksvn.com/en/download
 # 2) a Graphviz toolset, which can be downloaded from http://www.graphviz.org/
 # Also the following ruby gems must be installed:
-require &#39;rubygems&#39;
+require 'rubygems'
 
-#&#39;xmlsimple&#39;
+#'xmlsimple'
 # gem: http://rubyforge.org/frs/?group_id=638
 # doc: http://xml-simple.rubyforge.org/
 # gem install -l xml-simple-1.0.13.gem
-require &#39;xmlsimple&#39;
+require 'xmlsimple'
 
 #gem: http://rubygems.org/downloads/ruby-graphviz-1.0.0.gem
 #git:  https://github.com/glejeune/Ruby-Graphviz
 #doc: http://rdoc.info/github/glejeune/Ruby-Graphviz
 #article: http://www.omninerd.com/articles/Automating_Data_Visualization_with_Ruby_and_Graphviz
-require &#39;graphviz&#39;
-
+require 'graphviz'
+  
 #USAGE:
 repo_path = ARGV[0] 
 file_name = ARGV[1]
@@ -26,7 +26,7 @@ file_name = ARGV[1]
 repo_log_xml = `svn log #{repo_path} -v --xml` #TODO username etc.
 
 unless $?.success?
-  puts &quot;Can&#39;t fetch log info from #{repo_path}, because #{repo_log_xml}&quot;
+  puts &quot;Can't fetch log info from #{repo_path}, because #{repo_log_xml}&quot;
   exit
 end
 
@@ -61,7 +61,7 @@ digraph &quot;#{repo_path}&quot; {
     // &quot;&lt;anchor&gt;&quot; node:anchor
     //compound=true
     //lhead/ltail -&gt; subgraph
-
+    
     ranksep=.75//equally
     //nodesep=equally
     //center=true
@@ -76,32 +76,32 @@ digraph &quot;#{repo_path}&quot; {
         fontsize = 24
         arrowsize = 2
     ]
-
+    
 |
 
   svn_log[&quot;logentry&quot;].each do |log|
-
+    
     paths = log[&quot;paths&quot;]  
     if paths.class == Hash
       path = paths[&quot;path&quot;]
       if path.respond_to?(:has_key?) &amp;&amp; path.has_key?(&quot;copyfrom-path&quot;)
-
+        
         from_path = path[&quot;copyfrom-path&quot;]
         from_rev = path[&quot;copyfrom-rev&quot;]
         to_path = path[&quot;content&quot;]
         to_rev = log[&quot;revision&quot;]
-
+        
         #shortening the brach/tag name
         #FIXME our svn projects are postfixed by _proj, see if how can we do it without such name convention
         from_path.gsub! /^\/.*_proj/, &quot;&quot;
         to_path.gsub! /^\/.*_proj/, &quot;&quot;
-
+        
         #rule to filter out illegal charaters in commit log for dot language
         safe_msg = log[&quot;msg&quot;].to_s          
         safe_msg.gsub! /\n/, &quot;\\n&quot;
-
+        
         correct_copy = (from_path =~ /tags/ &amp;&amp; to_path =~ /branches/) || (from_path =~ /branches/ &amp;&amp; to_path =~ /tags/)                
-
+          
         f.puts %Q%&quot;#{to_path}&quot;[label=&quot;{#{to_path}|#{to_rev}|#{log[&quot;date&quot;]}|#{log[&quot;author&quot;]}|#{safe_msg}}&quot; #{ &quot;shape = \&quot;Mrecord\&quot;&quot; if to_path =~ /tags/}]%
         f.puts %Q%&quot;#{from_path}&quot; -&gt; &quot;#{to_path}&quot;[label = &quot;#{from_rev}&quot; #{&quot;style = \&quot;dashed\&quot;&quot; unless correct_copy}]%
 
@@ -131,7 +131,7 @@ puts &quot;Nice job!&quot; if $?.success?
       dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
-</script> <a class=dsq-brlink href='http://disqus.com'> comments powered by <span class=logo-disqus>Disqus</span> </a> </article> </div> </div> </div> <script src="/javascripts/jquery-1.7.1.js?1570418332"></script> <script src="/javascripts/highlight.pack.js?1570418332"></script> <script>
+</script> <a class=dsq-brlink href='http://disqus.com'> comments powered by <span class=logo-disqus>Disqus</span> </a> </article> </div> </div> </div> <script src="/javascripts/jquery-1.7.1.js?1570435392"></script> <script src="/javascripts/highlight.pack.js?1570435392"></script> <script>
   hljs.initHighlightingOnLoad();
   // $(document).ready(function() {
   //   $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
