@@ -281,10 +281,10 @@ $$ \forall w \in V [ g(v, w) = 0 ]  \Rightarrow v = 0 $$
 正交，也就是满足：
 
 $$
-g(e_\mu, e_\upsilon) = \cases{
-  0  & \text{当} \mu = \upsilon\cr
+g(e_\mu, e_\upsilon) = \begin{cases}
+  0  & \text{当} \mu = \upsilon \cr
   ±1 & \text{当} \mu \neq \upsilon
-}
+\end{cases}
 $$
 
 $ Signature(p, q) $：$ q $是正交基中-1的数目。$ p+q=n $
@@ -334,7 +334,7 @@ $$`
 
 其中$ \sigma $是一组1..n的全排列/全置换，$ sign(\sigma) $则是n维的Levi-Civita符号，详见维基百科。
 
-定义M上的体积形式\omega为无处消失的n-形式，其标准形式为：
+定义M上的体积形式$ \omega $为无处消失的n-形式，其标准形式为：
 
 $$ \omega = dx^1 \wedge ... \wedge x^n $$
 
