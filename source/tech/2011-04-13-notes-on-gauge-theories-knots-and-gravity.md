@@ -88,7 +88,7 @@ $$ (\phi_* v)f = v ( \phi^* f ) $$
 
 以下是我画的一个帮助理解的示意图：
 
-![](2011-04-13-notes-on-gauge-theories-knots-and-gravity/pull-and-push.jpg)
+![](tech/images/2011-04-13-notes-on-gauge-theories-knots-and-gravity/pull-and-push.jpg)
 
 ### 第三小节 流和李括号
 

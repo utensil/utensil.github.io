@@ -17,11 +17,11 @@ tags: IDE
  
 ...调完一看，只剩下括号是白色了...话不多说，直接上图：
 
-![](colored-eclipse-sample-1.png)
+![](tech/images/colored-eclipse-sample-1.png)
  
 图中copyOfRange为类静态方法。
 
-![](colored-eclipse-sample-2.png) 
+![](tech/images/colored-eclipse-sample-2.png) 
 
 图中toSurrogate 为类实例方法。
  

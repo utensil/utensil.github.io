@@ -13,8 +13,11 @@ class MarkdownHtmlFilterTemplate < Tilt::Template
 
   def prepare
     @engine = HTML::Pipeline.new [
-      HTML::Pipeline::MarkdownFilter
-    ], asset_root: "/", gfm: true, unsafe: true, tagfilter: false
+      HTML::Pipeline::MarkdownFilter,
+      HTML::Pipeline::AbsoluteSourceFilter
+    ], image_base_url: "http://utensil.github.io/", 
+    image_subpage_url: "http://utensil.github.io/", 
+    gfm: true, unsafe: true, tagfilter: false
   end
 
   def evaluate(scope, locals, &block)

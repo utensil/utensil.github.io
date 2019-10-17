@@ -6,7 +6,7 @@ code_mode: math
 
 看到网上流传一张图，普通物理学家、文艺物理学家、2B物理学家以及数学家的区别（Maxwell方程组的4种形式……）：
 
-![](different-style-of-physicist.jpg)
+![](tech/images/different-style-of-physicist.jpg)
 
 其实这张图中存在一些有趣的地方，下面细细道来。
 
