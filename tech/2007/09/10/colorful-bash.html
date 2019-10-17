@@ -1,12 +1,12 @@
-<!DOCTYPE html> <html> <head> <meta charset=utf-8> <meta content='IE=edge,chrome=1' http-equiv=X-UA-Compatible> <!--[if (lt IE 9)&(!IEMobile)]><script src="/javascripts/html5.js?1570439114"></script><![endif]--> <meta content='width=device-width, initial-scale=1.0' name=viewport> <title>在Bash下输出彩色的文本</title> <link href="/stylesheets/site.css?1570439114" rel=stylesheet /> <link href="/stylesheets/blog.css?1570439114" rel=stylesheet /> <link href="/stylesheets/highlight/railscasts.css?1570439114" rel=stylesheet /> <!--[if lt IE 9]><script src="/javascripts/respond.js?1570439114"></script><![endif]--> </head> <body class=''> <div id=container> <div id=main role=main> <aside class=sidebar> <nav> <span> <a href='/tech/'>home</a> </span> <span> <a href='/tech/calendar.html'>calendar</a> </span> <span> <a href='/tech/tags.html'>tags</a> </span> </nav> </aside> <div class=content> <header> <div class=article_nav> <span class=later> <a href='/tech/2007/09/15/me-int-latex.html'> < 更新 </a> </span> <span class=earlier> <a href='/tech/2007/08/29/notes-on-programming-languages-principles-and-practice.html'> 更早 > </a> </span> </div> <h1> 在Bash下输出彩色的文本 </h1> </header> <article class=markdown-body> <p>我们知道，Linux下的Bash里的命令ls默认是开启颜色显示的，用各种颜色来区分不同的文件类型，这说明Bash内置了彩色显示的功能。Bash不是GUI而是CLI，许多电脑高手都偏爱CLI，因为那种亲自以语句操纵世界的感觉无以伦比。可是，请想象一下，在没有语法高亮的情况下编写成千上万行的代码，那是什么感觉？编程会变成一种精神的折磨，并且极大提高出错率。</p> <p>我研究在bash下输出彩色的文本的初衷，是想使自己在写一些Shell脚本时，能够在用户界面上做得漂亮些。后来，由于发现英文文献上介绍的方法有错漏之处，也很不人性化，于是不断调试，不断改进，最终我写出了一个 <strong>支持命令行参数、管道和stdin重定向为文件，并具有较高容错性能</strong> 的脚本。脚本本身的使用价值未必特别高，但在编写的过程中，为了达到我需要的目的，对Bash进行了大量试探，对它的许多特性有了深入的了解，并对许多问题形成了一整套的解决方案，为以后的其他应用的打下了基础。</p> <h2>echo的-n和-e选项</h2> <p>输出彩色的文本，我们使用的命令是echo。大家都知道echo可以显示一些字符串，可以显示一些变量。例如：</p> <pre lang=no-highlight><code>[root@VMFedora5 ~]# echo 'Hello! Here is the content!'
+<!DOCTYPE html> <html> <head> <meta charset=utf-8> <meta content='IE=edge,chrome=1' http-equiv=X-UA-Compatible> <!--[if (lt IE 9)&(!IEMobile)]><script src="/javascripts/html5.js?1571297833"></script><![endif]--> <meta content='width=device-width, initial-scale=1.0' name=viewport> <title>在Bash下输出彩色的文本</title> <link href="/stylesheets/site.css?1571297833" rel=stylesheet /> <link href="/stylesheets/blog.css?1571297833" rel=stylesheet /> <link href="/stylesheets/highlight/railscasts.css?1571297833" rel=stylesheet /> <!--[if lt IE 9]><script src="/javascripts/respond.js?1571297833"></script><![endif]--> </head> <body class=''> <div id=container> <div id=main role=main> <aside class=sidebar> <nav> <span> <a href='/tech/'>home</a> </span> <span> <a href='/tech/calendar.html'>calendar</a> </span> <span> <a href='/tech/tags.html'>tags</a> </span> </nav> </aside> <div class=content> <header> <div class=article_nav> <span class=later> <a href='/tech/2007/09/15/me-int-latex.html'> < 更新 </a> </span> <span class=earlier> <a href='/tech/2007/08/29/notes-on-programming-languages-principles-and-practice.html'> 更早 > </a> </span> </div> <h1> 在Bash下输出彩色的文本 </h1> </header> <article class=markdown-body> <p>我们知道，Linux下的Bash里的命令ls默认是开启颜色显示的，用各种颜色来区分不同的文件类型，这说明Bash内置了彩色显示的功能。Bash不是GUI而是CLI，许多电脑高手都偏爱CLI，因为那种亲自以语句操纵世界的感觉无以伦比。可是，请想象一下，在没有语法高亮的情况下编写成千上万行的代码，那是什么感觉？编程会变成一种精神的折磨，并且极大提高出错率。</p> <p>我研究在bash下输出彩色的文本的初衷，是想使自己在写一些Shell脚本时，能够在用户界面上做得漂亮些。后来，由于发现英文文献上介绍的方法有错漏之处，也很不人性化，于是不断调试，不断改进，最终我写出了一个 <strong>支持命令行参数、管道和stdin重定向为文件，并具有较高容错性能</strong> 的脚本。脚本本身的使用价值未必特别高，但在编写的过程中，为了达到我需要的目的，对Bash进行了大量试探，对它的许多特性有了深入的了解，并对许多问题形成了一整套的解决方案，为以后的其他应用的打下了基础。</p> <h2>echo的-n和-e选项</h2> <p>输出彩色的文本，我们使用的命令是echo。大家都知道echo可以显示一些字符串，可以显示一些变量。例如：</p> <pre lang=no-highlight><code>[root@VMFedora5 ~]# echo 'Hello! Here is the content!'
 Hello! Here is the content!
-[root@VMFedora5 ~]# var1=&quot;The number&quot;
+[root@VMFedora5 ~]# var1="The number"
 [root@VMFedora5 ~]# var2=7
-[root@VMFedora5 ~]#echo &quot;$var1 is $var2 .&quot;
+[root@VMFedora5 ~]#echo "$var1 is $var2 ."
 The number is 7 .
-</code></pre> <p>首先我们来了解一下-n这个选项，它的意思是让echo别换行。例如</p> <pre lang=no-highlight><code>[root@VMFedora5 ~]#echo -n &quot;Don't return:&quot;
+</code></pre> <p>首先我们来了解一下-n这个选项，它的意思是让echo别换行。例如</p> <pre lang=no-highlight><code>[root@VMFedora5 ~]#echo -n "Don't return:"
 Don't return:[root@VMFedora5 ~]#
-</code></pre> <p>这个选项很有用。这样就可以在一行里显示五彩缤纷的字了。</p> <p>然后我们来了解一下-e这个选项。这个选项是彩色的灵魂，加了这个选项，echo就要开始认一些转义字符。用英语说就叫enable escape sequence.</p> <p>例如：</p> <pre lang=bash><code>echo -e &quot;/034&quot;
+</code></pre> <p>这个选项很有用。这样就可以在一行里显示五彩缤纷的字了。</p> <p>然后我们来了解一下-e这个选项。这个选项是彩色的灵魂，加了这个选项，echo就要开始认一些转义字符。用英语说就叫enable escape sequence.</p> <p>例如：</p> <pre lang=bash><code>echo -e "/034"
 </code></pre> <p>这就是-e的作用了。</p> <p>我写了个脚本试试，从/000试到/777。为什么只试到/777呢？因为这里用的其实是8进制的数。例如：</p> <pre lang=bash><code>#!/bin/bash
  
 for (( i=0;i&lt;=7;i=i+1 ))
@@ -15,32 +15,32 @@ do
      do
          for (( k=0;k&lt;=7;k=k+1 ))
          do
-         echo -n &quot;$i$j$k   &quot;
-         echo -en &quot;//$i$j$k   &quot;
+         echo -n "$i$j$k   "
+         echo -en "//$i$j$k   "
          done
      echo
      done
 done
-</code></pre> <p>这个脚本的编写中最激动人心的是<code>echo -en &quot;//$i$j$k &quot;</code>这一句，因为编程都是希望能够节省劳动，所以希望Bash能够自动化生成一些处理方式。比如这句命令里，Bash因为<code>””</code>而将<code>//</code>变成<code>/</code>，<code>$i</code>、<code>$j</code>、<code>$k</code>变成相应的数字，然后-e选项又将，比如，<code>/546</code>变成了相应的特殊字符输出。在这种试探的过程中，我们窥见了echo背后的运行机理。</p> <h2>用转义字符输出彩色文本</h2> <p>我先说明一下我是怎么介绍一个命令的。黑体的，代表命令中固定的部份；下标的只是一个说明，代表这里这里会有几种选择，我会在后面注明所有的选择。</p> <p>好了，这就是，彩色的完整命令：</p> <pre lang=bash><code>echo -e &quot;/E[3${FgColor};4${BgColor}m&quot;&quot;/033[${turn_on}m${content}/033[${turn_off}m&quot;
-</code></pre> <p>看到有点晕吧？</p> <p><code>/E[</code>的意思是：嗯，我要开始定义前景背景色了。</p> <p><code>3</code>代表是前景色，<code>4</code>代表是背景色。顺序不能颠倒。</p> <p><code>${FgColor}</code> 和 <code>${BgColor}</code> 的选择有：</p> <ul> <li>0 黑色</li> <li>1 红色</li> <li>2 绿色</li> <li>3 黄色</li> <li>4 蓝色</li> <li>5 洋红</li> <li>6 青</li> <li>7 灰色</li> <li>8、9 白色</li> </ul> <p><code>;</code>是用来分割前景色和背景色的。</p> <p><code>m</code>是说，嗯，前景背景色定义完了。</p> <p><code>/033[</code>加上<code>${turn_on}</code>和<code>m</code>，意思是：嗯，我要开始用刚才定义的前景背景色写字了。后面紧跟着要写的内容<code>${content}</code>。</p> <p><code>/033[</code>加上<code>${turn_off}</code>和<code>m</code>，意思是：嗯，我写完了。</p> <p><code>${turn_on}</code>的选择有：</p> <ul> <li>1 淡些、粗些</li> <li>4 下划线</li> <li>7 反相（颠倒前景色和背景色）</li> <li>9 删除线</li> <li>2、3、5、6、8 正常</li> </ul> <p><code>${turn_off}</code>的选择，只有一个：0</p> <p>以上这些选择的效果，是我依据英文文献一个一个调试出来的，英文文献上漏了一些颜色，也没有提到<code>${turn_on}</code>的那么多选择。在具体的调试中，我还发现<code>${turn_on}</code>选项的结果有时会因<code>${FgColor}</code> 和 <code>${BgColor}</code> 的选择而发生细微的变化，尤其是在涉及到白色、灰色的时候。不过这是细节，就不举例子了。</p> <p>我们来试一试输出前景红色背景白色的&quot;Red&quot;：</p> <pre lang=no-highlight><code>[root@VMFedora5 ~]# echo -e &quot;/E[31;49m&quot;&quot;/033[5mRed/033[0m&quot;
+</code></pre> <p>这个脚本的编写中最激动人心的是<code>echo -en "//$i$j$k "</code>这一句，因为编程都是希望能够节省劳动，所以希望Bash能够自动化生成一些处理方式。比如这句命令里，Bash因为<code>””</code>而将<code>//</code>变成<code>/</code>，<code>$i</code>、<code>$j</code>、<code>$k</code>变成相应的数字，然后-e选项又将，比如，<code>/546</code>变成了相应的特殊字符输出。在这种试探的过程中，我们窥见了echo背后的运行机理。</p> <h2>用转义字符输出彩色文本</h2> <p>我先说明一下我是怎么介绍一个命令的。黑体的，代表命令中固定的部份；下标的只是一个说明，代表这里这里会有几种选择，我会在后面注明所有的选择。</p> <p>好了，这就是，彩色的完整命令：</p> <pre lang=bash><code>echo -e "/E[3${FgColor};4${BgColor}m""/033[${turn_on}m${content}/033[${turn_off}m"
+</code></pre> <p>看到有点晕吧？</p> <p><code>/E[</code>的意思是：嗯，我要开始定义前景背景色了。</p> <p><code>3</code>代表是前景色，<code>4</code>代表是背景色。顺序不能颠倒。</p> <p><code>${FgColor}</code> 和 <code>${BgColor}</code> 的选择有：</p> <ul> <li>0 黑色</li> <li>1 红色</li> <li>2 绿色</li> <li>3 黄色</li> <li>4 蓝色</li> <li>5 洋红</li> <li>6 青</li> <li>7 灰色</li> <li>8、9 白色</li> </ul> <p><code>;</code>是用来分割前景色和背景色的。</p> <p><code>m</code>是说，嗯，前景背景色定义完了。</p> <p><code>/033[</code>加上<code>${turn_on}</code>和<code>m</code>，意思是：嗯，我要开始用刚才定义的前景背景色写字了。后面紧跟着要写的内容<code>${content}</code>。</p> <p><code>/033[</code>加上<code>${turn_off}</code>和<code>m</code>，意思是：嗯，我写完了。</p> <p><code>${turn_on}</code>的选择有：</p> <ul> <li>1 淡些、粗些</li> <li>4 下划线</li> <li>7 反相（颠倒前景色和背景色）</li> <li>9 删除线</li> <li>2、3、5、6、8 正常</li> </ul> <p><code>${turn_off}</code>的选择，只有一个：0</p> <p>以上这些选择的效果，是我依据英文文献一个一个调试出来的，英文文献上漏了一些颜色，也没有提到<code>${turn_on}</code>的那么多选择。在具体的调试中，我还发现<code>${turn_on}</code>选项的结果有时会因<code>${FgColor}</code> 和 <code>${BgColor}</code> 的选择而发生细微的变化，尤其是在涉及到白色、灰色的时候。不过这是细节，就不举例子了。</p> <p>我们来试一试输出前景红色背景白色的"Red"：</p> <pre lang=no-highlight><code>[root@VMFedora5 ~]# echo -e "/E[31;49m""/033[5mRed/033[0m"
 Red
 </code></pre> <h2>试用脚本输出彩色文本</h2> <p>难道我们每次都些这么辛苦吗？会折磨死人的……</p> <p>我发现，下面这段代码的效果与上面是一样的</p> <pre lang=no-highlight><code>[root@VMFedora5 ~]#i=31
 [root@VMFedora5 ~]#j=49
-[root@VMFedora5 ~]# echo -e &quot;/E[&quot;&quot;$i;$j&quot;&quot;m&quot;&quot;/033[&quot;&quot;1&quot;&quot;m&quot;&quot;Red&quot;&quot;/033[&quot;&quot;0&quot;&quot;m&quot;
+[root@VMFedora5 ~]# echo -e "/E[""$i;$j""m""/033[""1""m""Red""/033[""0""m"
 Red
 </code></pre> <p>这就意味着我们可以将每个控制单元分别设成变量，然后写一个Shell脚本，来代替这种笨拙的方式。</p> <p>先写一个简单的，实现刚才那个效果的Shell脚本。</p> <pre lang=bash><code>#!/bin/bash
-#&quot;Colorizing&quot; Scripts
+#"Colorizing" Scripts
  
 function Color()
 {
-Fg=&quot;3&quot;&quot;$1&quot;
-Bg=&quot;4&quot;&quot;$2&quot;
-SetColor=&quot;/E[&quot;&quot;$Fg;$Bg&quot;&quot;m&quot;
-UseColor=&quot;/033[&quot;&quot;$3&quot;&quot;m&quot;
-Content=&quot;$4&quot;
-EndColor=&quot;/033[0m&quot;
+Fg="3""$1"
+Bg="4""$2"
+SetColor="/E[""$Fg;$Bg""m"
+UseColor="/033[""$3""m"
+Content="$4"
+EndColor="/033[0m"
  
-echo -en &quot;$SetColor&quot;&quot;$UseColor&quot;&quot;$Content&quot;&quot;$EndColor&quot;
+echo -en "$SetColor""$UseColor""$Content""$EndColor"
  
 }
 </code></pre> <pre lang=no-highlight><code>Color 1 9 5 Red
@@ -48,18 +48,18 @@ echo -en &quot;$SetColor&quot;&quot;$UseColor&quot;&quot;$Content&quot;&quot;$En
 [root@VMFedora5 ~]# ./Color.sh
 Red[root@VMFedora5 ~]#
 </code></pre> <p>注意，这个脚本中已经用到了参数传递。对于函数Color而言，$1是函数接收的第一个参数，$n是第n个，以此类推。</p> <p>$1是前景色，$2是背景色, $3是样式（即turn_on），$4是字符串。</p> <h2>试使脚本能够容错和接受带空格的字符串</h2> <p>在方才的脚本里，我们只要把脚本中最后一句改成<code>Color $@</code>，就可以输出任意颜色的字符。例如：</p> <pre lang=bash><code>#!/bin/bash
-#&quot;Colorizing&quot; Scripts
+#"Colorizing" Scripts
  
 function Color()
 {
-Fg=&quot;3&quot;&quot;$1&quot;
-Bg=&quot;4&quot;&quot;$2&quot;
-SetColor=&quot;/E[&quot;&quot;$Fg;$Bg&quot;&quot;m&quot;
-UseColor=&quot;/033[&quot;&quot;$3&quot;&quot;m&quot;
-Content=&quot;$4&quot;
-EndColor=&quot;/033[0m&quot;
+Fg="3""$1"
+Bg="4""$2"
+SetColor="/E[""$Fg;$Bg""m"
+UseColor="/033[""$3""m"
+Content="$4"
+EndColor="/033[0m"
  
-echo -en &quot;$SetColor&quot;&quot;$UseColor&quot;&quot;$Content&quot;&quot;$EndColor&quot;
+echo -en "$SetColor""$UseColor""$Content""$EndColor"
  
 }
  
@@ -71,14 +71,14 @@ Red[root@VMFedora5 ~]#
 {
 Fg=$1
 Bg=$2
-SetColor=&quot;/E[&quot;&quot;$Fg;$Bg&quot;&quot;m&quot;
-UseColor=&quot;/033[&quot;&quot;$3&quot;&quot;m&quot;
-EndColor=&quot;/033[0m&quot;
-Content=&quot;$e&quot;
-echo -en &quot;$SetColor&quot;&quot;$UseColor&quot;$Content&quot;$EndColor&quot;
+SetColor="/E[""$Fg;$Bg""m"
+UseColor="/033[""$3""m"
+EndColor="/033[0m"
+Content="$e"
+echo -en "$SetColor""$UseColor"$Content"$EndColor"
  
 }
-</code></pre> <p>注意这里的<code>Content=&quot;$e&quot;</code>这一句，这一句说明，我们将专门生成全局变量$e来容纳带空格的字符串。</p> <p>然后我们重新写一个Color，作为主函数。具体内容稍等，我们先将使脚本能够容错和接受带空格的字符串的两个模块写好。</p> <p>容错部份，我们用函数ParaCheck来解决：</p> <pre lang=bash><code>function ParaCheck()
+</code></pre> <p>注意这里的<code>Content="$e"</code>这一句，这一句说明，我们将专门生成全局变量$e来容纳带空格的字符串。</p> <p>然后我们重新写一个Color，作为主函数。具体内容稍等，我们先将使脚本能够容错和接受带空格的字符串的两个模块写好。</p> <p>容错部份，我们用函数ParaCheck来解决：</p> <pre lang=bash><code>function ParaCheck()
 {
 if [ $a -le 0 ] || [ $b -le 0 ] || [ $c -le 0 ] || [ $a -gt 10 ] || [ $b -gt 10 ] || [ $c -gt 9 ]
 then
@@ -103,39 +103,39 @@ declare -i b=$2
 declare -i c=$3
 </code></pre> <p>这一步相当于强制转换字符串类型的$1、$2、$3为整数类型。</p> <p>经过试探，我发现，如果$1、$2、$3本身被输入为非数字的字符串，在强制转型的过程中，会变成0。这就是检错的原理，只要将$1、$2、$3等于0的情况排除，就排除了输入为非数字的字符串（空或非空皆然）的情形，然后再限制$1、$2、$3分别小于等于10、10、9。</p> <p>所以我就必须将黑色的代码改变为10，并在程序中处理好，最终传递给subColor的，只要是黑色，还会是0。为此，我们将原来应该放置在subColor里的为前景色代码前加上3，为背景色代码前加上4的工作放置在ParaCheck里完成。</p> <p>如果出了错，就会启动函数ShowHelp：</p> <pre lang=bash><code>function ShowHelp()
 {
-echo &quot;Error!&quot;
-echo &quot;Your parameters were $a,$b,$c,they are unexpected parameters.&quot;
-echo &quot;Show help file or continue?(h|c)&quot;
+echo "Error!"
+echo "Your parameters were $a,$b,$c,they are unexpected parameters."
+echo "Show help file or continue?(h|c)"
 read Choice
 case $Choice in
     h|H)
-        echo &quot;This is a script for coloring characters and strings.&quot;
-        echo &quot;There are four parameters.Parameters are seperated by spacebars.&quot;
-        echo &quot;The frst parameter is a number ranged from 1 to 10,represents the foreground color.&quot;
-        echo &quot;The second parameter is  a number ranged from 1 to 10,represents the background color.&quot;
-        Color 1 8 2 &quot;1    red&quot;;echo
-        Color 2 8 2 &quot;2    green&quot;;echo
-        Color 3 8 2 &quot;3    yellow&quot;;echo
-        Color 4 8 2 &quot;4    blue&quot;;echo
-        Color 5 8 2 &quot;5    magenta&quot;;echo
-        Color 6 8 2 &quot;6    cyan&quot;;echo
-        Color 7 8 2 &quot;7    gray&quot;;echo
-        Color 8 8 2 &quot;8    white&quot;;echo
-        Color 9 8 2 &quot;9    white&quot;;echo
-        Color 10 8 2 &quot;10   black&quot;;echo
-        echo &quot;The third parameter is a number ranged from 1 to 9,represents the style of the characters.&quot;
-        Color 10 8 1 &quot;1    lighter,and bold&quot;;echo
-        Color 10 8 4 &quot;4    draw a line under the string.&quot;;echo
-        Color 10 8 7 &quot;7    swap the foreground color and the background color&quot;;echo
-        Color 10 8 9 &quot;9    draw a deleting line&quot;;echo
-        echo &quot;The fourth parameter is the content you wanna clolor,a string.&quot;
-        echo &quot;Thanks for using this script ! &quot;
-        echo &quot;script halted.&quot;
+        echo "This is a script for coloring characters and strings."
+        echo "There are four parameters.Parameters are seperated by spacebars."
+        echo "The frst parameter is a number ranged from 1 to 10,represents the foreground color."
+        echo "The second parameter is  a number ranged from 1 to 10,represents the background color."
+        Color 1 8 2 "1    red";echo
+        Color 2 8 2 "2    green";echo
+        Color 3 8 2 "3    yellow";echo
+        Color 4 8 2 "4    blue";echo
+        Color 5 8 2 "5    magenta";echo
+        Color 6 8 2 "6    cyan";echo
+        Color 7 8 2 "7    gray";echo
+        Color 8 8 2 "8    white";echo
+        Color 9 8 2 "9    white";echo
+        Color 10 8 2 "10   black";echo
+        echo "The third parameter is a number ranged from 1 to 9,represents the style of the characters."
+        Color 10 8 1 "1    lighter,and bold";echo
+        Color 10 8 4 "4    draw a line under the string.";echo
+        Color 10 8 7 "7    swap the foreground color and the background color";echo
+        Color 10 8 9 "9    draw a deleting line";echo
+        echo "The fourth parameter is the content you wanna clolor,a string."
+        echo "Thanks for using this script ! "
+        echo "script halted."
         exit 1
  
         ;;
     c|C)
-        echo &quot;script halted.&quot;
+        echo "script halted."
         exit 1
         ;;
     *)
@@ -145,7 +145,7 @@ esac
 }
 </code></pre> <p>在这个函数中，已经使用了主程序，来显示彩色的帮助文档。之所以写成英文的，是为了能在不支持中文的界面也得以显示。可能有些英语语法错误，但基本意思是明了的。</p> <p>接下来我们要生成一个带空格的字符串赋给$e，我们通过函数GenString来实现：</p> <pre lang=bash><code>function GenString()
 {
-    e=&quot;&quot;
+    e=""
     declare -i f=1
  
     for d in $@
@@ -157,7 +157,7 @@ esac
         then
             e=”$e$d”
         else
-            e=&quot;$e $d&quot;
+            e="$e $d"
         fi
        
         let f=$f+1
@@ -165,7 +165,7 @@ esac
  
 }
 </code></pre> <p>对于脚本接收的参数$n，我始终未能试探到将n作为变量加以控制的方法，从函数中可以看出，我是通过另设变量加for循环的方式解决的。我们遍历$@里所有的参数，前3个直接忽略，第4个赋给e，后继的参数都加上一个空格跟在e后面。</p> <p>此时脚本全文为：</p> <pre lang=bash><code>#!/bin/bash
-#&quot;Colorizing&quot; Scripts
+#"Colorizing" Scripts
  
 #First,define functions.
  
@@ -173,50 +173,50 @@ function subColor()
 {
 Fg=$1
 Bg=$2
-SetColor=&quot;/E[&quot;&quot;$Fg;$Bg&quot;&quot;m&quot;
-UseColor=&quot;/033[&quot;&quot;$3&quot;&quot;m&quot;
-EndColor=&quot;/033[0m&quot;
+SetColor="/E[""$Fg;$Bg""m"
+UseColor="/033[""$3""m"
+EndColor="/033[0m"
 Content=$e
-echo -en &quot;$SetColor&quot;&quot;$UseColor&quot;$Content&quot;$EndColor&quot;
+echo -en "$SetColor""$UseColor"$Content"$EndColor"
  
 }
  
 function ShowHelp()
 {
-echo &quot;Error!&quot;
-echo &quot;Your parameters were $a,$b,$c,they are unexpected parameters.&quot;
-echo &quot;Show help file or continue?(h|c)&quot;
+echo "Error!"
+echo "Your parameters were $a,$b,$c,they are unexpected parameters."
+echo "Show help file or continue?(h|c)"
 read Choice
 case $Choice in
     h|H)
-        echo &quot;This is a script for coloring characters and strings.&quot;
-        echo &quot;There are four parameters.Parameters are seperated by spacebars.&quot;
-        echo &quot;The frst parameter is a number ranged from 1 to 10,represents the foreground color.&quot;
-        echo &quot;The second parameter is  a number ranged from 1 to 10,represents the background color.&quot;
-        Color 1 8 2 &quot;1    red&quot;;echo
-        Color 2 8 2 &quot;2    green&quot;;echo
-        Color 3 8 2 &quot;3    yellow&quot;;echo
-        Color 4 8 2 &quot;4    blue&quot;;echo
-        Color 5 8 2 &quot;5    magenta&quot;;echo
-        Color 6 8 2 &quot;6    cyan&quot;;echo
-        Color 7 8 2 &quot;7    gray&quot;;echo
-        Color 8 8 2 &quot;8    white&quot;;echo
-        Color 9 8 2 &quot;9    white&quot;;echo
-        Color 10 8 2 &quot;10   black&quot;;echo
-        echo &quot;The third parameter is a number ranged from 1 to 9,represents the style of the characters.&quot;
-        Color 10 8 1 &quot;1    lighter,and bold&quot;;echo
-        Color 10 8 4 &quot;4    draw a line under the string.&quot;;echo
-        Color 10 8 7 &quot;7    swap the foreground color and the background color&quot;;echo
-        Color 10 8 9 &quot;9    draw a deleting line&quot;;echo
-        echo &quot;The fourth parameter is the content you wanna clolor,a string.&quot;
-        echo &quot;Thanks for using this script ! &quot;
-echo &quot;Script halted.&quot;
+        echo "This is a script for coloring characters and strings."
+        echo "There are four parameters.Parameters are seperated by spacebars."
+        echo "The frst parameter is a number ranged from 1 to 10,represents the foreground color."
+        echo "The second parameter is  a number ranged from 1 to 10,represents the background color."
+        Color 1 8 2 "1    red";echo
+        Color 2 8 2 "2    green";echo
+        Color 3 8 2 "3    yellow";echo
+        Color 4 8 2 "4    blue";echo
+        Color 5 8 2 "5    magenta";echo
+        Color 6 8 2 "6    cyan";echo
+        Color 7 8 2 "7    gray";echo
+        Color 8 8 2 "8    white";echo
+        Color 9 8 2 "9    white";echo
+        Color 10 8 2 "10   black";echo
+        echo "The third parameter is a number ranged from 1 to 9,represents the style of the characters."
+        Color 10 8 1 "1    lighter,and bold";echo
+        Color 10 8 4 "4    draw a line under the string.";echo
+        Color 10 8 7 "7    swap the foreground color and the background color";echo
+        Color 10 8 9 "9    draw a deleting line";echo
+        echo "The fourth parameter is the content you wanna clolor,a string."
+        echo "Thanks for using this script ! "
+echo "Script halted."
 exit 1
  
  
         ;;
     c|C)
-        echo &quot;script halted.&quot;
+        echo "script halted."
         exit 1
         ;;
     *)
@@ -248,7 +248,7 @@ fi
  
 function GenString()
 {
-    e=&quot;&quot;
+    e=""
     declare -i f=1
  
     for d in $@
@@ -260,7 +260,7 @@ function GenString()
         then
             e=”$e$d”
         else
-            e=&quot;$e $d&quot;
+            e="$e $d"
         fi
        
         let f=$f+1
@@ -375,19 +375,19 @@ declare -i c=$3
 }
 </code></pre> <p>这里主要使用的是-c、-p、-f这三个判断，分别判断/dev/stdin是否是字符设备（这里即键盘），是否是管道，和是否是文件。我为了找到这个方法可是伤透了脑筋……</p> <p>如果是键盘，这说明既没有使用管道也没有使用stdin重定向，而使用的是命令行参数。于是就和原来一样，检查参数并生成字符串。</p> <p>如果是管道，这说明要将stdin的内容接受为字符串，事实上，这样的一个后果是原文中如果有换行，就直接被无视了。不过这不重要，所以我也就没有做特别的修正了。</p> <p>如果是文件，这就说明是stdin重定向为文件了，于是将该文件内容写进sth.sth这个临时文件。并启用函数ReadRich来解读这个文件。最后将ReadRich生成的临时文件都删除。</p> <p>如果都不是，这就很危险了，这说明是由ShowHelp里（请到本文最后的脚本清单处找，ShowHelp为了适应新情况，做了不少改动）那些关闭了stdin的语句来调用主函数Color的，于是就和原来一样，检查参数并生成字符串。</p> <p>ReadRich就是处理文件的核心程序了。为了它，我还临时抱佛脚地去学了Awk。基本上是要靠两个子函数AwkGenL和AwkGenC来生成对op1.awk和op2.awk，分别是用来将每行记录分割开来和在每行记录中读取每个区块。同时还使用了wc和cut……其实用awk是因为一开始没有发现cut的威力……</p> <pre lang=bash><code>function AwkGenL()
 {
-echo &quot;BEGIN {&quot; 1&gt;op1.awk
-echo 'FS=&quot;/n&quot;' 1&gt;&gt;op1.awk
-echo 'RS=&quot;EOF&quot;' 1&gt;&gt;op1.awk
-echo &quot;}&quot; 1&gt;&gt;op1.awk
+echo "BEGIN {" 1&gt;op1.awk
+echo 'FS="/n"' 1&gt;&gt;op1.awk
+echo 'RS="EOF"' 1&gt;&gt;op1.awk
+echo "}" 1&gt;&gt;op1.awk
 Item=$1
-echo &quot;{print /$&quot;$Item&quot;}&quot; 1&gt;&gt;op1.awk
+echo "{print /$"$Item"}" 1&gt;&gt;op1.awk
 }
  
  
 function AwkGenC()
 {
 Item=$1
-echo &quot;{print /$&quot;$Item&quot;}&quot; 1&gt;op2.awk
+echo "{print /$"$Item"}" 1&gt;op2.awk
 }
  
  
@@ -407,12 +407,12 @@ do
      ParaCheck
      declare -i words=`wc -m tmp.tmp|awk '{print $1}'`
      words=$words-1
-     declare -i ParaPos=`awk '{print $1&quot; &quot;$2&quot; &quot;$3}' tmp.tmp|wc -m|awk '{print $1}'`
+     declare -i ParaPos=`awk '{print $1" "$2" "$3}' tmp.tmp|wc -m|awk '{print $1}'`
      ParaPos=$ParaPos+1
      declare -i w=$words-1
      Tn=`cut -c$w-$words tmp.tmp`
  
-     if [ &quot;$Tn&quot; = &quot;Tn&quot; ]
+     if [ "$Tn" = "Tn" ]
      then
          words=$words-2
          e=`cut -c$ParaPos-$words tmp.tmp`
@@ -425,7 +425,7 @@ do
 done
 }
 </code></pre> <p>至此，整个脚本终于完成。脚本全文为：</p> <pre lang=bash><code>#!/bin/bash
-#&quot;Colorizing&quot; Scripts
+#"Colorizing" Scripts
  
 #First,define functions.
  
@@ -434,58 +434,58 @@ function subColor()
 {
 Fg=$1
 Bg=$2
-SetColor=&quot;/E[&quot;&quot;$Fg;$Bg&quot;&quot;m&quot;
-UseColor=&quot;/033[&quot;&quot;$3&quot;&quot;m&quot;
-EndColor=&quot;/033[0m&quot;
+SetColor="/E[""$Fg;$Bg""m"
+UseColor="/033[""$3""m"
+EndColor="/033[0m"
 Content=$e
-echo -en &quot;$SetColor&quot;&quot;$UseColor&quot;$Content&quot;$EndColor&quot;
+echo -en "$SetColor""$UseColor"$Content"$EndColor"
  
 }
  
  
 function ShowHelp()
 {
-echo &quot;Error!&quot;
-echo &quot;Your parameters were $a,$b,$c,they are unexpected parameters.&quot;
-echo &quot;Show help file or continue?(h|c)&quot;
+echo "Error!"
+echo "Your parameters were $a,$b,$c,they are unexpected parameters."
+echo "Show help file or continue?(h|c)"
 if [ -c /dev/stdin ]
 then
 read Choice
 else
-     Choice=&quot;h&quot;
+     Choice="h"
 fi
  
 case $Choice in
      h|H)
          echo
-echo &quot;This is a script for coloring characters and strings.&quot;
-         echo &quot;There are four parameters.Parameters are seperated by spacebars.&quot;
-         echo &quot;The frst parameter is a number ranged from 1 to 10,represents the foreground color.&quot;
-         echo &quot;The second parameter is  a number ranged from 1 to 10,represents the background color.&quot;
-         Color 1 8 2 &quot;1    red&quot; &lt;&amp;-;echo
-         Color 2 8 2 &quot;2    green&quot; &lt;&amp;-;echo
-          Color 3 8 2 &quot;3    yellow&quot; &lt;&amp;-;echo
-         Color 4 8 2 &quot;4    blue&quot; &lt;&amp;-;echo
-         Color 5 8 2 &quot;5    magenta&quot; &lt;&amp;-;echo
-         Color 6 8 2 &quot;6    cyan&quot; &lt;&amp;-;echo
-         Color 7 8 2 &quot;7    gray&quot; &lt;&amp;-;echo
-         Color 8 8 2 &quot;8    white&quot; &lt;&amp;-;echo
-         Color 9 8 2 &quot;9    white&quot; &lt;&amp;-;echo
-         Color 10 8 2 &quot;10   black&quot; &lt;&amp;-;echo
-         echo &quot;The third parameter is a number ranged from 1 to 9,represents the style of the characters.&quot;
-         Color 10 8 1 &quot;1    lighter,and bold&quot; &lt;&amp;-;echo
-         Color 10 8 4 &quot;4    draw a line under the string.&quot; &lt;&amp;-;echo
-         Color 10 8 7 &quot;7    swap the foreground color and the background color&quot; &lt;&amp;-;echo
-         Color 10 8 9 &quot;9    draw a deleting line&quot; &lt;&amp;-;echo
-         echo &quot;The fourth parameter is the content you wanna clolor,a string.&quot;
-         echo &quot;Thanks for using this script! &quot;
-         echo &quot;Script halted.&quot;
+echo "This is a script for coloring characters and strings."
+         echo "There are four parameters.Parameters are seperated by spacebars."
+         echo "The frst parameter is a number ranged from 1 to 10,represents the foreground color."
+         echo "The second parameter is  a number ranged from 1 to 10,represents the background color."
+         Color 1 8 2 "1    red" &lt;&amp;-;echo
+         Color 2 8 2 "2    green" &lt;&amp;-;echo
+          Color 3 8 2 "3    yellow" &lt;&amp;-;echo
+         Color 4 8 2 "4    blue" &lt;&amp;-;echo
+         Color 5 8 2 "5    magenta" &lt;&amp;-;echo
+         Color 6 8 2 "6    cyan" &lt;&amp;-;echo
+         Color 7 8 2 "7    gray" &lt;&amp;-;echo
+         Color 8 8 2 "8    white" &lt;&amp;-;echo
+         Color 9 8 2 "9    white" &lt;&amp;-;echo
+         Color 10 8 2 "10   black" &lt;&amp;-;echo
+         echo "The third parameter is a number ranged from 1 to 9,represents the style of the characters."
+         Color 10 8 1 "1    lighter,and bold" &lt;&amp;-;echo
+         Color 10 8 4 "4    draw a line under the string." &lt;&amp;-;echo
+         Color 10 8 7 "7    swap the foreground color and the background color" &lt;&amp;-;echo
+         Color 10 8 9 "9    draw a deleting line" &lt;&amp;-;echo
+         echo "The fourth parameter is the content you wanna clolor,a string."
+         echo "Thanks for using this script! "
+         echo "Script halted."
           exit 1
  
  
          ;;
      c|C)
-         echo &quot;Script halted.&quot;
+         echo "Script halted."
          exit 1
          ;;
      *)
@@ -520,19 +520,19 @@ fi
  
 function GenString()
 {
-     e=&quot;&quot;
+     e=""
      declare -i f=1
  
      for d in $@
      do
-         if [ $f -eq 1 ] || [ $f -eq 2 ] || [ $f -eq 3 ] || [ $d = &quot;&quot; ]
+         if [ $f -eq 1 ] || [ $f -eq 2 ] || [ $f -eq 3 ] || [ $d = "" ]
          then
               e=$e
          elif [ $f -eq 4 ]
          then
-              e=&quot;$e$d&quot;
+              e="$e$d"
          else
-              e=&quot;$e $d&quot;
+              e="$e $d"
          fi
         
          let f=$f+1
@@ -543,19 +543,19 @@ function GenString()
  
 function AwkGenL()
 {
-echo &quot;BEGIN {&quot; 1&gt;op1.awk
-echo 'FS=&quot;/n&quot;' 1&gt;&gt;op1.awk
-echo 'RS=&quot;EOF&quot;' 1&gt;&gt;op1.awk
-echo &quot;}&quot; 1&gt;&gt;op1.awk
+echo "BEGIN {" 1&gt;op1.awk
+echo 'FS="/n"' 1&gt;&gt;op1.awk
+echo 'RS="EOF"' 1&gt;&gt;op1.awk
+echo "}" 1&gt;&gt;op1.awk
 Item=$1
-echo &quot;{print /$&quot;$Item&quot;}&quot; 1&gt;&gt;op1.awk
+echo "{print /$"$Item"}" 1&gt;&gt;op1.awk
 }
  
  
 function AwkGenC()
 {
 Item=$1
-echo &quot;{print /$&quot;$Item&quot;}&quot; 1&gt;op2.awk
+echo "{print /$"$Item"}" 1&gt;op2.awk
 }
  
  
@@ -575,12 +575,12 @@ do
      ParaCheck
      declare -i words=`wc -m tmp.tmp|awk '{print $1}'`
      words=$words-1
-     declare -i ParaPos=`awk '{print $1&quot; &quot;$2&quot; &quot;$3}' tmp.tmp|wc -m|awk '{print $1}'`
+     declare -i ParaPos=`awk '{print $1" "$2" "$3}' tmp.tmp|wc -m|awk '{print $1}'`
      ParaPos=$ParaPos+1
      declare -i w=$words-1
      Tn=`cut -c$w-$words tmp.tmp`
  
-     if [ &quot;$Tn&quot; = &quot;Tn&quot; ]
+     if [ "$Tn" = "Tn" ]
      then
          words=$words-2
          e=`cut -c$ParaPos-$words tmp.tmp`
@@ -635,7 +635,7 @@ declare -i c=$3
 #Here is where the script begins.
  
 Color $@
-</code></pre> <h2>后记</h2> <p>我非常喜欢Shell，我觉得这种语言在设计理念上就非常优秀，何况由于它和系统是紧密结合的，可以让我亲自用语句来操纵系统，那种感觉真的是无以伦比，不像C++，虽然我更喜欢C++，觉得它是最完美的形而上学，但自学了C++以来，还没在什么具体的方面用到它……而我一接触Shell，马上就在某网络场合需要它……</p> <p>此脚本经过在Fedora Core 5的图形界面的控制台下反复调试，最终运行完美。可是调试的过程实在是吐血，有时候此处一个极其微小的错误，却在相差十万八千里的彼处报错，结果一找就是半个小时……好了，终于写完了。</p> <h2>参考文献</h2> <ol> <li>英文文献<a href="http://www.80x86.cn/article.asp?id=316">http://www.80x86.cn/article.asp?id=316</a></li> <li>《鸟哥的Linux私房菜》</li> <li>《高级Bash脚本编程指南(一) 》 <a href="http://blog.chinaunix.net/u/27852/showart_213701.html">http://blog.chinaunix.net/u/27852/showart_213701.html</a></li> <li>Awk中文手册</li> <li>大量网站</li> <li>其实，最重要的参考文献是Bash，因为，没有在Bash下的不断试探，根本找不出解决许多问题的办法。</li> </ol> <section class=meta> <p> <span class=author> <a href='/'>宋皿</a> </span> <span class=time> <time datetime='2007-09-10 00:00:00 +0800'> 2007-09-10 </time> </span> </p> <p> <span class=license> Published under <a href='http://creativecommons.org/licenses/by-nc-nd/3.0/' rel=license>(CC) BY-NC-ND</a> </span> <span class=tags> tagged with <a href='/tech/tags.html#tag-bash'> bash </a> </span> </p> </section> <div id=disqus_thread></div> <script>
+</code></pre> <h2>后记</h2> <p>我非常喜欢Shell，我觉得这种语言在设计理念上就非常优秀，何况由于它和系统是紧密结合的，可以让我亲自用语句来操纵系统，那种感觉真的是无以伦比，不像C++，虽然我更喜欢C++，觉得它是最完美的形而上学，但自学了C++以来，还没在什么具体的方面用到它……而我一接触Shell，马上就在某网络场合需要它……</p> <p>此脚本经过在Fedora Core 5的图形界面的控制台下反复调试，最终运行完美。可是调试的过程实在是吐血，有时候此处一个极其微小的错误，却在相差十万八千里的彼处报错，结果一找就是半个小时……好了，终于写完了。</p> <h2>参考文献</h2> <ol> <li>英文文献<a href="http://www.80x86.cn/article.asp?id=316">http://www.80x86.cn/article.asp?id=316</a> </li> <li>《鸟哥的Linux私房菜》</li> <li>《高级Bash脚本编程指南(一) 》 <a href="http://blog.chinaunix.net/u/27852/showart_213701.html">http://blog.chinaunix.net/u/27852/showart_213701.html</a> </li> <li>Awk中文手册</li> <li>大量网站</li> <li>其实，最重要的参考文献是Bash，因为，没有在Bash下的不断试探，根本找不出解决许多问题的办法。</li> </ol> <section class=meta> <p> <span class=author> <a href='/'>宋皿</a> </span> <span class=time> <time datetime='2007-09-10 00:00:00 +0800'> 2007-09-10 </time> </span> </p> <p> <span class=license> Published under <a href='http://creativecommons.org/licenses/by-nc-nd/3.0/' rel=license>(CC) BY-NC-ND</a> </span> <span class=tags> tagged with <a href='/tech/tags.html#tag-bash'> bash </a> </span> </p> </section> <div id=disqus_thread></div> <script>
   /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
   var disqus_shortname = 'utensil-at-github'; // required: replace example with your forum shortname
   /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -644,7 +644,7 @@ Color $@
       dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
-</script> <a class=dsq-brlink href='http://disqus.com'> comments powered by <span class=logo-disqus>Disqus</span> </a> </article> </div> </div> </div> <script src="/javascripts/jquery-1.7.1.js?1570439114"></script> <script src="/javascripts/highlight.pack.js?1570439114"></script> <script>
+</script> <a class=dsq-brlink href='http://disqus.com'> comments powered by <span class=logo-disqus>Disqus</span> </a> </article> </div> </div> </div> <script src="/javascripts/jquery-1.7.1.js?1571297833"></script> <script src="/javascripts/highlight.pack.js?1571297833"></script> <script>
   hljs.initHighlightingOnLoad();
   // $(document).ready(function() {
   //   $('pre code').each(function(i, e) {hljs.highlightBlock(e)});

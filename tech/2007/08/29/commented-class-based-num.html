@@ -1,4 +1,4 @@
-<!DOCTYPE html> <html> <head> <meta charset=utf-8> <meta content='IE=edge,chrome=1' http-equiv=X-UA-Compatible> <!--[if (lt IE 9)&(!IEMobile)]><script src="/javascripts/html5.js?1570439114"></script><![endif]--> <meta content='width=device-width, initial-scale=1.0' name=viewport> <title>我写的第一个类：BasedNum</title> <link href="/stylesheets/site.css?1570439114" rel=stylesheet /> <link href="/stylesheets/blog.css?1570439114" rel=stylesheet /> <link href="/stylesheets/highlight/railscasts.css?1570439114" rel=stylesheet /> <!--[if lt IE 9]><script src="/javascripts/respond.js?1570439114"></script><![endif]--> </head> <body class=''> <div id=container> <div id=main role=main> <aside class=sidebar> <nav> <span> <a href='/tech/'>home</a> </span> <span> <a href='/tech/calendar.html'>calendar</a> </span> <span> <a href='/tech/tags.html'>tags</a> </span> </nav> </aside> <div class=content> <header> <div class=article_nav> <span class=later> <a href='/tech/2007/08/29/notes-on-programming-languages-principles-and-practice.html'> < 更新 </a> </span> <span class=earlier> <a href='/tech/2007/08/28/plan.html'> 更早 > </a> </span> </div> <h1> 我写的第一个类：BasedNum </h1> </header> <article class=markdown-body> <blockquote> <p>2012年9月按：作为早年一份写得整齐干净、注释详尽的代码，放在这里作为一份纪念，纪念最初用心的时候。</p> </blockquote> <h2>BasedNum.h</h2> <pre lang=cpp><code>#include &lt;iostream&gt;
+<!DOCTYPE html> <html> <head> <meta charset=utf-8> <meta content='IE=edge,chrome=1' http-equiv=X-UA-Compatible> <!--[if (lt IE 9)&(!IEMobile)]><script src="/javascripts/html5.js?1571297833"></script><![endif]--> <meta content='width=device-width, initial-scale=1.0' name=viewport> <title>我写的第一个类：BasedNum</title> <link href="/stylesheets/site.css?1571297833" rel=stylesheet /> <link href="/stylesheets/blog.css?1571297833" rel=stylesheet /> <link href="/stylesheets/highlight/railscasts.css?1571297833" rel=stylesheet /> <!--[if lt IE 9]><script src="/javascripts/respond.js?1571297833"></script><![endif]--> </head> <body class=''> <div id=container> <div id=main role=main> <aside class=sidebar> <nav> <span> <a href='/tech/'>home</a> </span> <span> <a href='/tech/calendar.html'>calendar</a> </span> <span> <a href='/tech/tags.html'>tags</a> </span> </nav> </aside> <div class=content> <header> <div class=article_nav> <span class=later> <a href='/tech/2007/08/29/notes-on-programming-languages-principles-and-practice.html'> < 更新 </a> </span> <span class=earlier> <a href='/tech/2007/08/28/plan.html'> 更早 > </a> </span> </div> <h1> 我写的第一个类：BasedNum </h1> </header> <article class=markdown-body> <blockquote> <p>2012年9月按：作为早年一份写得整齐干净、注释详尽的代码，放在这里作为一份纪念，纪念最初用心的时候。</p> </blockquote> <h2>BasedNum.h</h2> <pre lang=cpp><code>#include &lt;iostream&gt;
 #include &lt;cmath&gt;
 #include &lt;string&gt;
 #include &lt;sstream&gt;
@@ -101,7 +101,7 @@ namespace me_Iostream_Ctrl_Symbols_for_the_class_BasedNum
  
         /**********************************************************************
         特别声明：以下几个函数的使用方式如下（以setBase为例）
-        BasedNum b1(&quot;37489&quot;,11);
+        BasedNum b1("37489",11);
         cout &lt;&lt; me_Ios::setBase(5) &lt;&lt; b1; 
         将以5进制输出11进制的b1; 
         但是如果输入
@@ -408,7 +408,7 @@ class BasedNum
 ostream &amp; operator &lt;&lt; (ostream &amp; out,BasedNum num);
 
 #endif
-</code></pre> <h2>BasedNum.cpp</h2> <pre lang=cpp><code>#include &quot;BasedNum.h&quot;
+</code></pre> <h2>BasedNum.cpp</h2> <pre lang=cpp><code>#include "BasedNum.h"
 
 /*****************************************************************************
 几个静态成员的初始化，千万不能放头文件里面。默认显示进制、不显示正号、以小写字
@@ -435,9 +435,9 @@ BasedNum::BasedNum(string initNumStr,int initBase,int precision)
     if(initBase &lt; 2 || 36 &lt; initBase)
     {
         cerr
-        &lt;&lt; &quot;\n[Error:The base must be between 2 and 36!&quot;
-        &lt;&lt; &quot;Failed to initialize BasedNum &quot; &lt;&lt; initNumStr
-        &lt;&lt; &quot; by base &quot; &lt;&lt; initBase &lt;&lt; &quot;.\n&quot;;
+        &lt;&lt; "\n[Error:The base must be between 2 and 36!"
+        &lt;&lt; "Failed to initialize BasedNum " &lt;&lt; initNumStr
+        &lt;&lt; " by base " &lt;&lt; initBase &lt;&lt; ".\n";
     }
     else
     {
@@ -505,7 +505,7 @@ void BasedNum::num_to10(string &amp; input,int &amp; base)
     if( dotpos == string::npos || dotpos == input.length() - 1)
     {
         int_string = input;
-        fract_string = &quot;&quot;;
+        fract_string = "";
         aint = true;
         dotpos = input.length();
     }
@@ -625,7 +625,7 @@ BasedNum BasedNum::setBase(int base_wanted)
         Base_Error = false;
     }
     BasedForm = int_10to(Int_part,base_wanted)
-     + (aint?&quot;&quot;:&quot;.&quot;)+(aint?&quot;&quot;:fract_10to(Fract_part,base_wanted));
+     + (aint?"":".")+(aint?"":fract_10to(Fract_part,base_wanted));
     Base = base_wanted;
     return *this;
 }
@@ -761,16 +761,16 @@ BasedNum BasedNum::plain(BasedNum &amp; b1,BasedNum &amp; b2,bool plus_or_minus)
         Smaller = b1.BasedForm;
     }
     
-    //cout &lt;&lt; &quot;[&quot; &lt;&lt; Larger &lt;&lt; &quot;]&quot;;
-    //cout &lt;&lt; &quot;[&quot; &lt;&lt; Smaller &lt;&lt; &quot;]&quot;;
+    //cout &lt;&lt; "[" &lt;&lt; Larger &lt;&lt; "]";
+    //cout &lt;&lt; "[" &lt;&lt; Smaller &lt;&lt; "]";
 
     /*下面一段对齐小数点*/ 
     
     int Ldotpos = Larger.find_first_of('.');
     int Sdotpos = Smaller.find_first_of('.');
     
-    //cout &lt;&lt; &quot;[&quot; &lt;&lt; Ldotpos &lt;&lt; &quot;]&quot;;
-    //cout &lt;&lt; &quot;[&quot; &lt;&lt; Sdotpos &lt;&lt; &quot;]&quot;;
+    //cout &lt;&lt; "[" &lt;&lt; Ldotpos &lt;&lt; "]";
+    //cout &lt;&lt; "[" &lt;&lt; Sdotpos &lt;&lt; "]";
 
     
     int L_int_size,S_int_size;
@@ -804,15 +804,15 @@ BasedNum BasedNum::plain(BasedNum &amp; b1,BasedNum &amp; b2,bool plus_or_minus)
     Result.resize(final_size+1,'0');
     int Rdotpos = max(L_int_size,S_int_size)+1;
     
-    /*cout &lt;&lt; &quot;[&quot; &lt;&lt; L_int_size &lt;&lt; &quot;]&quot;;
-    cout &lt;&lt; &quot;[&quot; &lt;&lt; L_frc_size &lt;&lt; &quot;]&quot;;
-    cout &lt;&lt; &quot;[&quot; &lt;&lt; S_int_size &lt;&lt; &quot;]&quot;;
-    cout &lt;&lt; &quot;[&quot; &lt;&lt; S_frc_size &lt;&lt; &quot;]&quot;;
-    cout &lt;&lt; &quot;[&quot; &lt;&lt; final_size &lt;&lt; &quot;]&quot;;
-    cout &lt;&lt; &quot;[&quot; &lt;&lt; Larger.size() &lt;&lt; &quot;]&quot;;
-    cout &lt;&lt; &quot;[&quot; &lt;&lt; Smaller.size() &lt;&lt; &quot;]&quot;;
-    cout &lt;&lt; &quot;[&quot; &lt;&lt; Result.capacity() &lt;&lt; &quot;]&quot;;
-    cout &lt;&lt; &quot;[&quot; &lt;&lt; Rdotpos &lt;&lt; &quot;]&quot;;
+    /*cout &lt;&lt; "[" &lt;&lt; L_int_size &lt;&lt; "]";
+    cout &lt;&lt; "[" &lt;&lt; L_frc_size &lt;&lt; "]";
+    cout &lt;&lt; "[" &lt;&lt; S_int_size &lt;&lt; "]";
+    cout &lt;&lt; "[" &lt;&lt; S_frc_size &lt;&lt; "]";
+    cout &lt;&lt; "[" &lt;&lt; final_size &lt;&lt; "]";
+    cout &lt;&lt; "[" &lt;&lt; Larger.size() &lt;&lt; "]";
+    cout &lt;&lt; "[" &lt;&lt; Smaller.size() &lt;&lt; "]";
+    cout &lt;&lt; "[" &lt;&lt; Result.capacity() &lt;&lt; "]";
+    cout &lt;&lt; "[" &lt;&lt; Rdotpos &lt;&lt; "]";
     cout &lt;&lt; endl;*/
 
     
@@ -827,8 +827,8 @@ BasedNum BasedNum::plain(BasedNum &amp; b1,BasedNum &amp; b2,bool plus_or_minus)
         cur_num[L] = Larger[i];
         cur_num[S] = Smaller[i];
         
-        //cout &lt;&lt; &quot;[&quot; &lt;&lt; static_cast&lt;char&gt;(cur_num[L]) &lt;&lt; &quot;]&quot;;
-        //cout &lt;&lt; &quot;[&quot; &lt;&lt; static_cast&lt;char&gt;(cur_num[S]) &lt;&lt; &quot;]&quot;;
+        //cout &lt;&lt; "[" &lt;&lt; static_cast&lt;char&gt;(cur_num[L]) &lt;&lt; "]";
+        //cout &lt;&lt; "[" &lt;&lt; static_cast&lt;char&gt;(cur_num[S]) &lt;&lt; "]";
         
         //变为数值 
         for(int j = L;j &lt;= S;j++)
@@ -858,8 +858,8 @@ BasedNum BasedNum::plain(BasedNum &amp; b1,BasedNum &amp; b2,bool plus_or_minus)
             cur_num[R] = 0;
         }
         
-        //cout &lt;&lt; &quot;[&quot; &lt;&lt; cur_num[L] &lt;&lt; &quot;]&quot;;
-        //cout &lt;&lt; &quot;[&quot; &lt;&lt; cur_num[S] &lt;&lt; &quot;]&quot;;
+        //cout &lt;&lt; "[" &lt;&lt; cur_num[L] &lt;&lt; "]";
+        //cout &lt;&lt; "[" &lt;&lt; cur_num[S] &lt;&lt; "]";
         
         //如果当前位是小数点，忽略此位的计算。 
         if(cur_num[R] == '.') 
@@ -884,7 +884,7 @@ BasedNum BasedNum::plain(BasedNum &amp; b1,BasedNum &amp; b2,bool plus_or_minus)
             cur_num[R] = cur_num[R]%base + base;
         }
         
-        //cout &lt;&lt; &quot;[&quot; &lt;&lt; adv &lt;&lt; &quot;]&quot;;
+        //cout &lt;&lt; "[" &lt;&lt; adv &lt;&lt; "]";
         
         //变回ASCII码 
         if(0 &lt;= cur_num[R] &amp;&amp; cur_num[R] &lt;= 9)
@@ -896,7 +896,7 @@ BasedNum BasedNum::plain(BasedNum &amp; b1,BasedNum &amp; b2,bool plus_or_minus)
             cur_num[R] += (upper_case?'A':'a') - 10;
         }
         
-        //cout &lt;&lt; &quot;[&quot; &lt;&lt; static_cast&lt;char&gt;(cur_num[R]) &lt;&lt; &quot;]&quot;;
+        //cout &lt;&lt; "[" &lt;&lt; static_cast&lt;char&gt;(cur_num[R]) &lt;&lt; "]";
         
         //赋给Result的相应位置 
         Result[i+1] = static_cast&lt;char&gt;(cur_num[R]);
@@ -922,7 +922,7 @@ BasedNum BasedNum::plain(BasedNum &amp; b1,BasedNum &amp; b2,bool plus_or_minus)
             return BasedNum(Result,base);
         }
         else
-            return BasedNum(&quot;-&quot; + Result,base);
+            return BasedNum("-" + Result,base);
     }
     
 }
@@ -940,11 +940,11 @@ ostream &amp; operator &lt;&lt; (ostream &amp; out,BasedNum num)
 {
     if(num.Base_Error)
     {
-        out &lt;&lt; &quot;\n[Error:The base can't be smaller than 2 !]\n&quot;;
+        out &lt;&lt; "\n[Error:The base can't be smaller than 2 !]\n";
         return out;
     }
     
-    out &lt;&lt; (num.positive?(BasedNum::show_pos?&quot;+&quot;:&quot;&quot;):&quot;-&quot;);
+    out &lt;&lt; (num.positive?(BasedNum::show_pos?"+":""):"-");
     
     if(BasedNum::prec_to_be_displayed != num.Precision)
         num.setPrecision(BasedNum::prec_to_be_displayed);
@@ -959,7 +959,7 @@ ostream &amp; operator &lt;&lt; (ostream &amp; out,BasedNum num)
     out &lt;&lt; num.BasedForm; 
     
     if(BasedNum::show_base)
-        out &lt;&lt; &quot; @ &quot; &lt;&lt; num.Base;
+        out &lt;&lt; " @ " &lt;&lt; num.Base;
         
     return out;
 }
@@ -989,7 +989,7 @@ bflags me_Ios::setPrecision(int prec_wanted)
 /*****************************************************************************
 对名称空间me_Ios的枚举类bflag重载运算符&lt;&lt;，用于BasedNum对象的显示控制。
 
-例：BasedNum num(&quot;A.8&quot;,16,30);
+例：BasedNum num("A.8",16,30);
 cout &lt;&lt; num &lt;&lt; endl &lt;&lt; me_Ios::noshowbase &lt;&lt; num &lt;&lt; endl &lt;&lt; me_Ios::showpos &lt;&lt; num &lt;&lt;endl
 &lt;&lt; me_Ios::setBase(10) &lt;&lt; num &lt;&lt;endl; 
 将输出：
@@ -1020,28 +1020,28 @@ ostream &amp; operator &lt;&lt; (ostream &amp; out,const bflags &amp; flag)
         {BasedNum::upper_case = false;return out;}
     if(flag == me_Ios::base_changed) 
     {
-        //out &lt;&lt; &quot;[b]&quot;;
+        //out &lt;&lt; "[b]";
         return out;
     }
     if(flag == me_Ios::base_failed)
     {
-        out &lt;&lt; &quot;\n[Error:The base must be between 2 and 36!]\n&quot;;
+        out &lt;&lt; "\n[Error:The base must be between 2 and 36!]\n";
         return out;
     }
     if(flag == me_Ios::prec_changed)
     {
-        //out &lt;&lt; &quot;[p]&quot;;
+        //out &lt;&lt; "[p]";
         return out;
     }
     if(flag == me_Ios::prec_remained)
     {
         out
-        &lt;&lt; &quot;\n[Error:The precision can't be smaller than 0 !]&quot;
-        &lt;&lt; &quot;\n[The precision will be remained!]\n&quot;;
+        &lt;&lt; "\n[Error:The precision can't be smaller than 0 !]"
+        &lt;&lt; "\n[The precision will be remained!]\n";
         return out;
     }
 }
-</code></pre> <h2>main.cpp</h2> <pre lang=cpp><code>#include &quot;BasedNum.h&quot; 
+</code></pre> <h2>main.cpp</h2> <pre lang=cpp><code>#include "BasedNum.h" 
 #include &lt;cstdlib&gt;
 #include &lt;fstream&gt;
 
@@ -1087,8 +1087,8 @@ int main(int argc,char * argv[])
     char mode;
     char *win_filename;
     char *nix_filename;
-    char def_win_filename[] = &quot;D://BaseNumData.txt&quot;; 
-    char def_nix_filename[] = &quot;/var/BaseNumData.txt&quot;;
+    char def_win_filename[] = "D://BaseNumData.txt"; 
+    char def_nix_filename[] = "/var/BaseNumData.txt";
     
     /*处理命令行参数*/ 
     switch(argc)
@@ -1107,8 +1107,8 @@ int main(int argc,char * argv[])
                 nix_filename = argv[2];
                 break;
         default :
-                cout &lt;&lt; &quot;Too many arguments!\n&quot;;
-                if(system(&quot;pause&quot;)) system(&quot;sleep 3&quot;);
+                cout &lt;&lt; "Too many arguments!\n";
+                if(system("pause")) system("sleep 3");
                 exit(-1);
     }
    
@@ -1127,17 +1127,17 @@ int main(int argc,char * argv[])
     {
         to.open(win_filename,ios::app);
         if(to.is_open())
-                cout &lt;&lt; &quot;Writing to File &quot; &lt;&lt; win_filename &lt;&lt; &quot;...\n&quot;;
+                cout &lt;&lt; "Writing to File " &lt;&lt; win_filename &lt;&lt; "...\n";
         
         else
         {
                 to.open(nix_filename,ios::app);
                 if(to.is_open())
-                       cout &lt;&lt; &quot;Writing to File &quot; &lt;&lt; nix_filename &lt;&lt; &quot;...\n&quot;;
+                       cout &lt;&lt; "Writing to File " &lt;&lt; nix_filename &lt;&lt; "...\n";
                 else
                 {
-                       cout &lt;&lt; &quot;Error!Cannot open file!\n&quot;;
-                       if(system(&quot;pause&quot;)) system(&quot;sleep 3&quot;);
+                       cout &lt;&lt; "Error!Cannot open file!\n";
+                       if(system("pause")) system("sleep 3");
                        exit(-1);
                 }
         }
@@ -1148,17 +1148,17 @@ int main(int argc,char * argv[])
     {
         from.open(win_filename,ios::in);
         if(from.is_open())
-                cout &lt;&lt; &quot;Reading File &quot; &lt;&lt; win_filename &lt;&lt; &quot;...\n&quot;;
+                cout &lt;&lt; "Reading File " &lt;&lt; win_filename &lt;&lt; "...\n";
         
         else
         {
                 from.open(nix_filename,ios::in);
                 if(from.is_open())
-                       cout &lt;&lt; &quot;Reading File &quot; &lt;&lt; nix_filename &lt;&lt; &quot;...\n&quot;;
+                       cout &lt;&lt; "Reading File " &lt;&lt; nix_filename &lt;&lt; "...\n";
                 else
                 {
-                       cout &lt;&lt; &quot;Error!Cannot open file!\n&quot;;
-                       if(system(&quot;pause&quot;)) system(&quot;sleep 3&quot;);
+                       cout &lt;&lt; "Error!Cannot open file!\n";
+                       if(system("pause")) system("sleep 3");
                        exit(-1);
                 }
         }
@@ -1169,13 +1169,13 @@ int main(int argc,char * argv[])
     while(mode == O_file)  
     {
         cout
-        &lt;&lt; &quot;\nEnter a number:&quot;;  
+        &lt;&lt; "\nEnter a number:";  
         cin
         &gt;&gt; input;
         
         
         cout
-        &lt;&lt; &quot;\nEnter its base:&quot;;
+        &lt;&lt; "\nEnter its base:";
         cin
         &gt;&gt; base;
         
@@ -1183,10 +1183,10 @@ int main(int argc,char * argv[])
         {
                 cout
                 &lt;&lt; endl
-                &lt;&lt; &quot;The base is smaller than 2.\n&quot;
-                &lt;&lt; &quot;We assume that you wanna leave this programme.\n&quot;;
+                &lt;&lt; "The base is smaller than 2.\n"
+                &lt;&lt; "We assume that you wanna leave this programme.\n";
                 to.close();
-                if(system(&quot;pause&quot;)) system(&quot;sleep 3&quot;);
+                if(system("pause")) system("sleep 3");
                 exit(0);
         }
         //注意下面这行，这是数据在文件中的存在形态
@@ -1201,7 +1201,7 @@ int main(int argc,char * argv[])
         from.get(tmpch); 
         if(from.eof())
         {
-                if(system(&quot;pause&quot;)) system(&quot;sleep 3&quot;);
+                if(system("pause")) system("sleep 3");
                 exit(0);
         }
         from.unget();//把多读的这个放回去
@@ -1221,13 +1221,13 @@ int main(int argc,char * argv[])
 
     {
         cout
-        &lt;&lt; &quot;Enter a number:&quot;;  
+        &lt;&lt; "Enter a number:";  
         cin
         &gt;&gt; input;
         
         
         cout
-        &lt;&lt; &quot;\nEnter its base:&quot;;
+        &lt;&lt; "\nEnter its base:";
         cin
         &gt;&gt; base;
         
@@ -1235,10 +1235,10 @@ int main(int argc,char * argv[])
         {
                 cout
                 &lt;&lt; endl
-                &lt;&lt; &quot;The base is smaller than 2.\n&quot;
-                &lt;&lt; &quot;We assume that you wanna leave this programme.\n&quot;;
+                &lt;&lt; "The base is smaller than 2.\n"
+                &lt;&lt; "We assume that you wanna leave this programme.\n";
                 
-                if(system(&quot;pause&quot;)) system(&quot;sleep 3&quot;);
+                if(system("pause")) system("sleep 3");
                 exit(0);
         }
         
@@ -1247,7 +1247,7 @@ int main(int argc,char * argv[])
         delete ptb;
     }
     
-    if(system(&quot;pause&quot;)) system(&quot;sleep 3&quot;);
+    if(system("pause")) system("sleep 3");
     return 0;
 }
 
@@ -1264,7 +1264,7 @@ void allbases(const BasedNum &amp; num)
     }
     cout &lt;&lt; endl;
     alltypes(num);
-    if(system(&quot;pause&quot;)) system(&quot;sleep 3&quot;);
+    if(system("pause")) system("sleep 3");
 }
 
 /*****************************************************************************
@@ -1274,7 +1274,7 @@ void alltypes(const BasedNum &amp; num)
 {
     cout
     &lt;&lt; endl
-    &lt;&lt; me_Ios::setBase(num.getBase()) &lt;&lt; &quot;setBase:&quot;&lt;&lt; num.getBase() &lt;&lt; endl
+    &lt;&lt; me_Ios::setBase(num.getBase()) &lt;&lt; "setBase:"&lt;&lt; num.getBase() &lt;&lt; endl
     &lt;&lt; num &lt;&lt; me_Ios::noshowbase &lt;&lt; '\t'&lt;&lt; num
     &lt;&lt; endl
     &lt;&lt; me_Ios::showbase
@@ -1293,7 +1293,7 @@ void alltypes(const BasedNum &amp; num)
     ;
     
     cout
-    &lt;&lt; me_Ios::setBase(2)&lt;&lt; &quot;setBase:2\n&quot;
+    &lt;&lt; me_Ios::setBase(2)&lt;&lt; "setBase:2\n"
     &lt;&lt; num &lt;&lt; endl
     ;
     
@@ -1304,25 +1304,25 @@ void alltypes(const BasedNum &amp; num)
     
     
     cout &lt;&lt; me_Ios::setBase(36)
-    &lt;&lt; BasedNum(&quot;exam&quot;,36).setBase(10).setBase(36)&lt;&lt;endl;
+    &lt;&lt; BasedNum("exam",36).setBase(10).setBase(36)&lt;&lt;endl;
     
     cout &lt;&lt; me_Ios::setBase(16) 
-    &lt;&lt; BasedNum(&quot;abcdef.1&quot;,16).setBase(10).setBase(16)&lt;&lt;endl;
+    &lt;&lt; BasedNum("abcdef.1",16).setBase(10).setBase(16)&lt;&lt;endl;
     
     cout &lt;&lt; me_Ios::setBase(10)
-    &lt;&lt; BasedNum(&quot;3.141592653589793238462643383279&quot;,10).setBase(16).setBase(10)&lt;&lt;endl;
+    &lt;&lt; BasedNum("3.141592653589793238462643383279",10).setBase(16).setBase(10)&lt;&lt;endl;
     
     cout &lt;&lt; me_Ios::setBase(36)
-    &lt;&lt; BasedNum(&quot;exam&quot;,36)+BasedNum(1)&lt;&lt;endl;
+    &lt;&lt; BasedNum("exam",36)+BasedNum(1)&lt;&lt;endl;
     
     cout &lt;&lt; me_Ios::setBase(16)
-    &lt;&lt; BasedNum(&quot;4f.a1&quot;,16)-BasedNum(&quot;4e.c7&quot;,16)&lt;&lt;endl;
+    &lt;&lt; BasedNum("4f.a1",16)-BasedNum("4e.c7",16)&lt;&lt;endl;
     
     cout &lt;&lt; me_Ios::setBase(16)
-    &lt;&lt; BasedNum(&quot;-3f&quot;,16)+BasedNum(&quot;4e&quot;,16)&lt;&lt;endl;
+    &lt;&lt; BasedNum("-3f",16)+BasedNum("4e",16)&lt;&lt;endl;
     
     cout &lt;&lt; me_Ios::setBase(16)
-    &lt;&lt; BasedNum(&quot;exam&quot;,36).setBase(36)&lt;&lt;endl;
+    &lt;&lt; BasedNum("exam",36).setBase(36)&lt;&lt;endl;
     
     cout
     &lt;&lt; me_Ios::setPrecision(30) &lt;&lt; me_Ios::setBase(10)
@@ -1339,7 +1339,7 @@ void alltypes(const BasedNum &amp; num)
       dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
-</script> <a class=dsq-brlink href='http://disqus.com'> comments powered by <span class=logo-disqus>Disqus</span> </a> </article> </div> </div> </div> <script src="/javascripts/jquery-1.7.1.js?1570439114"></script> <script src="/javascripts/highlight.pack.js?1570439114"></script> <script>
+</script> <a class=dsq-brlink href='http://disqus.com'> comments powered by <span class=logo-disqus>Disqus</span> </a> </article> </div> </div> </div> <script src="/javascripts/jquery-1.7.1.js?1571297833"></script> <script src="/javascripts/highlight.pack.js?1571297833"></script> <script>
   hljs.initHighlightingOnLoad();
   // $(document).ready(function() {
   //   $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
