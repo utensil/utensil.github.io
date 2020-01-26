@@ -16,7 +16,8 @@ code_mode: math|lang
 分析了Maxwell方程的Lorentz不变性，指出在本部分结束时，我们能够意识到Maxwell方程其实可以写成：
 
 $$ dF=0 $$
-$$ *d*F=J $$
+
+$$ \*d\*F=J $$
 
 第二章 Manifolds
 -------------------------
