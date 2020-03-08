@@ -13,7 +13,7 @@ $color_locust_approx: #98b58d;
 // $background_default_color: #F8F8F8;
 // $background_hover_color: #f9f9f9;
 $text_default_color: #afafaf;
-$text_blockquote_color: #a1a1a1;
+$text_blockquote_color: #acacac;
 $background_default_color: #222222;
 $background_hover_color: #292929;
 
@@ -119,6 +119,7 @@ $code_font: "Fantasque Sans Mono Regular", Helvetica,arial,nimbussansl,liberatio
 
     blockquote {
       color: $text_blockquote_color;
+      border-left: 4px solid $background_hover_color;
     }
   }
 
@@ -128,7 +129,7 @@ $code_font: "Fantasque Sans Mono Regular", Helvetica,arial,nimbussansl,liberatio
     margin: 0px 0px 9px;
     font-size: 14px;
     line-height: 18px;
-    background-color: #F5F5F5;
+    background-color: $background_hover_color;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 4px;
     white-space: pre-wrap;
@@ -290,8 +291,8 @@ aside.sidebar {
 }
 
 code.has-jax {
-  color: black;
-  background-color: white;
+  color: $text_default_color;
+  background-color: $background_default_color;
   font: inherit;
   font-size: 100%;
   background: inherit;
