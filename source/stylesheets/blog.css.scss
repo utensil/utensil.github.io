@@ -8,6 +8,15 @@ $header_font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $text_font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $color_locust_approx: #98b58d;
 
+// $text_default_color: #282828;
+// $text_blockquote_color: $text_default_color;
+// $background_default_color: #F8F8F8;
+// $background_hover_color: #f9f9f9;
+$text_default_color: #afafaf;
+$text_blockquote_color: #a1a1a1;
+$background_default_color: #222222;
+$background_hover_color: #292929;
+
 @font-face {
   font-family: 'Fantasque Sans Mono Regular';
       src: url('fonts/FantasqueSansMono-Regular.otf') format('opentype');
@@ -28,6 +37,10 @@ $code_font: "Fantasque Sans Mono Regular", Helvetica,arial,nimbussansl,liberatio
  * Skelton
  */
 
+ body {
+  background-color: $background_default_color;
+ }
+
 #container {
   width: 95%;
   margin:2em auto;
@@ -37,6 +50,9 @@ $code_font: "Fantasque Sans Mono Regular", Helvetica,arial,nimbussansl,liberatio
 .content {
   font-size: 13px;
   line-height:24px;
+
+  color: $text_default_color;
+  background-color: $background_default_color;
 
   width: 100%;
   @media(min-width: 28.75em) {
@@ -63,9 +79,12 @@ $code_font: "Fantasque Sans Mono Regular", Helvetica,arial,nimbussansl,liberatio
 .markdown-body {
 
   font-family: $text_font;
+  color: $text_default_color;
+  background-color: $background_default_color;
 
   h1, h2, h3, h4, h5, h6 {
     font-family: $header_font;
+    color: $text_default_color;
   }
 
   h1 {
@@ -89,7 +108,7 @@ $code_font: "Fantasque Sans Mono Regular", Helvetica,arial,nimbussansl,liberatio
   }
 
   h6 {
-    color: #777777;
+    // color: #777777;
     font-size: 14px;
   }
 
@@ -97,6 +116,10 @@ $code_font: "Fantasque Sans Mono Regular", Helvetica,arial,nimbussansl,liberatio
     font-family: $text_font;
     font-size: 16px;
     line-height: 1.6;
+
+    blockquote {
+      color: $text_blockquote_color;
+    }
   }
 
   pre {
@@ -140,7 +163,7 @@ $code_font: "Fantasque Sans Mono Regular", Helvetica,arial,nimbussansl,liberatio
     }
 
     &:hover {
-      background-color: #f9f9f9;
+      background-color: $background_hover_color;
     }
   }
 }
@@ -162,6 +185,7 @@ header {
   h1 {
     font-family: $header_font;
     margin-bottom: 0.2em;
+    color: $text_default_color;
   }
 
   & > div.article_nav {
@@ -236,7 +260,7 @@ aside.sidebar {
       }
 
       padding: 0.7em 1em;
-      color: #000000;
+      color: $text_default_color;
 
       &:hover, &:active, &.current {
         background-color:#98b58d;
