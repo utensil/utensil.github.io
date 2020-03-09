@@ -13,7 +13,7 @@ $color_locust_approx: #98b58d;
 // $background_default_color: #F8F8F8;
 // $background_hover_color: #f9f9f9;
 $text_default_color: #afafaf;
-$text_blockquote_color: #acacac;
+$text_blockquote_color: #b9b9b9;
 $background_default_color: #222222;
 $background_hover_color: #292929;
 
@@ -121,6 +121,11 @@ $code_font: "Fantasque Sans Mono Regular", Helvetica,arial,nimbussansl,liberatio
       color: $text_blockquote_color;
       border-left: 4px solid $background_hover_color;
     }
+  }
+
+  blockquote {
+    color: $text_blockquote_color;
+    border-left: 4px solid $background_hover_color;
   }
 
   pre {
