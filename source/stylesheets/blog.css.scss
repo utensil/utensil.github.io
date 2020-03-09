@@ -150,23 +150,30 @@ $code_font: "Fantasque Sans Mono Regular", Helvetica,arial,nimbussansl,liberatio
     }
   }
 
-  summary {
-    outline:none;
-    cursor: pointer;
-    
-    &::-webkit-details-marker {
-      display: none;
-    }
-
-    &::-moz-list-bullet {
-      list-style-type: none;
-      display: block;
-    }
-
-    &:hover {
-      background-color: $background_hover_color;
+  details {
+    summary {
+      outline:none;
+      cursor: pointer;
+      
+      &::-webkit-details-marker {
+        display: none;
+      }
+  
+      &::-moz-list-bullet {
+        list-style-type: none;
+        display: block;
+      }
+  
+      &:hover {
+        background-color: $background_hover_color;
+      }
     }
   }
+
+  img {
+    max-width: 400px;
+  }
+
 }
 
 /*
