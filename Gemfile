@@ -9,7 +9,7 @@ gem 'bourbon', '~> 5.1'
 gem 'neat', '~> 4.0'
 gem 'html-pipeline'
 gem 'commonmarker'
-gem 'ruby-enum', '~> 0.7.2'
+gem 'ruby-enum', '~> 0.8.0'
 # gem 'redcarpet', '~> 3.5'
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw] # http://stackoverflow.com/questions/23022258/tzinfodatasourcenotfound-error-starting-rails-v4-1-0-server-on-windows
 # gem 'haml-coderay'
