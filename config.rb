@@ -143,6 +143,7 @@ set :haml, :layout_engine => :haml #, :encoding => 'utf-8'
 
 page "/tech/*.html", :layout => 'blog_layout'
 page "/writings/*.html", :layout => 'blog_layout'
+page "/blogs/*.html", :layout => 'blog_layout'
 
 set :layout, false
 
@@ -157,6 +158,12 @@ activate :blog do |writings_blog|
   writings_blog.name = 'writings'
   writings_blog.prefix = 'writings'
   writings_blog.layout = 'blog_layout'
+end
+
+activate :blog do |blogs_blog|
+  blogs_blog.name = 'blogs'
+  blogs_blog.prefix = 'blogs'
+  blogs_blog.layout = 'blog_layout'
 end
 
 #ignore '/writings/*.md'

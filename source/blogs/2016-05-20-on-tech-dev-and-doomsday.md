@@ -1,6 +1,6 @@
 ---
 title: On the Development of Technology and the Doomsday
-tags: 英文
+tags: 
 ---
 
 I believe the development of technology will eventually solve problems "introduced" by technology, one way or another, as long as we're lucky to be in a timeline (in the context of multi-universe) that doesn't include self-destruction. Let's have the spirit of adventurers, and take our chances. 

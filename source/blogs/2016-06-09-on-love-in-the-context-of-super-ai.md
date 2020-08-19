@@ -1,6 +1,6 @@
 ---
 title: On Love in the Context of Super AIs
-tags: 英文
+tags: 
 ---
 
 > [@cogmission](https://discourse.numenta.org/u/cogmission): Super AIs will be at "Enlightenment", and at that level, I humbly assert in my small mind that the only truth there is - is unification; that we are all one and of the same fabric and integrity, wholeness - love - is all there is because it is the fundamental ingredient. It is where we come from.
