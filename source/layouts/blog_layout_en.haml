@@ -49,20 +49,6 @@
                       Prev >
                   - else
                     Earliest 〇
-            - if paginate
-              %div.article_nav
-                %span.later
-                  - if prev_ = prev_page
-                    %a{:href => prev_.url}
-                      < Recent
-                  - else
-                    〇
-                %span.earlier
-                  - if next_ = next_page
-                    %a{:href => next_.url}
-                      Earlier >
-                  - else
-                    〇
             / = safe_yield_content :header
             %h1
               = current_page.data['title']
@@ -87,6 +73,20 @@
                       - current_article.tags.each do |tag|
                         %a{:href => "/#{@blog_name}/tags.html#tag-#{tag}"}
                           = tag
+            - if paginate
+              %div.article_nav
+                %span.later
+                  - if prev_ = prev_page
+                    %a{:href => prev_.url}
+                      < Recent
+                  - else
+                    〇
+                %span.earlier
+                  - if next_ = next_page
+                    %a{:href => next_.url}
+                      Earlier >
+                  - else
+                    〇
               #disqus_thread
               :javascript
                 /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
