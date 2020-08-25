@@ -165,7 +165,7 @@ activate :blog do |blogs_blog|
   blogs_blog.prefix = 'blogs'
   blogs_blog.layout = 'blog_layout_en'
   blogs_blog.paginate = true
-  blogs_blog.per_page = 1
+  blogs_blog.per_page = 5
 end
 
 #ignore '/writings/*.md'
