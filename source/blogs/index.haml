@@ -12,3 +12,18 @@ pageable: true
           =article.data['title']
       %div
         =article.app.render_template(article.source_file)
+- content_for :header do
+  - if paginate
+    %div.article_nav
+      %span.later
+        - if next_ = next_page
+          %a{:href => next_.url}
+            < Next
+        - else
+          〇 Latest
+      %span.earlier
+        - if prev_ = prev_page
+          %a{:href => prev_.url}
+            Prev >
+        - else
+          Earliest 〇
