@@ -73,6 +73,7 @@
                       - current_article.tags.each do |tag|
                         %a{:href => "/#{@blog_name}/tags.html#tag-#{tag}"}
                           = tag
+          %footer
             - if paginate
               %div.article_nav
                 %span.later
