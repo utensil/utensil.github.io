@@ -143,7 +143,7 @@ set :haml, :layout_engine => :haml #, :encoding => 'utf-8'
 
 page "/tech/*.html", :layout => 'blog_layout'
 page "/writings/*.html", :layout => 'blog_layout'
-page "/blogs/*.html", :layout => 'blog_layout'
+page "/blogs/*.html", :layout => 'blog_layout_en'
 
 set :layout, false
 
