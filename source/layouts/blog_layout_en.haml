@@ -49,6 +49,20 @@
                       Prev >
                   - else
                     Earliest 〇
+            - if paginate
+              %div.article_nav
+                %span.later
+                  - if next_ = next_page
+                    %a{:href => next_.url}
+                      < Next
+                  - else
+                    〇 Latest
+                %span.earlier
+                  - if prev_ = prev_page
+                    %a{:href => prev_.url}
+                      Prev >
+                  - else
+                    Earliest 〇
             / = safe_yield_content :header
             %h1
               = current_page.data['title']

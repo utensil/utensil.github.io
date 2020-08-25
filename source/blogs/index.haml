@@ -4,21 +4,6 @@ blog: blogs
 pageable: true
 ---
 -# coding: utf-8
-%div.content
-  %header
-    %div.article_nav
-      %span.later
-        - if next_ = next_page
-          %a{:href => next_.url}
-            < Next
-        - else
-          〇 Latest
-      %span.earlier
-        - if prev_ = prev_page
-          %a{:href => prev_.url}
-            Prev >
-        - else
-          Earliest 〇
 %section.calendar    
   - page_articles.sort_by { |a| a.source_file }.reverse.each do |article|
     .post
