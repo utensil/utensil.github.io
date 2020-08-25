@@ -16,13 +16,13 @@ pageable: true
   - if paginate
     %div.article_nav
       %span.later
-        - if next_ = next_page
+        - if next_ = prev_page
           %a{:href => next_.url}
             < Next
         - else
           〇 Latest
       %span.earlier
-        - if prev_ = prev_page
+        - if prev_ = next_page
           %a{:href => prev_.url}
             Prev >
         - else
