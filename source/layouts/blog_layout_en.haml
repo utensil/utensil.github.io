@@ -56,13 +56,13 @@
                     %a{:href => prev_.url}
                       < Recent
                   - else
-                    〇-
+                    〇
                 %span.earlier
                   - if next_ = next_page
                     %a{:href => next_.url}
                       Earlier >
                   - else
-                    -〇
+                    〇
             / = safe_yield_content :header
             %h1
               = current_page.data['title']
