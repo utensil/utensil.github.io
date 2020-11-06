@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 gem 'sass'
 gem 'ya2yaml'
-gem 'middleman', '~> 3.4'
+gem 'middleman', '~> 4.3'
 gem 'middleman-blog', '~> 3.5'
 gem 'middleman-minify-html', '~> 3.4'
 gem 'bourbon', '~> 5.1'
