@@ -1,7 +1,7 @@
 /*!
  * jQuery Github Widgets
  *
- * Copyright 2012, Utensil Song
+ * Copyright 2012, Utensil
  * https://github.com/utensil
  * 
  * Released under the MIT licenses.
