@@ -2,6 +2,7 @@ utensil.github.io
 =====================
 
 [![Build Status](https://github.com/utensil/utensil.github.io/actions/workflows/ruby.yml/badge.svg)](https://github.com/utensil/utensil.github.io/actions/workflows/ruby.yml) 
+
 My personal blog, including my technical blog and my writings.
 
 How To Build Manually
