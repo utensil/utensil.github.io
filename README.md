@@ -1,8 +1,7 @@
 utensil.github.io
 =====================
 
-[![Build Status](https://travis-ci.org/utensil/utensil.github.io.png?branch=middleman)](https://travis-ci.org/utensil/utensil.github.io) [![Stories in Ready](https://badge.waffle.io/utensil/utensil.github.io.png?label=ready&title=Ready)](http://waffle.io/utensil/utensil.github.io) [![Dependency Status](https://www.versioneye.com/user/projects/56ff5b0afcd19a004543f763/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56ff5b0afcd19a004543f763) [![Gitter](https://badges.gitter.im/Join%20Chat.png)](https://gitter.im/utensil/utensil.github.io?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
+[![Build Status](https://github.com/utensil/utensil.github.io/actions/workflows/ruby.yml/badge.svg)](https://github.com/utensil/utensil.github.io/actions/workflows/ruby.yml) 
 My personal blog, including my technical blog and my writings.
 
 How To Build Manually
