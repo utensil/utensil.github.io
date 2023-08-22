@@ -1,8 +1,20 @@
-name: Ruby
+name: publish
 
 on:
   push:
     branches: [ middleman ]
+    
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   test:
@@ -10,22 +22,30 @@ jobs:
     strategy:
       matrix:
         ruby-version: ['2.7']
-
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby
-    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
-    # change this to (see https://github.com/ruby/setup-ruby#versioning):
-    # uses: ruby/setup-ruby@v1
-      uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
-      with:
-        ruby-version: ${{ matrix.ruby-version }}
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-        bundler: 1.17.3
-    - name: Build
-      run: bash ./deploy/deploy.sh
-      env:
-        GH_REPO: ${{ secrets.GH_REPO }}
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        GIT_NAME: ${{ secrets.GIT_NAME }}
-        GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+      - name: Set up Ruby
+      # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
+      # change this to (see https://github.com/ruby/setup-ruby#versioning):
+      # uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+          bundler: 1.17.3
+      - name: Install and Build 🔧
+        run: |
+          bundle exec middleman build --verbose
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: 'build'
+      - name: Deploy to GitHub Pages 🚀
+        id: deployment
+        uses: actions/deploy-pages@v2
