@@ -1,5 +1,6 @@
 import os
 import glob
+# pip install python-frontmatter
 import frontmatter
 
 files = glob.glob('*.md')
