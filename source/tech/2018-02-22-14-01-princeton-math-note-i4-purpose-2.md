@@ -145,3 +145,5 @@ might if we were counting in real life.What we do instead is come up with a reas
 > Sometimes a problem is just a question, but frequently the person who asks a mathematical question has a good idea of what the answer is.
 
 有时一个问题只是一个提问，但通常提出一个数学问题的人，对于答案应该是怎么样的，也已经有了很好的概念。
+
+> 本文同步发表于知乎：[&#x29c9;](https://zhuanlan.zhihu.com/p/212315568)

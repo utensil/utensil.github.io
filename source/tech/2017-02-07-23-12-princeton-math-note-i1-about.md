@@ -218,3 +218,5 @@ Succinctly, algebraists like equalities and analysts like inequalities.
 > The articles Vertex Operator Algebras [IV.13], Mirror Symmetry [IV.14], General Relativity and the Einstein Equations [IV.17], and Operator Algebras [IV.19] describe some fascinating examples of how mathematics and physics have enriched each other.
 
 [顶点算子代数](https://en.wikipedia.org/wiki/Vertex_operator_algebra)、[镜面对称](https://en.wikipedia.org/wiki/Mirror_symmetry_%28string_theory%29)、[广义相对论](https://en.wikipedia.org/wiki/General_relativity)和[爱因斯坦场方程](https://en.wikipedia.org/wiki/Einstein_field_equations)、[算子代数](https://en.wikipedia.org/wiki/Operator_algebra)，这些条目描述了一些数学和物理丰富彼此的精彩例子。
+
+> 本文同步发表于知乎：[&#x29c9;](https://zhuanlan.zhihu.com/p/26943619)

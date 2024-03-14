@@ -128,3 +128,5 @@ code_mode: math
 > This geometrical interpretation is important, and goes a long way toward explaining why extensions of definitions and theorems from one variable to several variables are so interesting. If we generalize a piece of algebra from one variable to several variables, we can also think of what we are doing as generalizing from a one-dimensional setting to a higher-dimensional setting. This idea leads to many links between algebra and geometry, allowing techniques from one area to be used to great effect in the other.
 
 这种几何解释是重要的，而且相当有助于解释为何定义和定理从一元到多元的扩展如此有趣。如果我们将一项代数工作从一元推广到多元，我们也可以将这个过程视为从1维的设定推广到高维的设定。这种思想引出了代数与几何之间的许多关联，使得一个领域的数学技艺能够运用到另一个领域并发挥极大作用。
+
+> 本文同步发表于知乎：[&#x29c9;](https://zhuanlan.zhihu.com/p/212315388)

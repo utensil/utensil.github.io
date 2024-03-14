@@ -134,3 +134,5 @@ code_mode: math
 > In practice, there are many different levels of formality, and mathematicians are adept at switching between them. It is this that makes it possible to feel completely confident in the correctness of a mathematical argument even when it is not presented in the manner of (18)—though it is also this that allows mistakes to slip through the net from time to time.
 
 实践中，形式化有多种不同的尺度，而数学家们很善于在其中转换。这使得一个数学论证即使没有写得完全形式化，数学家们也能对其正确性有完全的信心——虽然这种转换也使得种种错误如同漏网之鱼般时不时地钻了进来。
+
+> 本文同步发表于知乎：[&#x29c9;](https://zhuanlan.zhihu.com/p/211280335)

@@ -225,3 +225,5 @@ f把每一个有理数都变成自身，那f(√ 2)会是多少呢？从 f(√ 2
 > function [III.25] $ e^x $ : that its derivative is the same function. In other words, if $ f(x) = e^x $ , then $ f'(x) = f(x) $ . Now differentiation, as we saw earlier, can be thought of as a linear map, and if $ f'(x) = f(x) $ then this map leaves the function f unchanged, which says that f is an eigenvector with eigenvalue 1. More generally, if $ g(x) = e^{(\lambda x)} $ , then $ g'(x) = \lambda e^{(\lambda x)} = \lambda g(x) $ , so g is an eigenvector of the differentiation map, with eigenvalue $ \lambda $ . Many linear differential equations can be thought of as asking for eigenvectors of linear maps defined using differentiation.
 
 指数函数$ e^x $的导数是其自身。换句话说，如果 $ f(x) = e^x $ ，那么 $ f'(x) = f(x) $ 。这样微分运算就可以被看作一种线性映射。如果 $ f'(x) = f(x) $ ，那么这个映射使函数f保持不变，这说明f是一个具备本征值1的本征向量。更一般的，如果 $ g(x) = e^{(\lambda x)} $ ，那么 $ g'(x) = \lambda e^{(\lambda x)} = \lambda g(x) $ ，这样g就是微分映射的一个本征向量，其本征值为λ。许多线性微分方程可以被视为在求用微分运算定义的线性映射的本征向量。
+
+> 本文同步发表于知乎：[&#x29c9;](https://zhuanlan.zhihu.com/p/211305818)
