@@ -208,4 +208,4 @@ be strong enough that there is just one Riemannian metric that satisfies them, o
 
 从以上的讨论中应该可以清晰看出，在任意给定的流形上总有许多可能的黎曼度量。黎曼几何学的一个重大主题就是从其中选择在某些方面最好的黎曼度量。……更通用的方法是，要找出附加在黎曼度量上的额外条件，这些额外的条件要足够地强，使得只有一个黎曼度量能够满足它们，或者至少要使得满足这些条件的黎曼度量族很小。
 
-> 本文同步发表于知乎：[&#x29c9;](https://zhuanlan.zhihu.com/p/211327649)
+> 本文也发表于知乎：[&#x29c9;](https://zhuanlan.zhihu.com/p/211327649)

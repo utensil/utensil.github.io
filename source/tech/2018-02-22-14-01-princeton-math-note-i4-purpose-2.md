@@ -146,4 +146,4 @@ might if we were counting in real life.What we do instead is come up with a reas
 
 有时一个问题只是一个提问，但通常提出一个数学问题的人，对于答案应该是怎么样的，也已经有了很好的概念。
 
-> 本文同步发表于知乎：[&#x29c9;](https://zhuanlan.zhihu.com/p/212315568)
+> 本文也发表于知乎：[&#x29c9;](https://zhuanlan.zhihu.com/p/212315568)
