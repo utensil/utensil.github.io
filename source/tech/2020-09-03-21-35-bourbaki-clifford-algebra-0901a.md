@@ -5,7 +5,7 @@ code_mode: math
 ---
 
 > * 说明请见[译前记](https://zhuanlan.zhihu.com/p/212963574)
-> * 下一篇：[Bourbaki之Clifford Algebra法译英之二：9.1 Clifford代数的定义与泛性质（下）](https://zhuanlan.zhihu.com/p/237923156)
+> * 下一篇：[Bourbaki之Clifford Algebra法译英之二：9.1 Clifford代数的定义与泛性质（下）](https://utensil.github.io/tech/2020/09/12/19-45-bourbaki-clifford-algebra-0901b.html)
 
 # § 9. Clifford Algebra
 

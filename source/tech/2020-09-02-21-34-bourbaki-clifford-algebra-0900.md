@@ -39,9 +39,9 @@ code_mode: math
 
 当然，效率工具只是效率工具，人自身是结果质量的最终保障。
 
+## 目录
+
+- [Bourbaki之Clifford Algebra法译英之一：9.1 Clifford代数的定义与泛性质（上）](https://utensil.github.io/tech/2020/09/12/19-45-bourbaki-clifford-algebra-0901a.html)
+- [Bourbaki之Clifford Algebra法译英之二：9.1 Clifford代数的定义与泛性质（下）](https://utensil.github.io/tech/2020/09/12/19-45-bourbaki-clifford-algebra-0901b.html)
+
 > 本文也发表于知乎：[&#x29c9;](https://zhuanlan.zhihu.com/p/212963574)
-
-<!-- ## 目录
-
-- [Bourbaki之Clifford Algebra法译英之一：9.1 Clifford代数的定义与泛性质（上）](https://zhuanlan.zhihu.com/p/212965494)
-- [Bourbaki之Clifford Algebra法译英之二：9.1 Clifford代数的定义与泛性质（下）](https://zhuanlan.zhihu.com/p/237923156) -->

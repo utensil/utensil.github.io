@@ -5,7 +5,7 @@ code_mode: math
 ---
 
 > * 说明请见[译前记](https://zhuanlan.zhihu.com/p/212963574)
-> * 上一篇：[Bourbaki之Clifford Algebra法译英之一：9.1 Clifford代数的定义与泛性质（上）](https://zhuanlan.zhihu.com/p/212965494)
+> * 上一篇：[Bourbaki之Clifford Algebra法译英之一：9.1 Clifford代数的定义与泛性质（上）](https://utensil.github.io/tech/2020/09/12/19-45-bourbaki-clifford-algebra-0901a.html)
 
 Proposition 1. - Let $f$ be a linear map of $E$ in an algebra $D$ over $A$ such that $f(x)^{2}=Q(x) . 1$ for all $x \in E$. There is one and only one homomorphism $\bar{f}$ of $C(Q)$ into $D$ such that $f=\bar{f} \circ \rho_{\tiny Q}$.
 
@@ -39,9 +39,19 @@ and then $h$ cancels on $I(Q)$ and defines the homomorphism $\bar{f}$ through th
 
 迄今为止的一系列映射，可以全部合成下面这张交换图：
 
-![Image](https://pic4.zhimg.com/80/v2-85dd09327bd2bb1411d8209d0d2038aa.png)
+![](tech/images/2020-09-12-19-45-bourbaki-clifford-algebra-0901b/cd_univ.png)
 
 交换图源码（使用 https://tikzcd.yichuanshen.de/ 编辑，使用 https://upmath.me/ 渲染）见[这里](https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBoAGAXVJADcBDAGwFcYkQBREAX1PU1z5CKMsWp0mrdgBUAFBwCUPPiAzY8BIuVIAmcQxZtEIAMKyAikt791Qojt37JRkABEe4mFADm8IqAAzACcIAFskbRAcCCQyEEZ6ACMYRgAFAQ1hECCsbwALHBAaAyljAB0ynHpmZUCQ8MQ46KQHCUN2CuxvUPoi+KSU9NtNYxz8wusQYLCImmbEVpKXCqC8iAB9YAq8MABPAAJzbj7ksCgkAFoAZkiE5LSMu1Hcgtqp+ti5mMQr4ud2PJvaYNSLzX5tUogCoBCBBJiMfYBE4wM5IG6TYEtL5ov7tcplGAADywcBwcH2AEJ9hVEvQgsAAscaHdBo8RtkXhNKNwgA)。
+
+<!-- 
+```tex
+\begin{tikzcd}
+                                      & E \arrow[d, "\tau"'] \arrow[ldd, "\rho_{\tiny Q}"', bend right] \arrow[rdd, "\forall f", bend left] &   \\
+                                      & T(E) \arrow[ld, "\sigma"'] \arrow[rd, "h"]                                                          &   \\
+C(Q) \arrow[rr, "\exists ! \bar{f}"'] &                                                                                                     & D
+\end{tikzcd}
+```
+-->
 
 特别注意上图是在更完整的语境中，表达了Proposition 1里的
 
@@ -77,9 +87,20 @@ If $f$ is the identity, $C(f)$ is the identity ; if $Q''$ is a quadratic form ov
 
 以上两段，可以合成下面这张交换图：
 
-![Image](https://pic4.zhimg.com/80/v2-a8001a4511a8d6ee0e4c0044a4d2f0ed.png)
+![](tech/images/2020-09-12-19-45-bourbaki-clifford-algebra-0901b/cd_hom.png)
 
 交换图源码（使用 https://tikzcd.yichuanshen.de/ 编辑，使用 https://upmath.me/ 渲染）见[这里](https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQBREAX1PU1z5CKAEwVqdJq3YcA5Dz4gM2PASIAWcTQYs2iTrPm9+KoUTHEJO6foCKACg4BKBScFqUZAMxWpekADC9rYuxkoCqsLIYj7afuxBtrKhisruUZqxkroJwYahEjBQAObwRKAAZgBOEAC2SGQgOBBIXnE5dq4g1XVI5DTNre02IEkgNIz0AEYwjAAKEWb6VVjFABY4XT31iGJNLYht2SNJ8hPTswumHiAr65th2w0DB-3H-hUABIifADq-OBgAA8cMBGFgwDB6FVPrV6GhuFsajs3oNdsN-MVvn8AcDQeDIdDYfDEecZvNFjdGDAKg9FE9EKiDo0ZmAoEgAGyNAn+KD0OBrIrjECC+jsxBgZiMRgDehYRjsSCQ4XWfz-QEg4BYOCfeifODMKa1aBSmCfCAVRGPZHPfZITTvdj-KprCAAfWA6ohAE9PrYrfSbYyXkgAKwYp2-F3uz0An1+2QBypBvZojkR-TO10er1gX2nJPdIMOtHhx36IIVJzY9V44Cu2qFhlltMZwL2YrVn61zUNpvFkOIdMgVnigC0XkaqtyWP+AGMsFU558q0jeogSwcy6P7QBOCYQ3n8wXsts90Fz+hKrCXxj99eNNFvHeICfcw-sPkCoVtr7d3Gape163p8EIAFakiAkzklc6TsHcGw8JQ3BAA)。
+
+<!-- 
+```tex
+\begin{tikzcd}
+                                                                                                                                                &  & Q(E)                                                                                                                                               &  &                                                        \\
+E \arrow[rru, "Q"] \arrow[rr, "f : \text{linear map}"] \arrow[dd, "\rho_{\tiny Q}"] \arrow[rr, "f : \text{canonical inj}"', dashed, bend right] &  & E' \arrow[u, "Q'"'] \arrow[rr, "g : \text{linear map}"] \arrow[ll, "\text{is a submodule of}", dashed, bend left=60] \arrow[dd, "\rho_{\tiny Q'}"] &  & E'' \arrow[llu, "Q''"'] \arrow[dd, "\rho_{\tiny Q''}"] \\
+                                                                                                                                                &  &                                                                                                                                                    &  &                                                        \\
+C(Q) \arrow[rr, "C(f) : \text{hom}"] \arrow[rrrr, "C(g \circ f)", bend right] \arrow[rr, "\text{canonical}", dashed, bend left=49]              &  & C(Q') \arrow[rr, "C(g) : \text{hom}"]                                                                                                              &  & C(Q'')                                                
+\end{tikzcd}
+```
+-->
 
 Let us take in particular $Q'=Q$ and for $f$ the mapping $x \to -x$; we see that there is an automorphism $\alpha$ and only one of $C(Q)$ such that $\alpha \circ \rho = -\rho$; it is called the main automorphism of $C(Q)$. It is clear that $\alpha^{2}=1$, and that the restriction of $\alpha$ to $C^{+}$ (resp. $C^{-}$ ) is the identity (resp. the mapping $u \to -u$ ).
 
