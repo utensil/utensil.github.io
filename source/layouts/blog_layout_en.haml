@@ -73,6 +73,24 @@
                       - current_article.tags.each do |tag|
                         %a{:href => "/#{@blog_name}/tags.html#tag-#{tag}"}
                           = tag
+              %script{:src => "https://giscus.app/client.js",
+                      :data => {
+                        :repo => "utensil/utensil.github.io",
+                        :repo_id => "MDEwOlJlcG9zaXRvcnkzNjM3Mzgx",
+                        :category => "Blog Comments",
+                        :category_id => "DIC_kwDOADeAhc4Cd9o6",
+                        :mapping => "pathname",
+                        :strict => "0",
+                        :reactions_enabled => "1",
+                        :emit_metadata => "0",
+                        :input_position => "top",
+                        :theme => "dark",
+                        :lang => "en",
+                        :loading => "lazy"
+                      },
+                      :crossorigin => "anonymous",
+                      :async => 1
+              }
           %footer
             - if paginate
               %div.article_nav
@@ -88,19 +106,6 @@
                       Earlier >
                   - else
                     〇
-              #disqus_thread
-              :javascript
-                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                var disqus_shortname = 'utensil-at-github'; // required: replace example with your forum shortname
-                /* * * DON'T EDIT BELOW THIS LINE * * */
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-              %a.dsq-brlink{:href => "http://disqus.com"}
-                comments powered by
-                %span.logo-disqus Disqus
             / = safe_yield_content :footer
 
     = javascript_include_tag 'jquery-1.7.1.js'
