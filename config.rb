@@ -130,8 +130,8 @@ end
 require 'lib/mytemplate'
 set :markdown_engine, :MarkdownHtmlFilter
 
-set :md, :layout_engine => :haml
-set :haml, :layout_engine => :haml #, :encoding => 'utf-8'
+# Haml 6 rejects the old Tilt/Haml `layout_engine` option used by this
+# Middleman 3-era config. Layouts are selected explicitly below.
 
 # with_layout 'tech_layout.haml' do
 #   page "/tech/*.html"
