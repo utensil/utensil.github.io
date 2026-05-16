@@ -14,8 +14,8 @@ How To Build Manually
 #for editing the source
 git clone --depth 1 -b middleman https://github.com/utensil/utensil.github.io.git utensil-middleman
 cd utensil-middleman/
-mise install
-bundle install
+sudo gem install bundler
+bundle
 
 #for publishing
 cd ..
