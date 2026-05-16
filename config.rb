@@ -71,8 +71,6 @@
   # set :http_prefix, "/Content/images/"
 # end
 
-require 'date'
-
 Time.zone = 'Hongkong'
 set :encoding,    "utf-8"
 
@@ -94,31 +92,6 @@ set :encoding,    "utf-8"
 # end
 
 helpers do
-  def section_articles(blog_name = current_page.data.blog)
-    sitemap.resources
-      .select { |resource| resource.source_file.to_s.include?("/source/#{blog_name}/") }
-      .select { |resource| File.basename(resource.source_file.to_s).match?(/\A\d{4}-\d{2}-\d{2}-/) }
-      .sort_by(&:source_file)
-  end
-
-  def section_article_date(article)
-    date = article.data.date || File.basename(article.source_file.to_s)[/\A\d{4}-\d{2}-\d{2}/]
-    Date.parse(date.to_s)
-  end
-
-  def section_tags(blog_name = current_page.data.blog)
-    section_articles(blog_name).each_with_object({}) do |article, tags|
-      article.data.tags.to_s.split(',').map(&:strip).reject(&:empty?).each do |tag|
-        tags[tag] ||= []
-        tags[tag] << article
-      end
-    end
-  end
-
-  def section_article_html(article)
-    article.render(layout: false).to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
-  end
-
   def safe_yield_content(symbol)
     ret = ""
     begin
