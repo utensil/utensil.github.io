@@ -73,7 +73,7 @@ $code_font: "Fantasque Sans Mono Regular", Helvetica,arial,nimbussansl,liberatio
 
 // From https://github.com/primer/markdown/blob/master/components/markdown.scss
 // TODO: should use gem or bower
-@import 'vendor/primer-markdown';
+@import 'vendor/primer-markdown.css.scss';
 
 // Overrides
 .markdown-body {

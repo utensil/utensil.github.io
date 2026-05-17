@@ -2,5 +2,5 @@
 /build
 Thumbs.db
 .bundle/
-Gemfile.lock
+vendor/bundle/
 .DS_Store

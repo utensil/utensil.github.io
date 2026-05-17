@@ -102,6 +102,18 @@ helpers do
     end
     return ret
   end
+
+  def section_articles(blog_name = current_page.data.blog)
+    blog(blog_name).articles.sort_by(&:source_file).reverse
+  end
+
+  def section_tags(blog_name = current_page.data.blog)
+    blog(blog_name).tags.sort_by { |_, articles| -articles.size }
+  end
+
+  def article_body(article)
+    article.body.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
+  end
 end
 
 # Markdown
@@ -130,9 +142,6 @@ end
 require 'lib/mytemplate'
 set :markdown_engine, :MarkdownHtmlFilter
 
-set :md, :layout_engine => :haml
-set :haml, :layout_engine => :haml #, :encoding => 'utf-8'
-
 # with_layout 'tech_layout.haml' do
 #   page "/tech/*.html"
 # end
@@ -148,24 +157,90 @@ page "/blogs/*.html", :layout => 'blog_layout_en'
 set :layout, false
 
 require "middleman-blog"
+require "middleman-blog/blog_data"
+
+module Middleman
+  module Blog
+    module BlogArticle
+      def slug
+        path_part('title')
+      end
+
+      def content_type
+        'text/html; charset=utf-8'
+      end
+    end
+
+    class BlogData
+      def permalink_options(resource, extra = {})
+        params = resource.metadata[:page].slice(*@permalink_template.variables.map(&:to_sym))
+
+        params.each do |key, value|
+          params[key] = safe_parameterize(value, preserve_underscores: @options.preserve_underscores_in_slugs)
+        end
+
+        params
+          .merge(date_to_params(resource.date))
+          .merge(lang: resource.lang.to_s, locale: resource.locale.to_s, title: raw_title_from_source(resource))
+          .merge(extra)
+      end
+
+      def raw_title_from_source(resource)
+        basename = File.basename(resource.source_file.to_s)
+        basename = basename.sub(/\.[^.]+\z/, '')
+        basename.sub(/\A\d{4}-\d{2}-\d{2}-/, '')
+      end
+    end
+  end
+end
+
+class PreserveBlogFileBasenamePaths
+  def manipulate_resource_list(resources)
+    resources.each do |resource|
+      source_file = resource.source_file.to_s
+      match = source_file.match(%r{/source/(tech|writings|blogs)/(\d{4})-(\d{2})-(\d{2})-(.+)\.(md|haml)\z})
+      next unless match
+
+      article_name = match[5]
+      extension = article_name.end_with?('.html') ? '' : '.html'
+      resource.destination_path = "#{match[1]}/#{match[2]}/#{match[3]}/#{match[4]}/#{article_name}#{extension}"
+      def resource.content_type
+        'text/html; charset=utf-8'
+      end
+    end
+
+    resources
+  end
+end
+
 activate :blog do |tech_blog|
   tech_blog.name = 'tech'
   tech_blog.prefix = 'tech'
+  tech_blog.sources = '{year}-{month}-{day}-{title}'
+  tech_blog.permalink = '/{year}/{month}/{day}/{title}.html'
   tech_blog.layout = 'blog_layout'
 end
 
 activate :blog do |writings_blog|
   writings_blog.name = 'writings'
   writings_blog.prefix = 'writings'
+  writings_blog.sources = '{year}-{month}-{day}-{title}'
+  writings_blog.permalink = '/{year}/{month}/{day}/{title}.html'
   writings_blog.layout = 'blog_layout'
 end
 
 activate :blog do |blogs_blog|
   blogs_blog.name = 'blogs'
   blogs_blog.prefix = 'blogs'
+  blogs_blog.sources = '{year}-{month}-{day}-{title}'
+  blogs_blog.permalink = '/{year}/{month}/{day}/{title}.html'
   blogs_blog.layout = 'blog_layout_en'
   blogs_blog.paginate = true
   blogs_blog.per_page = 5
+end
+
+after_configuration do
+  sitemap.register_resource_list_manipulator(:preserve_blog_file_basename_paths, PreserveBlogFileBasenamePaths.new, 60)
 end
 
 #ignore '/writings/*.md'

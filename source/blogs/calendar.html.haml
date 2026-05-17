@@ -4,7 +4,7 @@ blog: blogs
 --- 
 -# coding: utf-8
 %section.calendar    
-  - blog.articles.group_by {|a| "#{a.date.year}" }.each do |year, year_articles|
+  - section_articles.group_by {|a| "#{a.date.year}" }.each do |year, year_articles|
     %h2= year
     - year_articles.group_by {|a| "#{a.date.strftime("%B")}" }.each do |month, articles|
       %div{:id => "calendar-#{month}" }

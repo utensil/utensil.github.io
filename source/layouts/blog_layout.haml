@@ -6,15 +6,15 @@
     / Always force latest IE rendering engine (even in intranet) &amp; Chrome Frame
     %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
     /[if (lt IE 9)&(!IEMobile)]
-      = javascript_include_tag 'html5.js'
+      != javascript_include_tag 'html5.js'
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
     %title= current_page.data.title
-    = stylesheet_link_tag 'site.css'
-    = stylesheet_link_tag 'blog.css'
-    = stylesheet_link_tag 'highlight/railscasts.css'
-    = safe_yield_content :head
+    != stylesheet_link_tag 'site.css'
+    != stylesheet_link_tag 'blog.css'
+    != stylesheet_link_tag 'highlight/railscasts.css'
+    != safe_yield_content :head
     /[if lt IE 9]
-      = javascript_include_tag 'respond.js'
+      != javascript_include_tag 'respond.js'
 
   %body{:class => ''}
     - @blog_name ||= blog.options.name || 'tech'
@@ -32,19 +32,19 @@
               %span
                 %a{:href => "/#{@blog_name}/about.html"} about
             / = safe_yield_content :nav
-        = safe_yield_content :sidebar
+        != safe_yield_content :sidebar
         %div.content
           %header
             - if is_blog_article?
               %div.article_nav
                 %span.later
-                  - if next_ = current_article.next_article
+                  - if next_ = current_article.article_next
                     %a{:href => next_.url}
                       < 更新
                   - else
                     〇 已是最新
                 %span.earlier
-                  - if prev_ = current_article.previous_article
+                  - if prev_ = current_article.article_previous
                     %a{:href => prev_.url}
                       更早 >
                   - else
@@ -53,7 +53,7 @@
             %h1
               = current_page.data['title']
           %article.markdown-body
-            = yield
+            != yield
             - if is_blog_article?
               %section.meta
                 %p
@@ -93,10 +93,10 @@
               }
             / = safe_yield_content :footer
 
-    = javascript_include_tag 'jquery-1.7.1.js'
+    != javascript_include_tag 'jquery-1.7.1.js'
     - code_mode = (current_page.data.code_mode || '').split(/\|/)
     - if code_mode.include?('math')
-      = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+      != javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
       - if code_mode.include?('xypic')
         :javascript
           window.mathUseXypic = true;
@@ -153,7 +153,7 @@
           }
         });
     - if code_mode.include?('lang') || code_mode.size == 0
-      = javascript_include_tag 'highlight.pack.js'
+      != javascript_include_tag 'highlight.pack.js'
       :javascript
         hljs.initHighlightingOnLoad();
         // $(document).ready(function() {
@@ -164,4 +164,4 @@
         // (function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!== typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]); b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]); mixpanel.init("eda89891866a7e90b6699df21e79ea61");
         // mixpanel.track("visit");
       /! end Mixpanel
-    = safe_yield_content :scripts
+    != safe_yield_content :scripts
