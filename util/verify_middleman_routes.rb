@@ -27,6 +27,12 @@ ROUTES = {
 }.freeze
 
 ESCAPED_HTML_MARKERS = ['&lt;link', '&lt;section', '&lt;p&gt;', '&lt;article'].freeze
+TAG_PAGE_EXPECTATIONS = {
+  '/tech/tags.html' => '/tech/tags.json',
+  '/writings/tags.html' => '/writings/tags.json',
+  '/blogs/tags.html' => '/blogs/tags.json'
+}.freeze
+JSON_ROUTES = TAG_PAGE_EXPECTATIONS.values.freeze
 
 if $PROGRAM_NAME == __FILE__
   failures = []
@@ -48,6 +54,27 @@ if $PROGRAM_NAME == __FILE__
     ESCAPED_HTML_MARKERS.each do |marker|
       failures << "#{path}: contains escaped HTML marker #{marker.inspect}" if body.include?(marker)
     end
+    if TAG_PAGE_EXPECTATIONS.key?(path)
+      expected_json = TAG_PAGE_EXPECTATIONS.fetch(path)
+      doctype_count = body.scan('<!DOCTYPE html>').size
+      failures << "#{path}: expected one document, found #{doctype_count} doctypes" unless doctype_count == 1
+      unless body.include?("data-tags-json='#{expected_json}'")
+        failures << "#{path}: missing absolute tag JSON path #{expected_json.inspect}"
+      end
+      tags_script_count = body.scan(%r{/javascripts/tags\.js}).size
+      failures << "#{path}: expected one tags.js include, found #{tags_script_count}" unless tags_script_count == 1
+    end
+
+    puts "#{path} #{response.code} #{response['content-type']}"
+  end
+
+  JSON_ROUTES.each do |path|
+    uri = BASE_URL + path
+    response = Net::HTTP.get_response(uri)
+    body = response.body.to_s
+
+    failures << "#{path}: expected 200, got #{response.code}" unless response.code == '200'
+    failures << "#{path}: expected JSON array body" unless body.lstrip.start_with?('[')
 
     puts "#{path} #{response.code} #{response['content-type']}"
   end

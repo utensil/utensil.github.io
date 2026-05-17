@@ -10,7 +10,10 @@ function cal_tagcloud_height(tag_array_length, window_height) {
 }
 
 $(function() {
-  $.getJSON('tags.json', function(tag_array, statusText) {
+  var tagCloud = $("#tag_cloud");
+  var tagsJsonPath = tagCloud.data('tags-json') || ['tags', 'json'].join('.');
+
+  $.getJSON(tagsJsonPath, function(tag_array, statusText) {
 
     $(window).resize(function() {
 
@@ -23,14 +26,14 @@ $(function() {
         var w = cal_tagcloud_width(tag_array.length, $(window).width());
         var h = cal_tagcloud_height(tag_array.length, $(window).height());
 
-        if($("#tag_cloud").hasClass('inited') && orig_w == w && orig_h == h)
+        if(tagCloud.hasClass('inited') && orig_w == w && orig_h == h)
         {
           return;
         }
 
         //console.log('resize', $(window).width(), $(window).height(), orig_w, orig_h, w, h);
 
-        $("#tag_cloud").empty().jQCloud(tag_array, {
+        tagCloud.empty().jQCloud(tag_array, {
           width: w,
           height: h,
           //shape: 'rectangular',
