@@ -225,18 +225,18 @@ Codex 并不比人更懂这个旧博客。它真正帮上忙的地方，是可�
 第一次 prompt：
 
 ```text
-现在我们需要讨论一个计划，最后你会把它转成一个 goal。
+Now we need to discuss a plan and in the end you will turn this into a goal
 
-对于当前 repository，我希望你把 Ruby、Middleman 以及所有 Ruby packages 和 dependencies 升到一个较新但不是最新的版本，前提是它们彼此兼容；升级之后会有错误，要修复它们；调整配置和 GitHub Actions；结果需要通过等价的 build 来验证。
+For the current repository, I want you to bump the Ruby, middleman and all Ruby packages and dependencies to a recent but not latest version provided that they are compatible; After the bump there will be errors, fix them, Adjust configuration, github actions; The result should be verified by equivalent build.
 
-你需要 survey 这个 repo，并为 `/goal` 设计一个可验证的任务。
+You need to survey the repo, And devise a verifiable task for `/goal`
 ```
 
 第一次生成的 `/goal`：
 
 ```text
 objective:
-将 /Users/utensil/projects/utensil.github.io 从旧的 Ruby 2.6/2.7 + Middleman 3 依赖集合，升级到一个较新的、兼容的 Ruby/Middleman 技术栈，不使用最新边缘版本；修复由此产生的 build、config、template、plugin、CI 错误；添加或更新 lockfile 和版本声明；相应更新 GitHub Actions；并用等价的本地 Middleman build 验证升级后的 bundle 能生成静态站点输出。
+Upgrade /Users/utensil/projects/utensil.github.io from its old Ruby 2.6/2.7 + Middleman 3 dependency set to a recent compatible Ruby/Middleman stack without using latest-edge releases; fix resulting build/config/template/plugin/CI errors; add or update lockfiles and version declarations; update GitHub Actions accordingly; and verify success with an equivalent local Middleman build that produces the static site output from the upgraded bundle.
 
 token_budget:
 30000
@@ -245,32 +245,32 @@ token_budget:
 第二次 prompt：
 
 ```text
-现在更新我们的 goal：用后台 Middleman dev server 来验证，确保渲染正确。
+now update our goal to verify with the background middleman dev server to ensure the render is correct
 
-要不创建一个新的 goal？
+how about create a new goal
 
-我已经清掉现有 goal 了，你可以创建新的 goal。
+I have cleared the existing goal and you may create a new goal.
 
-把 goal 更新为：验证之后 commit 并 push。
+update the goal to commit and push after verification
 
-writings 被渲染成了垃圾；tech 链接没有扩展名，于是变成了下载。
+writings rendered to garbage; and tech links rendered to no ext so becomes download
 
-你的验证是无效的，没有检查主要路径和样例内容。
+your verification is invalid and didn't check against major paths and sample contents
 
-现在请先用新的两个 git commit revert 掉前面两个 commit 并 push，使它回到版本升级之前；
-然后设计一个新的、可验证的 goal；
-清掉现有 goal，并设置新的 goal。
+now please first revert the 2 commits in git (by new 2 commits) and push so it is back to your version bump
 
-不，是回到版本升级之前。
+then devise a new verifiable goal; clear the existing goal and set the new goal
 
-我已经为你清掉 goal 了。
+no, back to before version bump
 
-继续。
+I clear the goal for you
+
+go on
 ```
 
 第二次生成的 `/goal`：
 
 ```text
 objective:
-从版本升级前的 baseline 重新做 Ruby/Middleman 升级，并用匹配真实站点行为的验证来证明结果，而不只是验证 HTTP status：在修改版本之前，先盘点当前 route 行为和预期生成路径；选择较新的、兼容的 Ruby、Middleman、middleman-blog、Haml 和 dependency set；只在需要时更新 Ruby/tooling/Gemfile/Gemfile.lock/GitHub Actions/config；修复升级回归，同时不改变公开 URL，也不造成下载行为；用静态 build 输出和后台 Middleman dev server 验证代表性 routes 和 sample content，包括 /、/tech/、/tech/calendar.html、/tech/tags.html、至少三个 tech article links 能以 text/html 解析并包含正确内容、/writings/、/writings/calendar.html、/writings/tags.html、至少三个 writings article links 能以 text/html 解析并包含可读的 UTF-8 中文内容而不是垃圾、/blogs/、/blogs/calendar.html、/blogs/tags.html，以及两个英文 blog article links；比较前后生成的公开路径，确保没有非预期的 extensionless/html 路径漂移；只有验证通过后才 commit；在 verified commit 之后 push 到 origin/middleman。
+Redo the Ruby/Middleman upgrade from the pre-version-bump baseline with verification that matches real site behavior, not just HTTP status: first inventory current route behavior and expected generated paths before changing versions; choose a recent compatible Ruby, Middleman, middleman-blog, Haml, and dependency set; update Ruby/tooling/Gemfile/Gemfile.lock/GitHub Actions/config only as needed; fix upgrade regressions without changing public URLs or forcing downloads; verify static build output and a background Middleman dev server against representative routes and sample content, including /, /tech/, /tech/calendar.html, /tech/tags.html, at least three tech article links resolving as text/html with correct content, /writings/, /writings/calendar.html, /writings/tags.html, at least three writings article links resolving as text/html with readable UTF-8 Chinese content rather than garbage, /blogs/, /blogs/calendar.html, /blogs/tags.html, and both English blog article links; compare generated public paths before and after to ensure no unintended extensionless/html path drift; commit only after verification passes; push to origin/middleman after the verified commit.
 ```
