@@ -19,11 +19,14 @@ ROUTES = {
   '/writings/2023/10/05/21-06-fan-chu.html' => ['返初', '林错风穿逡巡雁'],
   '/writings/2021/09/19/12-10-di-da.html' => ['抵达'],
   '/writings/2018/05/20/22-09-fu-mu.html' => ['父母'],
-  '/blogs/' => ['On Love', 'Doomsday'],
-  '/blogs/calendar.html' => ['On Love', 'Doomsday'],
-  '/blogs/tags.html' => [],
-  '/blogs/2016/06/09/on-love-in-the-context-of-super-ai.html' => ['On Love'],
-  '/blogs/2016/05/20/on-tech-dev-and-doomsday.html' => ['Doomsday']
+  '/blogs/' => [],
+  '/blogs/calendar.html' => [],
+  '/blogs/tags.html' => []
+}.freeze
+
+REDIRECT_ROUTES = {
+  '/blogs/2016/06/09/on-love-in-the-context-of-super-ai.html' => 'https://utensil.github.io/blog/posts/on-love-in-the-context-of-super-ai/',
+  '/blogs/2016/05/20/on-tech-dev-and-doomsday.html' => 'https://utensil.github.io/blog/posts/on-tech-dev-and-doomsday/'
 }.freeze
 
 ESCAPED_HTML_MARKERS = ['&lt;link', '&lt;section', '&lt;p&gt;', '&lt;article'].freeze
@@ -79,10 +82,30 @@ if $PROGRAM_NAME == __FILE__
     puts "#{path} #{response.code} #{response['content-type']}"
   end
 
+  REDIRECT_ROUTES.each do |path, target|
+    uri = BASE_URL + path
+    response = Net::HTTP.get_response(uri)
+    body = response.body.to_s
+    body.force_encoding('UTF-8')
+
+    failures << "#{path}: expected 200, got #{response.code}" unless response.code == '200'
+    unless response['content-type'].to_s.include?('text/html')
+      failures << "#{path}: expected text/html, got #{response['content-type'].inspect}"
+    end
+    failures << "#{path}: response body is not valid UTF-8" unless body.valid_encoding?
+    failures << "#{path}: missing canonical redirect target #{target.inspect}" unless body.include?(%(<link rel=canonical href="#{target}">)) || body.include?(%(rel="canonical" href="#{target}"))
+    failures << "#{path}: missing refresh redirect target #{target.inspect}" unless body.include?(%(url=#{target}))
+    ESCAPED_HTML_MARKERS.each do |marker|
+      failures << "#{path}: contains escaped HTML marker #{marker.inspect}" if body.include?(marker)
+    end
+
+    puts "#{path} #{response.code} #{response['content-type']} -> #{target}"
+  end
+
   if failures.any?
     warn failures.join("\n")
     exit 1
   end
 
-  puts "Verified #{ROUTES.size} routes at #{BASE_URL}"
+  puts "Verified #{ROUTES.size} routes and #{REDIRECT_ROUTES.size} redirects at #{BASE_URL}"
 end
