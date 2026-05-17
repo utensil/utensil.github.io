@@ -85,7 +85,7 @@ tags: web, ruby, middleman, AI
 
 另一个关键问题是 middleman-blog 对文章路径的处理。旧站点长期依赖文件名到公开 `.html` 路径的对应关系。例如：
 
-```text
+```
 source/tech/2013-03-21-static-blogging-with-middleman.haml
 /tech/2013/03/21/static-blogging-with-middleman.html
 ```
@@ -109,7 +109,7 @@ resource.destination_path = "#{match[1]}/#{match[2]}/#{match[3]}/#{match[4]}/#{a
 
 所以这些入口页改成了更明确的名字：
 
-```text
+```
 source/tech/index.html.haml
 source/tech/calendar.html.haml
 source/tech/tags.html.haml
@@ -224,7 +224,7 @@ Codex 并不比人更懂这个旧博客。它真正帮上忙的地方，是可�
 
 第一次 prompt：
 
-```text
+```
 Now we need to discuss a plan and in the end you will turn this into a goal
 
 For the current repository, I want you to bump the Ruby, middleman and all Ruby packages and dependencies to a recent but not latest version provided that they are compatible; After the bump there will be errors, fix them, Adjust configuration, github actions; The result should be verified by equivalent build.
@@ -234,7 +234,7 @@ You need to survey the repo, And devise a verifiable task for `/goal`
 
 第一次生成的 `/goal`：
 
-```text
+```
 objective:
 Upgrade /Users/utensil/projects/utensil.github.io from its old Ruby 2.6/2.7 + Middleman 3 dependency set to a recent compatible Ruby/Middleman stack without using latest-edge releases; fix resulting build/config/template/plugin/CI errors; add or update lockfiles and version declarations; update GitHub Actions accordingly; and verify success with an equivalent local Middleman build that produces the static site output from the upgraded bundle.
 
@@ -244,7 +244,7 @@ token_budget:
 
 第二次 prompt：
 
-```text
+```
 now update our goal to verify with the background middleman dev server to ensure the render is correct
 
 how about create a new goal
@@ -270,7 +270,7 @@ go on
 
 第二次生成的 `/goal`：
 
-```text
+```
 objective:
 Redo the Ruby/Middleman upgrade from the pre-version-bump baseline with verification that matches real site behavior, not just HTTP status: first inventory current route behavior and expected generated paths before changing versions; choose a recent compatible Ruby, Middleman, middleman-blog, Haml, and dependency set; update Ruby/tooling/Gemfile/Gemfile.lock/GitHub Actions/config only as needed; fix upgrade regressions without changing public URLs or forcing downloads; verify static build output and a background Middleman dev server against representative routes and sample content, including /, /tech/, /tech/calendar.html, /tech/tags.html, at least three tech article links resolving as text/html with correct content, /writings/, /writings/calendar.html, /writings/tags.html, at least three writings article links resolving as text/html with readable UTF-8 Chinese content rather than garbage, /blogs/, /blogs/calendar.html, /blogs/tags.html, and both English blog article links; compare generated public paths before and after to ensure no unintended extensionless/html path drift; commit only after verification passes; push to origin/middleman after the verified commit.
 ```
