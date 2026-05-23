@@ -3,7 +3,16 @@ utensil.github.io
 
 [![Build Status](https://github.com/utensil/utensil.github.io/actions/workflows/ruby.yml/badge.svg)](https://github.com/utensil/utensil.github.io/actions/workflows/ruby.yml) 
 
-My personal blog, including my technical blog and my writings.
+My personal blog.
+
+The technical posts and the writings now live in their own repositories,
+each split out with full git history and original timestamps preserved:
+
+- Tech — <https://github.com/utensil/tech> → <https://utensil.github.io/tech/>
+- Writings — <https://github.com/utensil/writings> → <https://utensil.github.io/writings/>
+
+This repository keeps the remaining site (and the legacy `/blogs/...` redirects
+to the Hugo blog).
 
 How To Build Manually
 ------------------------
