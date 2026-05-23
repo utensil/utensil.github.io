@@ -150,8 +150,6 @@ set :markdown_engine, :MarkdownHtmlFilter
 #   page "/writings/*.html"
 # end
 
-page "/tech/*.html", :layout => 'blog_layout'
-page "/writings/*.html", :layout => 'blog_layout'
 page "/blogs/*.html", :layout => 'blog_layout_en'
 
 set :layout, false
@@ -198,7 +196,7 @@ class PreserveBlogFileBasenamePaths
   def manipulate_resource_list(resources)
     resources.each do |resource|
       source_file = resource.source_file.to_s
-      match = source_file.match(%r{/source/(tech|writings|blogs)/(\d{4})-(\d{2})-(\d{2})-(.+)\.(md|haml)\z})
+      match = source_file.match(%r{/source/(blogs)/(\d{4})-(\d{2})-(\d{2})-(.+)\.(md|haml)\z})
       next unless match
 
       article_name = match[5]
@@ -211,22 +209,6 @@ class PreserveBlogFileBasenamePaths
 
     resources
   end
-end
-
-activate :blog do |tech_blog|
-  tech_blog.name = 'tech'
-  tech_blog.prefix = 'tech'
-  tech_blog.sources = '{year}-{month}-{day}-{title}'
-  tech_blog.permalink = '/{year}/{month}/{day}/{title}.html'
-  tech_blog.layout = 'blog_layout'
-end
-
-activate :blog do |writings_blog|
-  writings_blog.name = 'writings'
-  writings_blog.prefix = 'writings'
-  writings_blog.sources = '{year}-{month}-{day}-{title}'
-  writings_blog.permalink = '/{year}/{month}/{day}/{title}.html'
-  writings_blog.layout = 'blog_layout'
 end
 
 activate :blog do |blogs_blog|
