@@ -40,7 +40,8 @@ GEM
     ffi (1.17.4-x86_64-darwin)
     ffi (1.17.4-x86_64-linux-gnu)
     ffi (1.17.4-x86_64-linux-musl)
-    haml (6.4.0)
+    haml (7.5.1)
+      prism (>= 1.1.0)
       temple (>= 0.8.2)
       thor
       tilt
@@ -150,9 +151,9 @@ GEM
       ffi (~> 1.9)
     securerandom (0.4.1)
     servolux (0.13.0)
-    temple (0.10.4)
+    temple (0.10.7)
     thor (1.4.0)
-    tilt (2.7.0)
+    tilt (2.9.0)
     toml (0.3.0)
       parslet (>= 1.8.0, < 3.0.0)
     tzinfo (2.0.6)
@@ -175,7 +176,7 @@ PLATFORMS
 
 DEPENDENCIES
   commonmarker (~> 0.23)
-  haml (~> 6.3)
+  haml (~> 7.5)
   html-pipeline (~> 2.14)
   middleman (= 4.6.2)
   middleman-blog (= 4.2.0)
