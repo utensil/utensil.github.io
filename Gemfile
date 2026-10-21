@@ -11,7 +11,7 @@ gem 'middleman-minify-html', '~> 3.4'
 gem 'html-pipeline', '~> 2.14'
 gem 'commonmarker', '~> 0.23'
 gem 'ruby-enum', '~> 0.7.2'
-gem 'thor', '1.4.0'
+gem 'thor', '1.5.0'
 gem 'webrick', '~> 1.9'
 # gem 'redcarpet', '~> 3.5'
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw] # http://stackoverflow.com/questions/23022258/tzinfodatasourcenotfound-error-starting-rails-v4-1-0-server-on-windows
