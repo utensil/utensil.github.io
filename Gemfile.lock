@@ -23,7 +23,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     commonmarker (0.23.12)
-    concurrent-ruby (1.3.6)
+    concurrent-ruby (1.3.8)
     connection_pool (3.0.2)
     contracts (0.17.3)
     dotenv (3.2.0)
@@ -139,8 +139,7 @@ GEM
     rb-inotify (0.11.1)
       ffi (~> 1.0)
     rexml (3.4.4)
-    ruby-enum (0.7.2)
-      i18n
+    ruby-enum (1.2.1)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -180,7 +179,7 @@ DEPENDENCIES
   middleman (= 4.6.2)
   middleman-blog (= 4.2.0)
   middleman-minify-html (~> 3.4)
-  ruby-enum (~> 0.7.2)
+  ruby-enum (~> 1.2.1)
   sass (~> 3.7)
   thor (= 1.4.0)
   wdm (~> 0.1)
