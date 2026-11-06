@@ -4,7 +4,7 @@ source 'https://rubygems.org/'
 
 gem 'sass', '~> 3.7'
 gem 'ya2yaml', '~> 0.31'
-gem 'haml', '~> 6.3'
+gem 'haml', '~> 7.5'
 gem 'middleman', '4.6.2'
 gem 'middleman-blog', '4.2.0'
 gem 'middleman-minify-html', '~> 3.4'
